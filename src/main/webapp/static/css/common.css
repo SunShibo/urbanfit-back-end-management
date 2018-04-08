@@ -1,0 +1,202 @@
+*{ padding: 0; margin: 0; }
+html{ font-size:62.5%;}
+body,html{ position: relative; width: 100%; height: 100%;}
+body { background: #ffffff; font-family:'微软雅黑' !important; color:#000;}
+li { list-style: outside none none;}
+img { border: medium none; border:none;display: block;}
+a img { border:none;}
+.clear:after {content: "."; display: block; height: 0; clear: both;visibility: hidden; }
+.clear { *zoom: 1;}
+h1{ font-family:'微软雅黑' !important;}
+a{ text-decoration:none; outline:none;}
+input,button,textarea{ outline:none;}
+input[type=text], input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } 
+input[type="text"] { -webkit-appearance: none;}
+::-webkit-input-placeholder { color:#fff; }
+::-moz-placeholder { color:#fff; } /* firefox 19+ */
+:-ms-input-placeholder { color:#fff; } /* ie */
+input:-moz-placeholder { color:#fff; }
+input:-webkit-autofill {
+ -webkit-box-shadow: 0 0 0px 1000px #26272a inset;
+ -webkit-text-fill-color: #fff;
+}
+
+.content{width: 100%;}
+.top{width: 100%;}
+.top .logo{width: 100%; height: 100px; background: #101215;}
+.top .logo .logobox{width: 80%;height: 100px; margin: 0 auto;display: flex;align-items: center;justify-content: space-between;}
+.top .logo .logobox ul{display: flex;margin-bottom: 0;}
+.top .logo .logobox ul li a{display: block;height: 35px;padding: 0 20px;color:#fff;font-size: 14px;line-height: 35px;border-radius: 45px;}
+.top .logo .logobox ul li:hover a{background: #fff;color: #000;}
+.top .navbox{width: 100%;background: #f6d332;height: 60px;}
+.top .navbox .nav{width: 80%;height: 60px; margin: 0 auto;display: flex;justify-content: flex-end;align-items: center;}
+.top .navbox .nav ul{display: flex;margin-bottom: 0;margin-right: 80px;}
+.top .navbox .nav ul li{height: 60px;padding: 0 15px;}
+.top .navbox .nav ul li > a{display: block;line-height: 60px; width: 100%;color: #101215;font-size: 14px;}
+.top .navbox .nav ul li:hover{background: #fff;}
+.top .navbox .nav ul li.on{background: #fff;}
+.nav ul li .menubox{position:absolute;width:100%;display: none; background:rgba(255,255,255,0.8);left: 0;right: 0; 
+z-index: 100;height: 210px;}
+.nav ul li .menubox1{position:absolute; z-index: 101; display:none;}
+.nav ul li .menubox1 a{color: #000;font-size: 12px;display: block;margin-top: 20px;text-align: center;}
+.nav ul li .menubox1 a:hover{text-decoration: underline;}
+.top .navbox .nav .search{display: flex;align-items: center;}
+.top .navbox .nav .search input{background: #f6d332;border: 1px solid #fff;color: #fff; font-size: 14px;text-indent: 10px;
+margin-left: 5px;}
+
+.center{width: 80%; margin: 0 auto;}
+.route{width: 100%;}
+.route > span{padding: 25px 60px;color: #101215;font-size: 18px;display: block;}
+.route .navbox1{ width: 100%;position: relative;height: 45px; }
+.route .navbox1 > img{width: 100%;height: 100%;}
+.navbox1 .navboxul{ width: 70%;position: absolute;height: 45px;right: 0;top: 0;display: flex; align-items: center;
+margin-bottom: 0;}
+.navbox1 .navboxul li{width: 25%;border-left: 2px solid #171f23; height: 20px;}
+.navbox1 .navboxul li a{color: #171f23;font-size: 17px;font-weight: 600;display:inline-block;
+line-height: 20px;padding:0px 12px 7px 12px;}
+.navbox1 .navboxul li.active a{border-bottom: 5px solid #171f23;}
+
+
+.footer{width: 100%; background: #2c2e37;overflow:hidden;padding-top: 55px;}
+.footer .footerbox{width: 75%; margin: 0 auto;display: flex;}
+.footer .footerbox .footerul{width: 30%;}
+.footerbox .footerul li{}
+.footerbox .footerul li h1{font-size: 16px;color: #c6b98e;margin-top: 0;margin-bottom: 20px;}
+.footerbox .footerul li span{color: #c6b98e;font-size: 12px;padding-bottom: 20px;display: block;}
+.footerbox .logo1{width: 30%; margin-top: 20px;}
+.footerbox .logo1 img{width: 50%;}
+/* .footerbox .joinbtn{width: 30%;position: relative;}
+.footerbox .joinbtn span{color: #c6b98e;font-size: 12px;display:block;margin-bottom: 5px;}
+.footerbox .joinbtn input{width: 100%; height: 40px; border: 1px solid #a3997a;background: none;text-indent: 15px;}
+.footerbox .joinbtn img{position: absolute;right: 15%; top: 33px;} */
+.footerbox .erweima{width: 40%;}
+.footerbox .erweima img{float: right;margin-left: 15px;}
+.footer p{color: #c6b98e; font-size: 12px;width: 75%;margin:0 auto; padding-bottom: 30px;}
+.footer p span{padding-left: 20px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

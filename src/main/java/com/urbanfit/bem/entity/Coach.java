@@ -16,6 +16,8 @@ public class Coach extends BaseModel{
     private int status;
     private Integer userId;
     private Date createTime;
+    private String country;
+    private Integer coachAge;
 
     public Integer getCoachId() {
         return coachId;
@@ -79,5 +81,21 @@ public class Coach extends BaseModel{
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getCoachAge() {
+        return coachAge;
+    }
+
+    public void setCoachAge(Integer coachAge) {
+        this.coachAge = coachAge;
     }
 }
