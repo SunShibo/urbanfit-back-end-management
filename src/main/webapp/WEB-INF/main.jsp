@@ -30,18 +30,17 @@
                         </div>
                         <div class="menubox"></div>
                     </li>
-                    <li class="on"><a href="coach.html">教练团队</a></li>
-                    <li><a href="about.html">关于我们</a>
+                    <li class="on"><a href="${pageContext.request.contextPath}/coach/list">教练团队</a></li>
+                    <li><a href="${pageContext.request.contextPath}/about/company">关于我们</a>
                         <div class="menubox1">
-                            <a href="about.html#company">公司介绍</a>
-                            <a href="about.html#store">门店查询</a>
-                            <a href="about.html#contact">联系我们</a>
-                            <!-- <a href="about.html">管理团队</a> -->
-                            <a href="about.html#cooperative">合作伙伴</a>
+                            <a href="${pageContext.request.contextPath}/about/company">公司介绍</a>
+                            <a href="${pageContext.request.contextPath}/">门店查询</a>
+                            <a href="${pageContext.request.contextPath}/about/contact">联系我们</a>
+                            <a href="${pageContext.request.contextPath}/about/join">合作伙伴</a>
                         </div>
                         <div class="menubox"></div>
                     </li>
-                    <li><a href="attestion.html">认证查询</a></li>
+                    <li><a href="${pageContext.request.contextPath}/auth/authPage">认证查询</a></li>
                 </ul>
                 <div class="search">
                     <img src="../static/img/search.png" width="22" height="18">

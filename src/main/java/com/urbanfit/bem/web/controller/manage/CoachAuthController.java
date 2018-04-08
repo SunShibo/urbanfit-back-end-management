@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,19 @@ public class CoachAuthController extends BaseCotroller {
     @RequestMapping("/update")
     public void updateCoachAuth(HttpServletResponse response, Integer authId, String coachName, String coachCardNum){
         String result = coachAuthService.updateCoachAuth(authId, coachName, coachCardNum);
+        safeJsonPrint(response, result);
+    }
+
+    @RequestMapping("/authPage")
+    public ModelAndView redirectCoachAuthPage(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/coach_auth");
+        return view;
+    }
+
+    @RequestMapping("/query")
+    public void queryCoachAuth(HttpServletResponse response, String coachName, String coachCardNum){
+        String result = coachAuthService.queryCoachAuth(coachName, coachCardNum);
         safeJsonPrint(response, result);
     }
 }

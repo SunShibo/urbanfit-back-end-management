@@ -71,4 +71,8 @@ public class CoachAuthService {
         coachAuthDao.updateCoachAuth(coachAuth);
         return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000000", "修改认证信息成功")) ;
     }
+
+    public String queryCoachAuth(String coachName, String coachCardNum){
+        return "";
+    }
 }
