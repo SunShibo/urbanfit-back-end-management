@@ -25,4 +25,8 @@
     <delete id="deleteCoachAuth" parameterType="int">
         delete from t_coach_auth where authId = #{authId}
     </delete>
+
+    <select id="queryCoachAuth" parameterType="map" resultType="com.urbanfit.bem.entity.CoachAuth">
+        select * from t_coach_auth where coachName = #{coachName} and coachCardNum = #{coachCardNum} limit 1
+    </select>
 </mapper>

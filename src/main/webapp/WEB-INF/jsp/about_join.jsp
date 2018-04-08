@@ -1,17 +1,20 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8" />
-  <title>合作伙伴</title>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-  <link type="text/css" href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet"/>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
-  <script type="text/javascript">
-      $(function (){
-          $("li[id^='about_']").removeClass();
-          $("li[id='about_join']").addClass("active");
-      })
-  </script>
+    <meta charset="utf-8" />
+    <title>合作伙伴</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
+    <link type="text/css" href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
+    <script type="text/javascript">
+        $(function (){
+            $("li[id^='menu_']").removeClass();
+            $("#menu_about").addClass("on");
+            $("li[id^='about_']").removeClass();
+            $("li[id='about_join']").addClass("active");
+        })
+    </script>
 <body>
     <div class="content">
         <jsp:include page="../main.jsp"/>
@@ -55,6 +58,7 @@
                 </div>
             </div>
         </div>
+        <jsp:include page="../footer.jsp"/>
     </div>
 </body>
 

@@ -4,10 +4,13 @@
     <meta charset="utf-8" />
     <title>联系我们</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-    <link type="text/css" href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
     <script type="text/javascript">
         $(function (){
+            $("li[id^='menu_']").removeClass();
+            $("#menu_about").addClass("on");
             $("li[id^='about_']").removeClass();
             $("li[id='about_contact']").addClass("active");
         })
@@ -53,5 +56,6 @@
                 </div>
             </div>
         </div>
-      </div>
+        <jsp:include page="../footer.jsp"/>
+    </div>
 </body>

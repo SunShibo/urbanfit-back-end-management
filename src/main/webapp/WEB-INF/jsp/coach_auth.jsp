@@ -6,9 +6,11 @@
     <meta charset="utf-8" />
     <title>认证查询</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-    <link type="text/css" href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/coach_auth.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/coach_auth.js"></script>
 </head>
 <body>
     <div class="content">
@@ -43,5 +45,6 @@
                 </div>
             </div>
         </div>
+        <jsp:include page="../footer.jsp"/>
     </div>
 </body>

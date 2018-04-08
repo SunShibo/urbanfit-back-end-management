@@ -32,4 +32,11 @@ public class AboutController extends BaseCotroller{
         view.setViewName("/about_join");
         return view;
     }
+
+    @RequestMapping("/match")
+    public ModelAndView redirectMatchPage(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/about_match");
+        return view;
+    }
 }

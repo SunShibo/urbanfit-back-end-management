@@ -1,10 +1,21 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8" />
-  <title>公司介绍</title>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-  <link type="text/css" href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet"/>
+    <meta charset="utf-8" />
+    <title>公司介绍</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
+    <link type="text/css" href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
+    <script type="text/javascript">
+        $(function (){
+            $("li[id^='about_']").removeClass();
+            $("li[id='about_company']").addClass("active");
+            $("li[id^='menu_']").removeClass();
+            $("#menu_about").addClass("on");
+        })
+    </script>
 <body>
     <div class="content">
         <jsp:include page="../main.jsp"/>

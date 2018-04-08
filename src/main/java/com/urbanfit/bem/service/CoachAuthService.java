@@ -1,5 +1,6 @@
 package com.urbanfit.bem.service;
 
+import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.dao.CoachAuthDao;
 import com.urbanfit.bem.entity.CoachAuth;
 import com.urbanfit.bem.entity.dto.ResultDTOBuilder;
@@ -73,6 +74,16 @@ public class CoachAuthService {
     }
 
     public String queryCoachAuth(String coachName, String coachCardNum){
-        return "";
+        if(StringUtils.isEmpty(coachName) || StringUtils.isEmpty(coachCardNum)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("coachName", coachName);
+        map.put("coachCardNum", coachCardNum);
+        CoachAuth coachAuth = coachAuthDao.queryCoachAuth(map);
+        if(coachAuth == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "教练认证查询失败", "").toString();
+        }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询认证成功", "").toString();
     }
 }
