@@ -13,7 +13,7 @@
         select * from t_course where courseType = #{courseType}
     </select>
     <!-- 修改课程信息 -->
-    <update id="updateCourse" parameterType="com.urbanfit.apiserver.entity.Course">
+    <update id="updateCourse" parameterType="com.urbanfit.bem.entity.Course">
         update t_course set courseTitle = #{courseTitle}, coursePrice = #{coursePrice},
         courseDistrict = #{courseDistrict}, courseImageUrl = #{courseImageUrl}, introduce = #{introduce}
         where courseId = #{courseId}
