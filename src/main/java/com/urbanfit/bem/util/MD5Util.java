@@ -34,7 +34,7 @@ public class MD5Util {
         return sb.toString();
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(digest("A"));
-//    }
+    public static void main(String[] args) {
+        System.out.println(digest("123456"));
+   }
 }

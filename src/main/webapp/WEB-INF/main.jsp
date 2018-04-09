@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <head>
@@ -12,6 +13,14 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/">join</a></li>
                     <li><a href="${pageContext.request.contextPath}/client/login">log in</a></li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/client/detail">
+                            <c:if test=""></c:if>
+                        </a>
+                    </li>
+                    <li><a href="${pageContext.request.contextPath}/client/signOut">sign out</a></li>
                 </ul>
             </div>
         </div>
