@@ -91,4 +91,19 @@ public class ClientInfoService {
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询信息成功", JsonUtils.
                 getJsonString4JavaPOJO(clientInfo)).toString();
     }
+
+    public String updateClientInfo(String name, Integer clientId) {
+        if(StringUtils.isEmpty(name) || clientId == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        ClientInfo clientInfo = clientInfoDao.queryClientById(clientId);
+        if(clientInfo == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", name);
+        map.put("clientId", clientId);
+        clientInfoDao.updateClientInfo(map);
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "修改信息成功", "").toString();
+    }
 }

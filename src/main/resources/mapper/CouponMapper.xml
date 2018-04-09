@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urbanfit.bem.dao.CouponDao">
+    <select id="queryCouponById" parameterType="int" resultType="com.urbanfit.bem.entity.Coupon">
+        select * from t_coupon where couponId = #{couponId}
+    </select>
+
+    <update id="updateCouponStatus" parameterType="int">
+        update t_coupon set status = 1 where couponId = #{couponId}
+    </update>
+
+    <select id="queryCouponByCouponNum" parameterType="String" resultType="com.urbanfit.bem.entity.Coupon">
+        select * from t_coupon where couponNum = #{couponNum} and status = 0 and beginTime &lt;= now()
+        and endTime &gt;= now()
+    </select>
+</mapper>

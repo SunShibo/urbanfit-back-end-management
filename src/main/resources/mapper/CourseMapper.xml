@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.urbanfit.bem.dao.StoreDao">
+<mapper namespace="com.urbanfit.bem.dao.CourseDao">
     <!-- 添加课程信息 -->
     <insert id="addCourse" parameterType="com.urbanfit.bem.entity.Course"
             useGeneratedKeys="true" keyProperty="courseId">
@@ -13,10 +13,26 @@
         select * from t_course where courseType = #{courseType}
     </select>
     <!-- 修改课程信息 -->
-    <update id="updateCourse" parameterType="com.urbanfit.bem.entity.Course">
-        update t_course set introduce = #{introduce} where courseId = #{courseId}
+    <update id="updateCourse" parameterType="com.urbanfit.apiserver.entity.Course">
+        update t_course set courseTitle = #{courseTitle}, coursePrice = #{coursePrice},
+        courseDistrict = #{courseDistrict}, courseImageUrl = #{courseImageUrl}, introduce = #{introduce}
+        where courseId = #{courseId}
     </update>
     <select id="queryCourseByCourseId" parameterType="int" resultType="com.urbanfit.bem.entity.Course">
         select * from t_course where courseId = #{courseId}
+    </select>
+    <select id="queryCourseList" resultType="com.urbanfit.bem.entity.Course">
+        select * from t_course
+    </select>
+    <update id="updateCourseStatus" parameterType="map">
+        update t_course set status = #{status} where courseId = #{courseId}
+    </update>
+
+    <select id="queryUpCourseList" resultType="com.urbanfit.bem.entity.Course">
+        select * from t_course where status = 0
+    </select>
+
+    <select id="queryUpCourseByCourseId" parameterType="int" resultType="com.urbanfit.bem.entity.Course">
+        select * from t_course where courseId = #{courseId} and status = 0
     </select>
 </mapper>

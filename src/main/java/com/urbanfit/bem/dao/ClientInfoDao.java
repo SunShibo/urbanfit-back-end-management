@@ -15,4 +15,6 @@ public interface ClientInfoDao {
     public void updatePassword(Map<String, Object> map);
 
     public ClientInfo queryClientById(Integer clientId);
+
+    public void updateClientInfo(Map<String, Object> map);
 }

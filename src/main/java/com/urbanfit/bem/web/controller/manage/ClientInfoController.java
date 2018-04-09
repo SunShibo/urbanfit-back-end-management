@@ -1,5 +1,6 @@
 package com.urbanfit.bem.web.controller.manage;
 
+import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.service.ClientInfoService;
 import com.urbanfit.bem.service.ClientMessageService;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
@@ -70,6 +71,26 @@ public class ClientInfoController extends BaseCotroller{
     @RequestMapping("/codeSignIn")
     public void getCodeFoSignIn(HttpServletResponse response, String mobile, Integer type){
         String result = clientMessageService.sendCodeForSignIn(mobile, type);
+        safeTextPrint(response, result);
+    }
+
+    @RequestMapping("/loginSuccess")
+    public ModelAndView redirectLoginSuccessPage(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/login_success");
+        return view;
+    }
+
+    @RequestMapping("/detail")
+    public ModelAndView redirectClientInfoPage(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/client_info");
+        return view;
+    }
+
+    @RequestMapping("/update")
+    public void updateClientInfo(HttpServletResponse response, String name){
+        String result = clientInfoService.updateClientInfo(name, 1);
         safeTextPrint(response, result);
     }
 }

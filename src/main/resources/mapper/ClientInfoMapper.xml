@@ -19,4 +19,8 @@
     <select id="queryClientById" parameterType="int" resultType="com.urbanfit.bem.entity.ClientInfo">
         select * from t_clientinfo where clientId = #{clientId} and status = 0
     </select>
+
+    <update id="updateClientInfo" parameterType="map">
+        update t_clientinfo set name = #{name} where clientId = #{clientId}
+    </update>
 </mapper>
