@@ -8,6 +8,8 @@ import com.urbanfit.bem.web.controller.base.BaseCotroller;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,11 +27,13 @@ public class OrderMasterController extends BaseCotroller{
     private OrderMasterService orderMasterService;
 
     @RequestMapping("/list")
-    public void queryClientOrderMaster(HttpServletResponse response, Integer clientId, String orderNum,
-                                       Integer status, Integer pageNo, Integer pageSize){
-        String result = orderMasterService.queryClientOrderMaster(clientId, orderNum, status,
+    public ModelAndView queryClientOrderMaster(Integer clientId, String orderNum, Integer status, Integer pageNo,
+                                       Integer pageSize){
+        pager = orderMasterService.queryClientOrderMaster(clientId, orderNum, status,
                 getQueryInfo(pageNo, pageSize));
-        safeTextPrint(response, result);
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/order_master_list");
+        return view;
     }
 
     @RequestMapping("/detail")

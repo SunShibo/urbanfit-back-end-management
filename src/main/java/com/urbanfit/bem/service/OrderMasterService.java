@@ -45,33 +45,6 @@ public class OrderMasterService {
     @Resource
     private CouponDao couponDao;
 
-    public PageObject<OrderMaster> queryOrderMasterList(String orderInfo, String provice, String city,
-                                                        String district, Integer status, QueryInfo queryInfo){
-        Map<String, Object> map = new HashMap<String, Object>();
-        if(!StringUtils.isEmpty(orderInfo)) {
-            map.put("orderInfo", orderInfo);
-        }
-        if(!StringUtils.isEmpty(provice)){
-            map.put("provice", provice);
-        }
-        if(!StringUtils.isEmpty(city)){
-            map.put("city", city);
-        }
-        if(!StringUtils.isEmpty(district)){
-            map.put("district", district);
-        }
-        if(status != null){
-            map.put("status", status);
-        }
-        if(queryInfo != null){
-            map.put("pageOffset", queryInfo.getPageOffset());
-            map.put("pageSize", queryInfo.getPageSize());
-        }
-        PageObjectUtil<OrderMaster> page = new PageObjectUtil<OrderMaster>();
-        return page.savePageObject(orderMasterDao.queryOrderMasterCount(map), orderMasterDao.
-                queryOrderMasterList(map), queryInfo);
-    }
-
     public OrderMaster queryOderMaterDetail(String orderNum){
         return orderMasterDao.queryOrderMaterDetail(orderNum);
     }
@@ -94,10 +67,8 @@ public class OrderMasterService {
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "修改成功", "").toString();
     }
 
-    public String queryClientOrderMaster(Integer clientId, String orderNum, Integer status, QueryInfo queryInfo){
-        if(clientId == null){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
-        }
+    public PageObject<OrderMaster> queryClientOrderMaster(Integer clientId, String orderNum, Integer status,
+                                                          QueryInfo queryInfo){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("clientId", clientId);
         if(StringUtils.isEmpty(orderNum)){
@@ -111,16 +82,8 @@ public class OrderMasterService {
             map.put("pageSize", queryInfo.getPageSize());
         }
         PageObjectUtil<OrderMaster> page = new PageObjectUtil<OrderMaster>();
-        PageObject<OrderMaster> pager = page.savePageObject(orderMasterDao.queryClientOrderMasterCount(map),
+        return page.savePageObject(orderMasterDao.queryClientOrderMasterCount(map),
                 orderMasterDao.queryClientOrderMasterList(map), queryInfo);
-        List<OrderMaster> lstOrder = pager.getDatas();
-        if(CollectionUtils.isEmpty(lstOrder)){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "没有订单", "").toString();
-        }
-        JSONObject jo = new JSONObject();
-        jo.put("totalRecord", pager.getTotalRecord());
-        jo.put("lstOrder", JsonUtils.getJsonString4JavaListDate(pager.getDatas(), DateUtils.LONG_DATE_PATTERN));
-        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 
     public String queryClientOrderMasterDetail(Integer clientId, String orderNum){
