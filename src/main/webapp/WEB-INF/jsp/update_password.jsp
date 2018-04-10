@@ -15,7 +15,7 @@
         <jsp:include page="../main.jsp"/>
         <div class="center">
             <div class="route">
-                <span>重置密码</span>
+                <span>重置密码1111111</span>
             </div>
         </div>
         <div class="pay">
