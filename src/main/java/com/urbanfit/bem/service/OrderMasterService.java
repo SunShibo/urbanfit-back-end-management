@@ -71,7 +71,7 @@ public class OrderMasterService {
                                                           QueryInfo queryInfo){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("clientId", clientId);
-        if(StringUtils.isEmpty(orderNum)){
+        if(!StringUtils.isEmpty(orderNum)){
             map.put("orderNum", orderNum);
         }
         if(status != null){
@@ -136,14 +136,14 @@ public class OrderMasterService {
             }
         }
         //生成主订单编号
-        String orderNum  = "mall" + System.currentTimeMillis() + "" + RandomUtils.getRandomNumber(6);
+        String orderNum  = System.currentTimeMillis() + "" + RandomUtils.getRandomNumber(6);
         OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum);
         if (order.getPayment() == OrderMaster.PAYMENT_ALIPAY) {  // 支付宝支付
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_callback_url");
             String alipayResult = AlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
-                    orderNum, orderMaster.getPrice(), alipayCallbackUrl);
+                    orderNum, orderMaster.getPayPrice(), alipayCallbackUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
 

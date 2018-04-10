@@ -1,4 +1,7 @@
 $(function (){
+    $("li[name^='client_']").removeClass();
+    $("#client_detail").addClass("on");
+
     $("#B_save").click(updateClientName);
 })
 

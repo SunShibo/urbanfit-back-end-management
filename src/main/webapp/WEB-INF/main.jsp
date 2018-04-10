@@ -39,7 +39,7 @@
                         </div>
                         <div class="menubox"></div>
                     </li>
-                    <li id="menu_coach" class="on"><a href="${pageContext.request.contextPath}/coach/list">教练团队</a></li>
+                    <li id="menu_coach"><a href="${pageContext.request.contextPath}/coach/list">教练团队</a></li>
                     <li id="menu_about"><a href="${pageContext.request.contextPath}/about/company">关于我们</a>
                         <div class="menubox1">
                             <a href="${pageContext.request.contextPath}/about/company">公司介绍</a>

@@ -6,54 +6,6 @@
         limit #{pageOffset}, #{pageSize}
     </sql>
 
-    <select id="queryOrderMasterCount" parameterType="map" resultType="int">
-        select count(m.orderId) from (
-        select m.*, n.`name` clientName, c.courseType from t_client_order_master m left join t_clientinfo n
-        on m.clientId = n.clientId left join t_course c on m.courseId = c.courseId where 1 = 1
-        <if test="orderInfo != null">
-            and (orderNum like CONCAT("%", #{orderInfo}, "%") or n.name like CONCAT("%", #{orderInfo}, "%")
-            or c.courseName like CONCAT("%", #{orderInfo}, "%"))
-        </if>
-        <if test="status != null">
-            and m.status = #{status}
-        </if>
-        <if test="provice != null and city != null and district != null">
-            and (m.courseDistrict like CONCAT("%", #{provice}, "%") or m.courseDistrict like CONCAT("%", #{city}, "%")
-            or m.courseDistrict like CONCAT("%", #{district}, "%"))
-        </if>
-        <if test="provice != null and city != null">
-            and (m.courseDistrict like CONCAT("%", #{provice}, "%") or m.courseDistrict like CONCAT("%", #{city}, "%"))
-        </if>
-        <if test="provice != null">
-            and (m.courseDistrict like CONCAT("%", #{provice}, "%"))
-        </if>
-        ) m
-    </select>
-
-    <select id="queryOrderMasterList" parameterType="map" resultType="com.urbanfit.bem.entity.OrderMaster">
-        select m.*, n.`name` clientName, c.courseType from t_client_order_master m left join t_clientinfo n
-        on m.clientId = n.clientId left join t_course c on m.courseId = c.courseId where 1 = 1
-        <if test="orderInfo != null">
-            and (orderNum like CONCAT("%", #{orderInfo}, "%") or n.name like CONCAT("%", #{orderInfo}, "%")
-            or c.courseName like CONCAT("%", #{orderInfo}, "%"))
-        </if>
-        <if test="status != null">
-            and m.status = #{status}
-        </if>
-        <if test="provice != null and city != null and district != null">
-            and (m.courseDistrict like CONCAT("%", #{provice}, "%") or m.courseDistrict like CONCAT("%", #{city}, "%")
-            or m.courseDistrict like CONCAT("%", #{district}, "%"))
-        </if>
-        <if test="provice != null and city != null">
-            and (m.courseDistrict like CONCAT("%", #{provice}, "%") or m.courseDistrict like CONCAT("%", #{city}, "%"))
-        </if>
-        <if test="provice != null">
-            and (m.courseDistrict like CONCAT("%", #{provice}, "%"))
-        </if>
-        order by m.createTime desc
-        <include refid="limit"/>
-    </select>
-
     <select id="queryOrderMaterDetail" parameterType="String" resultType="com.urbanfit.bem.entity.OrderMaster">
         select m.*, n.`name` clientName, c.courseType, p.couponName, p.sourceName from
         t_client_order_master m left join t_clientinfo n on m.clientId = n.clientId left join t_course c on
@@ -70,14 +22,14 @@
 
     <select id="queryClientOrderMasterCount" parameterType="map" resultType="int">
         select count(m.orderId) from (
-        select m.*, n.`name` clientName, c.courseType from t_client_order_master m left join t_clientinfo n
-        on m.clientId = n.clientId left join t_course c on m.courseId = c.courseId where m.clientId = #{clientId}
-        <if test="orderNum != null">
-            and orderNum like CONCAT("%", #{orderInfo}, "%")
-        </if>
-        <if test="status != null">
-            and m.status = #{status}
-        </if>
+            select m.*, n.`name` clientName, c.courseType from t_client_order_master m left join t_clientinfo n
+            on m.clientId = n.clientId left join t_course c on m.courseId = c.courseId where m.clientId = #{clientId}
+            <if test="orderNum != null">
+                and orderNum like CONCAT("%", #{orderInfo}, "%")
+            </if>
+            <if test="status != null">
+                and m.status = #{status}
+            </if>
         ) m
     </select>
 

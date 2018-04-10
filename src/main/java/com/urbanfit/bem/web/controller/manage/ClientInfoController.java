@@ -37,6 +37,13 @@ public class ClientInfoController extends BaseCotroller{
         return view;
     }
 
+    @RequestMapping("/toPassword")
+    public ModelAndView redirectUpdatePassword(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/update_password");
+        return view;
+    }
+
     /**
      * 客户注册
      */
