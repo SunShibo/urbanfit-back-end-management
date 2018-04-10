@@ -100,4 +100,9 @@ public class ClientInfoController extends BaseCotroller{
         String result = clientInfoService.updateClientInfo(name, 1);
         safeTextPrint(response, result);
     }
+
+    @RequestMapping("/")
+    public void test(){
+
+    }
 }
