@@ -54,4 +54,8 @@ public class CourseService {
         courseDao.updateCourse(course);
         return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000001", "修改课程成功")) ;
     }
+
+    public Course queryUpCourseByCourseId(Integer courseId){
+        return courseDao.queryUpCourseByCourseId(courseId);
+    }
 }

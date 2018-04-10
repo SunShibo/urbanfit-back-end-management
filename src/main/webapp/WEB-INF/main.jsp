@@ -32,10 +32,10 @@
                     <li id="menu_match"><a href="${pageContext.request.contextPath}/about/match">赛法斗</a></li>
                     <li id="menu_course"><a href="course.html">课程介绍</a>
                         <div class="menubox1">
-                            <a href="course.html#adult">成人课程</a>
-                            <a href="course.html#juvenile">青少年课程</a>
-                            <a href="course.html#personal">私教课程</a>
-                            <a href="course.html#characteristic">特色课程</a>
+                            <a href="${pageContext.request.contextPath}/course/detail?courseId=1">成人课程</a>
+                            <a href="${pageContext.request.contextPath}/course/detail?courseId=2">青少年课程</a>
+                            <a href="${pageContext.request.contextPath}/course/detail?courseId=3">私教课程</a>
+                            <a href="${pageContext.request.contextPath}/course/detail?courseId=4">特色课程</a>
                         </div>
                         <div class="menubox"></div>
                     </li>
