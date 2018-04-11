@@ -36,8 +36,8 @@
                         <li>
                             <a href="javascript:void(0);" class="next">登录</a>
                             <div class="forget">
-                                <a href="join.html" class="loginbtn">注册帐号</a>
-                                <a href="reset.html" class="forgetpwd">忘记密码？</a>
+                                <a href="${pageContext.request.contextPath}/client/toRegister" class="loginbtn">注册帐号</a>
+                                <a href="${pageContext.request.contextPath}/client/toReset" class="forgetpwd">忘记密码？</a>
                             </div>
                         </li>
                     </ul>

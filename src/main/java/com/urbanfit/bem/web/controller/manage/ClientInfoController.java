@@ -108,4 +108,11 @@ public class ClientInfoController extends BaseCotroller{
         String result = clientInfoService.updateClientInfo(name, 1);
         safeTextPrint(response, result);
     }
+
+    @RequestMapping("/toReset")
+    public ModelAndView redirectResetPassword(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/reset_password");
+        return view;
+    }
 }
