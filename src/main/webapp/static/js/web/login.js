@@ -47,7 +47,7 @@ function checkForm(){
 //粗略验证手机号
 function isMobile(mobile){
     var re = /^1[0-9]{10}$/;
-    var validCode=true;
+    //var validCode=true;
     if(re.test(mobile))
         return true;
     else

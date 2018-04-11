@@ -1,5 +1,6 @@
 $(function() {
     $(".next").click(checkForm);
+    $(".save").click(checkForm1);
     $('#sendcode').click(sendVcode);
 });
 
@@ -42,6 +43,44 @@ function checkForm(){
     }else{
         $('#phonemsg').text('');
     }
+    var vcode = $.trim($("#vcode").val());
+    if(vcode.length != 6){
+        $('#yzmmsg').text("请输入验证码");
+        $("#vcode").focus();
+        return;
+    }else {
+        $('#yzmmsg').text('');
+    }
+
+    // 调用注册接口
+    $.ajax({
+        type : "post",
+        url : "register",
+        data : {"mobile" : mobile},
+        dataType : "json",
+        success : function (result, status){
+            console.log(result);
+            return  false;
+            if(result.code == 0){
+                $('#phonemsg').text('手机号码已存在');
+                $("#phone").focus();
+                return;
+            }else if(result.code == -3){
+                $('#yzmmsg').text('参数错误');
+                $("#vcode").focus();
+                return;
+            }else if(result.code == 1){
+                // 成功跳转下一步
+                $('#phonemsg').text('');
+                $('#yzmmsg').text('');
+                $('.one').hide();
+                $('.two').show();
+            }
+        }
+    });
+};
+
+function checkForm1(){
     var pwd = $.trim($("#pwd").val());
     if(pwd == ''){
         $('#pwdmsg').text("请输入您的密码");
@@ -50,36 +89,51 @@ function checkForm(){
     }else{
         $('#pwdmsg').text('');
     }
+    if(pwd.length < 6){
+        $('#pwdmsg').text("登陆密码不能小于6位");
+        $("#pwd").focus();
+        return;
+    }else{
+        $('#pwdmsg').text('');
+    }
+
+    var cpwd = $.trim($("#cpwd").val());
+    if(pwd != $.trim($("#cpwd").val())) {
+        $('#cpwdmsg').text("两次密码不一致");
+        $("#cpwd").focus();
+        return;
+    }else{
+        $('#cpwdmsg').text('');
+    }
     // 调用注册接口
     $.ajax({
         type : "post",
         url : "register",
-        data : {"mobile" : mobile, "password" : pwd, "confirmPassword" : cpwd},
+        data : {"password" : pwd, "confirmPassword" : cpwd},
         dataType : "json",
         success : function (result, status){
-            console.log(result);
-            if(result.code == 0){
-                $('#phonemsg').text('手机号码已存在');
-                $("#phone").focus();
+            if(result.code == 2){
+                $('#cpwdmsg').text('两次密码不一致');
+                $("#cpwd").focus();
                 return;
-            }else if(result.code == 2){
-                $('#pwdmsg').text('两次密码输入不正确');
-                $("#pwd").focus();
+            }else if(result.code == -3){
+                $('#yzmmsg').text('参数错误');
+                $("#vcode").focus();
                 return;
-            }else{
-                // 登录成功跳转页面
-                $('#phonemsg').text('');
-                $('#pwdmsg').text('');
-                window.location.href = "loginSuccess";
+            }else if(result.code == 1){
+                // 成功跳转下一步
+                $('#cpwdmsg').text('');
+                $('#yzmmsg').text('');
+                window.location.href = "registerSuccess";
             }
         }
     });
-};
+}
 
 //粗略验证手机号
 function isMobile(mobile){
     var re = /^1[0-9]{10}$/;
-    var validCode=true;
+    //var validCode=true;
     if(re.test(mobile))
         return true;
     else
