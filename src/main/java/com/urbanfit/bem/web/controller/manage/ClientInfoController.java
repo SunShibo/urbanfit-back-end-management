@@ -37,12 +37,20 @@ public class ClientInfoController extends BaseCotroller{
         return view;
     }
 
+    @RequestMapping("/registerSuccess")
+    public ModelAndView redirectRegisternSuccess(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/register_success");
+        return view;
+    }
+
     @RequestMapping("/toPassword")
     public ModelAndView redirectUpdatePassword(){
         ModelAndView view = new ModelAndView();
         view.setViewName("/update_password");
         return view;
     }
+
 
     /**
      * 客户注册
@@ -99,10 +107,5 @@ public class ClientInfoController extends BaseCotroller{
     public void updateClientInfo(HttpServletResponse response, String name){
         String result = clientInfoService.updateClientInfo(name, 1);
         safeTextPrint(response, result);
-    }
-
-    @RequestMapping("/")
-    public void test(){
-
     }
 }
