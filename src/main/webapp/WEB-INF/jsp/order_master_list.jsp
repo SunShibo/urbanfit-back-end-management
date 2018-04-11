@@ -98,6 +98,55 @@
                 </form>
             </div>
         </div>
+
+
+        <!-- 弹框 -->
+        <div class="kuang">
+            <div class="kuang1">
+                <div class="kuang2">
+                    <h1>请选择付款方式<img src="../static/img/close1.png" class="close"></h1>
+                    <div class="order2">
+                        <div class="radio">
+                            <img src="../static/img/radio1.png" class="radioimg">
+                            <span><img src="../static/img/zhifubao1.jpg"></span>
+                        </div>
+                        <div class="radio">
+                            <img src="../static/img/radio.png" class="radioimg">
+                            <span><img src="../static/img/weixin2.jpg"></span>
+                        </div>
+                    </div>
+                    <a href="#">确定</a>
+                </div>
+                <div class="kuang3">
+                    <h1>订单详情<img src="../static/img/close1.png" class="close"></h1>
+                    <div class="kuangul">
+                        <h2>订单编号：73749857806 <span>提交时间：2018/4/1 21：44：12</span></h2>
+                        <ul>
+                            <li><h3>学生信息：</h3></li>
+                            <li>学生姓名：赵雷振</li>
+                            <li>手机号：18888888888</li>
+                            <li>学生姓名：北京-北京-朝阳</li>
+                        </ul>
+                        <ul>
+                            <li><h3>课程信息：</h3></li>
+                            <li>课程名称：成人课程</li>
+                            <li>课程价格：￥99.00</li>
+                        </ul>
+                        <ul>
+                            <li><h3>支付信息：</h3></li>
+                            <li>支付方式：支付宝</li>
+                            <li>支付额度：<span>￥49.00</span></li>
+                            <li>支付状态：未支付/已支付/已退款</li>
+                        </ul>
+                        <ul>
+                            <li><h3>优惠码：</h3></li>
+                            <li><p>-￥50  成人课程5折折扣</p></li>
+                        </ul>
+                    </div>
+                    <a href="#">确定</a>
+                </div>
+            </div>
+        </div>
         <jsp:include page="../footer.jsp"/>
     </div>
 </body>
