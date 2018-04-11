@@ -51,33 +51,6 @@ function checkForm(){
     }else {
         $('#yzmmsg').text('');
     }
-
-    // 调用注册接口
-    $.ajax({
-        type : "post",
-        url : "register",
-        data : {"mobile" : mobile},
-        dataType : "json",
-        success : function (result, status){
-            console.log(result);
-            return  false;
-            if(result.code == 0){
-                $('#phonemsg').text('手机号码已存在');
-                $("#phone").focus();
-                return;
-            }else if(result.code == -3){
-                $('#yzmmsg').text('参数错误');
-                $("#vcode").focus();
-                return;
-            }else if(result.code == 1){
-                // 成功跳转下一步
-                $('#phonemsg').text('');
-                $('#yzmmsg').text('');
-                $('.one').hide();
-                $('.two').show();
-            }
-        }
-    });
 };
 
 function checkForm1(){
