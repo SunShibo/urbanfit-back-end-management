@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -17,25 +18,21 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/store")
 public class StoreController extends BaseCotroller{
-    private static Logger log = LoggerFactory.getLogger(LoginController.class);
-
     @Resource(name = "storeService")
     private StoreService storeService;
 
-    @RequestMapping( value = "/add" )
-    public void addStore(HttpServletResponse response, Store store){
-        String result = storeService.addStore(store);
-        safeJsonPrint(response, result);
-    }
-
     @RequestMapping(value = "/list")
-    public void queryStoreList(){
-
-    }
-
-    @RequestMapping(value = "/update")
-    public void updateStore(HttpServletResponse response, Store store){
-        String result = storeService.updateStore(store);
-        safeJsonPrint(response, result);
+    public ModelAndView queryStoreList(String provice, String city, String district, Integer pageNo,
+                                       Integer pageSize){
+        pager = storeService.queryStoreList(provice, city, district, getQueryInfo(pageNo, pageSize));
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/store_list");
+        view.addObject("lstStore", pager.getDatas());
+        view.addObject("pager", pager);
+        view.addObject("pageNo", pageNo);
+        view.addObject("provice", provice);
+        view.addObject("city", city);
+        view.addObject("district", district);
+        return view;
     }
 }

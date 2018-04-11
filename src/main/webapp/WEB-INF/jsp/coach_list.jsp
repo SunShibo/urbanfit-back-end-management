@@ -56,16 +56,15 @@
                                     </li>
                                 </c:forEach>
                             </ul>
-                            <!-- 分页
-                             <div class="pagerbox">
-                                 <ul class="pager">
-                                     <li class="previous"><a href="#">&larr; 上一页</a></li>
-                                     <li>
-                                         <span>1-30</span>
-                                     </li>
-                                     <li class="next"><a href="#">下一页 &rarr;</a></li>
-                                 </ul>
-                             </div> -->
+                            <div class="page clear">
+                                <div class="pages">
+                                    <jsp:include page="./common/pager.jsp">
+                                        <jsp:param value="${pager.totalRecord}" name="totalRecord"/>
+                                        <jsp:param value="${pager.totalPage}" name="totalPage"/>
+                                        <jsp:param value="list" name="url"/>
+                                    </jsp:include>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

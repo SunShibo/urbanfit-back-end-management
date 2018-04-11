@@ -26,4 +26,13 @@ public class CourseController extends BaseCotroller{
         view.addObject("course", courseService.queryUpCourseByCourseId(courseId));
         return view;
     }
+
+    @RequestMapping("/toJoin")
+    public ModelAndView redirectJoinCourse(Integer courseId){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/course_order");
+        view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
+        view.addObject("course", courseService.queryUpCourseByCourseId(courseId));
+        return view;
+    }
 }

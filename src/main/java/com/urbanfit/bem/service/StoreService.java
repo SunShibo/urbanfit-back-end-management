@@ -3,6 +3,9 @@ package com.urbanfit.bem.service;
 import com.urbanfit.bem.dao.StoreDao;
 import com.urbanfit.bem.entity.Store;
 import com.urbanfit.bem.entity.dto.ResultDTOBuilder;
+import com.urbanfit.bem.query.PageObject;
+import com.urbanfit.bem.query.PageObjectUtil;
+import com.urbanfit.bem.query.QueryInfo;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.StringUtils;
 import org.springframework.stereotype.Service;
@@ -21,36 +24,21 @@ public class StoreService {
     @Resource
     private StoreDao storeDao;
 
-    public String addStore(Store store){
-        if(store == null || (store != null && (StringUtils.isEmpty(store.getStoreName())
-                || StringUtils.isEmpty(store.getStoreDistrict()) || StringUtils.isEmpty(store.getStoreAddress())
-                || StringUtils.isEmpty(store.getMobile()) || StringUtils.isEmpty(store.getContactName())))){
-            return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000001", "参数有误")) ;
-        }
-        // 根据门店名称查询是否添加过该门店
-        Store storeName = storeDao.queryStoreByName(store.getStoreName());
-        if(storeName != null){
-            return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000001", "您添加的门店已经存在")) ;
-        }
-        storeDao.addStore(store);
-        return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000000", "添加门店信息成功")) ;
-    }
-
-    public String updateStore(Store store){
-        if(store == null || (store != null && (store.getStoreId() == null || StringUtils.isEmpty(store.getStoreName())
-                || StringUtils.isEmpty(store.getStoreDistrict()) || StringUtils.isEmpty(store.getStoreAddress())
-                || StringUtils.isEmpty(store.getMobile()) || StringUtils.isEmpty(store.getContactName())))){
-            return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000001", "参数有误")) ;
-        }
+    public PageObject<Store> queryStoreList(String provice, String city, String district, QueryInfo queryInfo){
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("storeName", store.getStoreName());
-        map.put("storeId", store.getStoreId());
-        Store storeName = storeDao.queryStoreByNameAndId(map);
-        if(storeName != null){
-            return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000001", "您添加的门店已经存在")) ;
+        map.put("pageOffset", queryInfo.getPageOffset());
+        map.put("pageSize", queryInfo.getPageSize());
+        if(!StringUtils.isEmpty(provice)){
+            map.put("provice", provice);
         }
-        // 修改门店信息
-        storeDao.updateStore(store);
-        return JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.failure("0000000", "修改门店信息成功")) ;
+        if(!StringUtils.isEmpty(city)){
+            map.put("city", city);
+        }
+        if(!StringUtils.isEmpty(district)){
+            map.put("district", "district");
+        }
+        PageObjectUtil page = new PageObjectUtil<Store>();
+        return page.savePageObject(storeDao.queryClientStoreCount(map), storeDao.queryClientStoreList(map),
+                queryInfo);
     }
 }
