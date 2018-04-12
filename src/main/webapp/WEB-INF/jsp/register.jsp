@@ -23,23 +23,17 @@
                     <img src="../static/img/logo1.png">
                     <h1>会员注册</h1>
                     <ul class="one">
-                      <li>
-                          <span><img src="../static/img/user.png">手机号码</span>
-                          <input type="text" value="" placeholder="请输入您的手机号" class="input" id="phone">
-                          <p id="phonemsg"></p>
-                      </li>
-                      <li>
-                          <span><img src="../static/img/passwd.png">验 证 码</span>
-                          <input type="text" value="" placeholder="输入验证码" class="input input1" id="vcode">
-                          <a href="#" class="yzm" id="sendcode">获取验证码</a>
-                          <p id="yzmmsg"></p>
-                      </li>
-                      <li>
-                          <a href="javascript:;" class="next">下一步</a>
-                          <a href="login.html" class="loginbtn">登录</a>
-                      </li>
-                    </ul>
-                    <ul class="two">
+                        <li>
+                            <span><img src="../static/img/user.png">手机号码</span>
+                            <input type="text" value="" placeholder="请输入您的手机号" class="input" id="phone">
+                            <p id="phonemsg"></p>
+                        </li>
+                        <li>
+                            <span><img src="../static/img/passwd.png">验 证 码</span>
+                            <input type="text" value="" placeholder="输入验证码" class="input input1" id="vcode">
+                            <a href="javascript:;" class="yzm" id="sendcode">获取验证码</a>
+                            <p id="yzmmsg"></p>
+                        </li>
                         <li>
                             <span><img src="../static/img/user.png">密&emsp;&emsp;码</span>
                             <input type="password" value="" placeholder="请输入您的密码" class="input" id="pwd">
@@ -52,9 +46,10 @@
                         </li>
                         <li>
                             <a href="javascript:;" class="save">保存</a>
-                            <a href="#" class="loginbtn">登录</a>
+                            <a href="login.html" class="loginbtn">登录</a>
                         </li>
                     </ul>
+
                 </div>
             </div>
             <jsp:include page="../footer.jsp"/>

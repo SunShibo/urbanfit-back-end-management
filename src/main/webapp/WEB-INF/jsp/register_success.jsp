@@ -24,7 +24,7 @@
                     <div class="success">
                         <img src="../static/img/yes.png">
                         <p>join success</p>
-                        <a href="index.html" class="next">返回首页</a>
+                        <a href="${pageContext.request.contextPath}/module/home" class="next">返回首页</a>
                     </div>
                 </div>
             </div>

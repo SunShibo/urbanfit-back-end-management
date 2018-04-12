@@ -1,13 +1,15 @@
 $(function() {
-    $(".next").click(checkForm);
-    $(".save").click(checkForm1);
+    $(".save").click(checkForm);
     $('#sendcode').click(sendVcode);
 });
 
+
 //获取短信验证
 function sendVcode(){
+    var isWaiting = false;
     var _this  = $(this);
     var phone = $('#phone').val();
+    if(isWaiting == true) return;
     if(!isMobile(phone)){
         $('#phonemsg').text('请输入正确的手机号');
         $("#phone").focus();
@@ -16,24 +18,39 @@ function sendVcode(){
         $('#phonemsg').text('');
     }
 
-    var validCode=true;
-    var time=59;
-    var code=$('.yzm');
-    if (validCode) {
-        validCode=false;
-        var t=setInterval(function(){
-            code.html('获取中'+time+'S');
-            //code.addClass("msgs1");
-            time--;
-            if(time==0){
-                clearInterval(t);
-                code.html("重新获取");
-                validCode=true;
-                //code.removeClass("msgs1");
+    isWaiting = true;
+    var param = {
+        url : 'codeSignIn',
+        params : {
+            mobile : phone,
+            type:0,
+        },
+        callback : function(d){
+            if(d.code==0){
+                $('#phonemsg').text('手机号码已经存在');
+                $("#phone").focus();
+                return;
+            }else if(d.code==1){
+                var time=60;
+                var t=setInterval(function(){
+                    $(_this).html('('+time+'s)后重发');
+                    time--;
+                    if(time==0){
+                        clearInterval(t);
+                        $(_this).html("重新获取");
+                        isWaiting=true;
+                    }
+                },1000)
+                //})
+            }else{
+                isWaiting = false;
+                $('#yzmmsg').text('');
             }
-        },1000)
+        }
     }
+    ajax(param);
 }
+
 function checkForm(){
     var mobile = $.trim($("#phone").val());
     if(!isMobile(mobile)){
@@ -51,9 +68,6 @@ function checkForm(){
     }else {
         $('#yzmmsg').text('');
     }
-};
-
-function checkForm1(){
     var pwd = $.trim($("#pwd").val());
     if(pwd == ''){
         $('#pwdmsg').text("请输入您的密码");
@@ -70,7 +84,6 @@ function checkForm1(){
         $('#pwdmsg').text('');
     }
 
-    var cpwd = $.trim($("#cpwd").val());
     if(pwd != $.trim($("#cpwd").val())) {
         $('#cpwdmsg').text("两次密码不一致");
         $("#cpwd").focus();
@@ -78,29 +91,42 @@ function checkForm1(){
     }else{
         $('#cpwdmsg').text('');
     }
-    // 调用注册接口
-    $.ajax({
-        type : "post",
+
+    var param = {
         url : "register",
-        data : {"password" : pwd, "confirmPassword" : cpwd},
-        dataType : "json",
-        success : function (result, status){
-            if(result.code == 2){
+        params : {
+            mobile : mobile,
+            password : pwd,
+            confirmPassword :$('#cpwd').val(),
+        },
+        callback : function(d){
+            //console.log(d)
+            if(d.code == 2){
                 $('#cpwdmsg').text('两次密码不一致');
                 $("#cpwd").focus();
                 return;
-            }else if(result.code == -3){
-                $('#yzmmsg').text('参数错误');
-                $("#vcode").focus();
+            }else if(d.code == -3){
+                alert('参数有误');
                 return;
-            }else if(result.code == 1){
+            }else if(d.code == 1){
                 // 成功跳转下一步
                 $('#cpwdmsg').text('');
                 $('#yzmmsg').text('');
                 window.location.href = "registerSuccess";
             }
         }
-    });
+    }
+    ajax(param);
+}
+
+function ajax(p){
+    //console.log(p);
+    $.post(p.url,p.params,function(data){
+        //console.log(data);
+        if(typeof(p.callback) == 'function'){
+            p.callback(data);
+        }
+    },'json');
 }
 
 //粗略验证手机号
