@@ -14,7 +14,7 @@
 </head>
 <script type="text/javascript">
 
-    var projectUrl = {pageContext.request.contextPath}/static/js/common/cmodule/list;
+    var projectUrl = '{pageContext.request.contextPath}';
 
 </script>
 <body>
