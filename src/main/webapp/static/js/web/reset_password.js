@@ -98,6 +98,8 @@ function checkForm(){
             mobile : mobile,
             newPassword : pwd,
             confirmPassword :$('#cpwd').val(),
+            authCode : vcode,
+            type:1,
         },
         callback : function(d){
             //console.log(d)
@@ -108,11 +110,15 @@ function checkForm(){
             }else if(d.code == -3){
                 alert('参数有误');
                 return;
+            }else if(d.code == 3){
+                $("#yzmmsg").text('验证码输入有误');
+                $("#vcode").focus();
+                return ;
             }else if(d.code == 1){
                 // 成功跳转下一步
                 $('#cpwdmsg').text('');
                 $('#yzmmsg').text('');
-                //window.location.href = "registerSuccess";
+                window.location.href = "resetSuccess";
             }
         }
     }

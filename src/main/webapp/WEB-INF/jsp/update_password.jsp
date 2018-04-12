@@ -8,21 +8,32 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/update_password.js"></script>
 </head>
+<style>
+    ::-webkit-input-placeholder { color:#c6b98e; }
+    ::-moz-placeholder { color:#c6b98e; } /* firefox 19+ */
+    :-ms-input-placeholder { color:#c6b98e; } /* ie */
+    input:-moz-placeholder { color:#c6b98e; }
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+        -webkit-text-fill-color: #555;
+    }
+</style>
 <body>
     <div class="content">
         <jsp:include page="../main.jsp"/>
         <div class="center">
             <div class="route">
-                <span>重置密码1111111</span>
+                <span>会员中心</span>
             </div>
         </div>
         <div class="pay">
             <div class="paybox user">
                 <jsp:include page="client_common.jsp"/>
                 <div class="user_box">
-                    <h1>我的信息</h1>
+                    <h1>重置密码</h1>
                     <ul class="user_boxul">
                         <li>
                             <span>手机号码</span>
@@ -36,18 +47,13 @@
                             <p id="yzmmsg"></p>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="next">下一步</a>
-                        </li>
-                    </ul>
-                    <ul class="user_boxul user_boxul0 ">
-                        <li>
                             <span>密&emsp;&emsp;码</span>
-                            <input type="text" value="" placeholder="请输入您的密码" class="input" id="pwd">
+                            <input type="password" value="" placeholder="请输入您的密码" class="input" id="pwd">
                             <p id="pwdmsg"></p>
                         </li>
                         <li>
                             <span>密码确认</span>
-                            <input type="text" value="" placeholder="请再次输入您的密码" class="input" id="cpwd">
+                            <input type="password" value="" placeholder="请再次输入您的密码" class="input" id="cpwd">
                             <p id="cpwdmsg"></p>
                         </li>
                         <li>

@@ -397,15 +397,16 @@
     padding-bottom: 20px;
 }
 .user_box .user_boxul{
-    margin-left: 15px;
+    margin-left: 15px;margin-top: 60px;
 }
 .user_box .user_boxul li{
-    display: flex;margin-top: 60px;
+    display: flex;margin-top: 30px;
+    flex-wrap: wrap;
 }
 .user_box .user_boxul li span{
     color: #333;font-size: 16px;
     align-items: center;
-    line-height: 54px;
+    line-height: 54px;width: 65px;
 }
 .user_box .user_boxul li input{
     margin-left: 20px;
@@ -415,12 +416,41 @@
     box-sizing:border-box;
     padding-left: 12px;
 }
+.user_box .user_boxul li .input1{
+    width: 40%;
+}
+.user_box .user_boxul li i{
+    font-style: normal;
+    color: #1f5dab;font-size: 16px;
+    line-height: 54px;margin-left: 50px;
+    cursor: pointer;
+}
+.user_box .user_boxul li i.msg{
+    color: #333;
+}
+.user_box .user_boxul li p{
+    width: 100%;color: #c6b98e;
+    box-sizing: border-box;
+    padding-left: 97px;
+    font-size: 16px;padding-top: 10px;
+}
 .user_box .user_boxul li a{
     display: block;width: 200px;height: 45px;
     background: #f6d332;color: #001111;
     font-size: 18px;border-radius: 4px;
     text-align: center;line-height: 45px;
-    margin-top: -30px;margin-left: 20%;
+    margin-top: -15px;margin-left: 20%;
+}
+.user_box .wan{
+    margin-top:70px;
+    text-align: center;
+    display: none;
+}
+.user_box .wan img{
+    margin: 0 auto 30px;
+}
+.user_box .wan p{
+    color: #333;font-size: 24px;
 }
 .user_box .table{
     width: 100%;border:1px solid #ececec;

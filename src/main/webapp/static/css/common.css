@@ -7,7 +7,7 @@ img { border: medium none; border:none;display: block;}
 a img { border:none;}
 .clear:after {content: "."; display: block; height: 0; clear: both;visibility: hidden; }
 .clear { *zoom: 1;}
-h1{ font-family:'微软雅黑' !important;}
+h1,h2,h3,h4{ font-family:'微软雅黑' !important;font-weight: 500;}
 a{ text-decoration:none; outline:none;}
 input,button,textarea{ outline:none;}
 input[type=text], input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } 
@@ -42,7 +42,7 @@ z-index: 100;height: 210px;}
 .nav ul li .menubox1 a:hover{text-decoration: underline;}
 .top .navbox .nav .search{display: flex;align-items: center;}
 .top .navbox .nav .search input{background: #f6d332;border: 1px solid #fff;color: #fff; font-size: 14px;text-indent: 10px;
-margin-left: 5px;}
+margin-left: 5px;padding: 3px 0;}
 
 .center{width: 80%; margin: 0 auto;}
 .route{width: 100%;}
