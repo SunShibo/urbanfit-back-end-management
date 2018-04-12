@@ -33,7 +33,7 @@
             <nav class="nav">
                 <ul>
                     <li id="menu_home"><a href="${pageContext.request.contextPath}/module/toHome">HOME</a></li>
-                    <li id="menu_message"><a href="info.html">活动资讯</a></li>
+                    <li id="menu_message"><a href="${pageContext.request.contextPath}/module/toMessage">活动资讯</a></li>
                     <li id="menu_match"><a href="${pageContext.request.contextPath}/about/match">赛法斗</a></li>
                     <li id="menu_course"><a href="course.html">课程介绍</a>
                         <div class="menubox1">

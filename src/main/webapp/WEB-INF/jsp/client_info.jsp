@@ -24,7 +24,7 @@
                     <ul class="user_boxul">
                         <li>
                             <span>真实姓名</span>
-                            <input type="text" name="name" placeholder="请输入姓名" class="input">
+                            <input type="text" name="name" value="${currentClient.name}" placeholder="请输入姓名" class="input">
                         </li>
                         <li>
                             <a href="javascript:void(0);" id="B_save">保存</a>

@@ -1,4 +1,7 @@
 $(function() {
+    $("li[name^='client_']").removeClass();
+    $("#client_password").addClass("on");
+
     //input点击框变色
     $('.input').focus(function(){
         $('.input').css("border-color","#ebebeb");

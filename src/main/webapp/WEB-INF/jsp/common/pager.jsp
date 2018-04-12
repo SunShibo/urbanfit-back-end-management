@@ -22,7 +22,7 @@
                 </li>
             </pg:prev>
             <li>
-                <c:if test="${param.totalPage != 1}">
+                <c:if test="${param.totalPage != 0 && param.totalPage != 1}">
                     <span>1 - ${param.totalPage}</span>
                 </c:if>
             </li>

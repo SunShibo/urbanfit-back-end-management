@@ -99,9 +99,8 @@
             </div>
         </div>
 
-
         <!-- 弹框 -->
-        <div class="kuang">
+        <div class="kuang" style="display: none;">
             <div class="kuang1">
                 <div class="kuang2">
                     <h1>请选择付款方式<img src="../static/img/close1.png" class="close"></h1>
