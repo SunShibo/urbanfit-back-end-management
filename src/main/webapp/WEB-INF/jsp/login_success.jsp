@@ -25,7 +25,7 @@
                     <div class="success">
                         <img src="../static/img/yes.png">
                         <p>login success</p>
-                        <a href="${pageContext.request.contextPath}/module/home" class="next">返回首页</a>
+                        <a href="${pageContext.request.contextPath}/module/toHome" class="next">返回首页</a>
                     </div>
                 </div>
             </div>

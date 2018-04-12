@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li id="client_password">
-                <a href="reset.html">
+                <a href="${pageContext.request.contextPath}/client/toPassword">
                     <img src="../static/img/pwd.png" class="img">
                     <img src="../static/img/pwd1.png" class="img1">
                     重置密码

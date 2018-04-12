@@ -1,7 +1,9 @@
 package com.urbanfit.bem.web.controller.base;
 
 import com.google.common.collect.Lists;
+import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.common.constants.SysConstants;
+import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.entity.bo.UserBO;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.QueryInfo;
@@ -20,6 +22,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
@@ -213,6 +216,17 @@ public class BaseCotroller {
         this.putSession(createKey(loginId, SysConstants.CURRENT_LOGIN_USER), loginUser) ;
     }
 
+
+    /** 获取登录用户*/
+    public ClientInfo getLoginClientInfo (HttpServletRequest request ) {
+        return (ClientInfo)this.getClientSession(request, SysConstants.CURRENT_LOGIN_CLIENT) ;
+    }
+
+    /** putLoginUser*/
+    public void putLoginClientInfo (String loginId , ClientInfo clientInfo) {
+        this.putSession(createKey(loginId, SysConstants.CURRENT_LOGIN_CLIENT), clientInfo) ;
+    }
+
     /** putSession */
     public void putSession (HttpServletRequest request, String key , String value ) {
         this.putSession(createKey(this.getLoginID(request), key), value) ;
@@ -224,6 +238,10 @@ public class BaseCotroller {
      */
     public String getLoginID(HttpServletRequest request) {
         return getCookie(request , SysConstants.CURRENT_LOGIN_ID) ;
+    }
+
+    public String getClientLoginID(HttpServletRequest request) {
+        return getCookie(request , SysConstants.CURRENT_LOGIN_CLIENT_ID) ;
     }
 
     public void putPublicSession (String key , Object value) {
@@ -265,6 +283,11 @@ public class BaseCotroller {
      * */
     public Object getSession (HttpServletRequest request , String key) {
         return RedissonHandler.getInstance().get(createKey(this.getLoginID(request), key));
+//        return RedisUtil.get(createKey(this.getLoginID(request), key)) ;
+    }
+
+    public Object getClientSession (HttpServletRequest request , String key) {
+        return RedissonHandler.getInstance().get(createKey(this.getClientLoginID(request), key));
 //        return RedisUtil.get(createKey(this.getLoginID(request), key)) ;
     }
 
@@ -324,5 +347,17 @@ public class BaseCotroller {
 
     protected HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    }
+
+    public void setLoginClientInfo(ClientInfo clientInfo) {
+        sput(SysConstants.CURRENT_CLIENT_INFO, clientInfo);
+    }
+
+    protected void sput(String key, Object value) {
+        getSession().setAttribute(key, value);
+    }
+
+    protected HttpSession getSession() {
+        return getRequest().getSession();
     }
 }

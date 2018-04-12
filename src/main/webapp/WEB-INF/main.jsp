@@ -9,25 +9,30 @@
     <div class="top">
         <div class="logo">
             <div class="logobox">
-                <a href="index.html"><img src="../static/img/logo.png" alt=""></a>
-                <ul>
-                    <li><a href="${pageContext.request.contextPath}/">join</a></li>
-                    <li><a href="${pageContext.request.contextPath}/client/login">log in</a></li>
-                </ul>
-                <ul>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/client/detail">
-                            <c:if test=""></c:if>
-                        </a>
-                    </li>
-                    <li><a href="${pageContext.request.contextPath}/client/signOut">sign out</a></li>
-                </ul>
+                <a href="javascript:void(0);"><img src="../static/img/logo.png" alt=""></a>
+                <c:if test="${empty currentClient}">
+                    <ul>
+                        <li><a href="${pageContext.request.contextPath}/client/toRegister">join</a></li>
+                        <li><a href="${pageContext.request.contextPath}/client/toLogin">log in</a></li>
+                    </ul>
+                </c:if>
+                <c:if test="${not empty currentClient}">
+                    <ul>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/client/detail">
+                                <c:if test="${empty currentClient.name}">${currentClient.mobile}</c:if>
+                                <c:if test="${not empty currentClient.name}">${currentClient.name}</c:if>
+                            </a>
+                        </li>
+                        <li><a href="${pageContext.request.contextPath}/client/signOut">sign out</a></li>
+                    </ul>
+                </c:if>
             </div>
         </div>
         <div class="navbox">
             <nav class="nav">
                 <ul>
-                    <li id="menu_home"><a href="index.html">HOME</a></li>
+                    <li id="menu_home"><a href="${pageContext.request.contextPath}/module/toHome">HOME</a></li>
                     <li id="menu_message"><a href="info.html">活动资讯</a></li>
                     <li id="menu_match"><a href="${pageContext.request.contextPath}/about/match">赛法斗</a></li>
                     <li id="menu_course"><a href="course.html">课程介绍</a>

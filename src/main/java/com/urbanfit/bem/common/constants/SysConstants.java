@@ -27,6 +27,8 @@ public class SysConstants {
      */
     public static final String CURRENT_LOGIN_ID = "userLoginID";
 
+    public static final String CURRENT_LOGIN_CLIENT_ID = "clientLoginID";
+
     /**
      * 登录用户id
      */
@@ -36,6 +38,10 @@ public class SysConstants {
      * 登录用户
      */
     public static final String CURRENT_LOGIN_USER = "currentLoginUser";
+
+    public static final String CURRENT_LOGIN_CLIENT = "currentLoginClient";
+
+    public static final String CURRENT_CLIENT_INFO = "currentClient";
 
     /**
      * 一分钟的毫秒数

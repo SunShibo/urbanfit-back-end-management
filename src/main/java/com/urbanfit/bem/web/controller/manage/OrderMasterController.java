@@ -1,9 +1,12 @@
 package com.urbanfit.bem.web.controller.manage;
 
+import com.urbanfit.bem.cfg.pop.Constant;
+import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.entity.OrderMaster;
 import com.urbanfit.bem.pay.AlipayUtil;
 import com.urbanfit.bem.service.OrderMasterService;
 import com.urbanfit.bem.tenpay.handler.PrepayIdRequestHandler;
+import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,12 +29,17 @@ public class OrderMasterController extends BaseCotroller{
     private OrderMasterService orderMasterService;
 
     @RequestMapping("/list")
-    public ModelAndView queryClientOrderMaster(Integer clientId, String orderNum, Integer status, Integer pageNo,
-                                       Integer pageSize){
-        pager = orderMasterService.queryClientOrderMaster(clientId, orderNum, status,
-                getQueryInfo(pageNo, pageSize));
+    public ModelAndView queryClientOrderMaster(HttpServletRequest request, String orderNum, Integer status,
+                                               Integer pageNo, Integer pageSize){
         ModelAndView view = new ModelAndView();
         view.setViewName("/order_master_list");
+        ClientInfo clientInfo = getLoginClientInfo(request);
+        if(clientInfo == null){
+            return view;
+        }
+        pager = orderMasterService.queryClientOrderMaster(clientInfo.getClientId(), orderNum, status,
+                getQueryInfo(pageNo, pageSize));
+
         view.addObject("lstOrder", pager.getDatas());
         view.addObject("pageNo", pageNo);
         view.addObject("pager", pager);

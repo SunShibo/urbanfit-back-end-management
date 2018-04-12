@@ -1,15 +1,23 @@
 package com.urbanfit.bem.web.controller.manage;
 
+import com.urbanfit.bem.cfg.pop.Constant;
+import com.urbanfit.bem.common.constants.SysConstants;
 import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.service.ClientInfoService;
 import com.urbanfit.bem.service.ClientMessageService;
+import com.urbanfit.bem.util.DateUtils;
+import com.urbanfit.bem.util.JsonUtils;
+import com.urbanfit.bem.util.MD5Util;
+import com.urbanfit.bem.util.StringUtils;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2018/4/8.
@@ -67,8 +75,27 @@ public class ClientInfoController extends BaseCotroller{
      */
     @RequestMapping(value = "/login")
     public void login(HttpServletResponse response, String mobile, String password){
-        String result = clientInfoService.login(mobile, password);
-        safeTextPrint(response, result);
+        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)){
+            safeTextPrint(response, JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString());
+            return ;
+        }
+        ClientInfo clientInfo = clientInfoService.queryClientInfoByMobile(mobile);
+        if(clientInfo == null){
+            safeTextPrint(response, JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString());
+            return ;
+        }
+        // 判断密码是否正确
+        if(!MD5Util.digest(password).equals(clientInfo.getPassword())){
+            safeTextPrint(response, JsonUtils.encapsulationJSON(2, "密码输入不正确", "").toString());
+            return ;
+        }
+        // 登陆客户信息放入Redis缓存
+        super.setLoginClientInfo(clientInfo);
+        String uuid = UUID.randomUUID().toString();
+        super.putLoginClientInfo(uuid, clientInfo);
+        super.setCookie(response, SysConstants.CURRENT_LOGIN_CLIENT_ID, uuid, SysConstants.SEVEN_DAY_TIME);
+        safeTextPrint(response, JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "登录成功", JsonUtils.
+                getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString()); ;
     }
 
     /**
@@ -105,8 +132,13 @@ public class ClientInfoController extends BaseCotroller{
     }
 
     @RequestMapping("/update")
-    public void updateClientInfo(HttpServletResponse response, String name){
-        String result = clientInfoService.updateClientInfo(name, 1);
+    public void updateClientInfo(HttpServletRequest request, HttpServletResponse response, String name){
+        ClientInfo clientInfo = getLoginClientInfo(request);
+        if(clientInfo == null){
+            safeTextPrint(response, JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "客户没有登陆", "").toString());
+            return;
+        }
+        String result = clientInfoService.updateClientInfo(name, clientInfo.getClientId());
         safeTextPrint(response, result);
     }
 

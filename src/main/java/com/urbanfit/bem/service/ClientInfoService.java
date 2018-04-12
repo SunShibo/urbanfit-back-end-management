@@ -47,25 +47,13 @@ public class ClientInfoService {
         // 注册用户
         ClientInfo newClient = new ClientInfo();
         newClient.setMobile(mobile);
-        newClient.setPassword(password);
+        newClient.setPassword(MD5Util.digest(password));
         clientInfoDao.addClientInfo(newClient);
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "注册成功", "").toString();
     }
 
-    public String login(String mobile, String password){
-        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
-        }
-        ClientInfo clientInfo = clientInfoDao.queryClientInfoByMobile(mobile);
-        if(clientInfo == null){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
-        }
-        // 判断密码是否正确
-        if(!MD5Util.digest(password).equals(clientInfo.getPassword())){
-            return JsonUtils.encapsulationJSON(2, "密码输入不正确", "").toString();
-        }
-        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "登录成功", JsonUtils.
-                getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
+    public ClientInfo queryClientInfoByMobile(String mobile){
+        return clientInfoDao.queryClientInfoByMobile(mobile);
     }
 
     public String updatePassword(Integer type, String mobile, String newPassword, String confirmPassword,
