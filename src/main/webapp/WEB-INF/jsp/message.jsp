@@ -14,7 +14,7 @@
 </head>
 <script type="text/javascript">
 
-    var projectUrl = '{pageContext.request.contextPath}';
+    var projectUrl = '${pageContext.request.contextPath}';
 
 </script>
 <body>
