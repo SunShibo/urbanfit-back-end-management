@@ -30,7 +30,7 @@ public class ClientMessageService {
 
     /**
      * @param mobile  手机号码
-     * @param type    发送类型  0：注册  1：重置密码
+     * @param type    发送类型  0：注册  1：登陆页面忘记密码  2：个人信息重置密码
      */
     public String sendCodeForSignIn(String mobile, Integer type){
         if(StringUtils.isEmpty(mobile) || type == null){
@@ -42,7 +42,7 @@ public class ClientMessageService {
             if(clientInfo != null){
                 return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "手机号码已经存在", "").toString();
             }
-        }else if(type == 1){  // 如果重置密码，账号存在
+        }else if(type == 1 || type == 2){  // 如果重置密码，账号存在
             if(clientInfo == null){
                 return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "手机号码不存在", "").toString();
             }
@@ -50,9 +50,15 @@ public class ClientMessageService {
         String number = RandomUtils.getRandomNumber(6);
         SendMessageUtil.sendSignInCodeMessage(mobile, number);
         ClientMessage clientMessage = new ClientMessage();
-        if(type == 0){
+        String messageType = "";
+        if(type == 0){     // 0：注册发送验证码
+            messageType = "register";
             clientMessage.setType("注册验证码");
-        }else if(type == 1){
+        }else if(type == 1){   // 1：登陆页面忘记密码
+            messageType = "reset";
+            clientMessage.setType("重置密码验证码");
+        }else if(type == 2){    //  2：个人信息重置密码
+            messageType = "update";
             clientMessage.setType("重置密码验证码");
         }
         clientMessage.setContent("您好，您的验证码为" + number);
@@ -64,7 +70,7 @@ public class ClientMessageService {
         jo.put("messageCode", number);
         jo.put("mobile", mobile);
         // 保存验证码信息到Redis
-        RedissonHandler.getInstance().set(mobile , number , null);
+        RedissonHandler.getInstance().set(mobile + "_" + messageType , number , null);
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "发送短信验证码成功", jo.toString()).toString();
     }
 

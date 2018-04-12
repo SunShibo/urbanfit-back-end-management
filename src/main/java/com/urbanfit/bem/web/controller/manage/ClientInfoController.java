@@ -75,9 +75,9 @@ public class ClientInfoController extends BaseCotroller{
      * 重置密码
      */
     @RequestMapping(value = "/password")
-    public void updatePassword(HttpServletResponse response, String mobile, String newPassword,
-                               String confirmPassword){
-        String result = clientInfoService.updatePassword(mobile, newPassword, confirmPassword);
+    public void updatePassword(HttpServletResponse response,Integer type, String mobile, String newPassword,
+                               String confirmPassword, String authCode){
+        String result = clientInfoService.updatePassword(type, mobile, newPassword, confirmPassword, authCode);
         safeTextPrint(response, result);
     }
 

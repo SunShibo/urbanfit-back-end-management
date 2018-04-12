@@ -40,7 +40,7 @@ public class ClientInfoService {
             return JsonUtils.encapsulationJSON(2, "两次密码输入不正确", "").toString();
         }
         // 判断验证码输入是否正确
-        String mobileAuthCode = RedissonHandler.getInstance().get(mobile);
+        String mobileAuthCode = RedissonHandler.getInstance().get(mobile + "_register");
         if(StringUtils.isEmpty(mobileAuthCode) || !mobileAuthCode.equals(authCode)){
             return JsonUtils.encapsulationJSON(3, "验证码有误", "").toString();
         }
@@ -68,8 +68,10 @@ public class ClientInfoService {
                 getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
     }
 
-    public String updatePassword(String mobile, String newPassword, String confirmPassword){
-        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(newPassword) || StringUtils.isEmpty(confirmPassword)){
+    public String updatePassword(Integer type, String mobile, String newPassword, String confirmPassword,
+                                 String authCode){
+        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(newPassword) || StringUtils.isEmpty(confirmPassword)
+                || type == null || StringUtils.isEmpty(authCode)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         ClientInfo clientInfo = clientInfoDao.queryClientInfoByMobile(mobile);
@@ -78,6 +80,14 @@ public class ClientInfoService {
         }
         if(!newPassword.equals(confirmPassword)){
             return JsonUtils.encapsulationJSON(2, "两次密码输入不正确", "").toString();
+        }
+        // 判断验证码输入是否正确
+        String mobileAuthCode = RedissonHandler.getInstance().get(mobile + "_reset");
+        if(type == 2){
+            mobileAuthCode = RedissonHandler.getInstance().get(mobile + "_update");
+        }
+        if(StringUtils.isEmpty(mobileAuthCode) || !mobileAuthCode.equals(authCode)){
+            return JsonUtils.encapsulationJSON(3, "验证码有误", "").toString();
         }
         // 修改客户密码
         Map<String, Object> map = new HashMap<String, Object>();

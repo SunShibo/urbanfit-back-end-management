@@ -117,7 +117,6 @@ function checkForm(){
                 // 成功跳转下一步
                 $('#cpwdmsg').text('');
                 $('#yzmmsg').text('');
-                $("#yzmmsg").text('');
                 window.location.href = "registerSuccess";
             }
         }
