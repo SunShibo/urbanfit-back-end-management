@@ -1,12 +1,12 @@
 $(function (){
     $("li[id^='menu_']").removeClass();
     $("#menu_message").addClass("on");
-
+    var aa = projectUrl+'cmodule/list';
 })
 
 $.ajax({
     type: "post",
-    url:"projectUrl",
+    url:"aa",
     data:{'type':2},
     dataType: "json",
     success:function(res){
