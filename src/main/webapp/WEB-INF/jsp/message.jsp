@@ -10,7 +10,13 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/message.js"></script>
 </head>
+<script type="text/javascript">
+
+    var projectUrl = {pageContext.request.contextPath}/static/js/common/cmodule/list;
+
+</script>
 <body>
     <div class="content">
         <jsp:include page="../main.jsp"/>
@@ -27,13 +33,13 @@
                     <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
                         <!-- 轮播（Carousel）指标 -->
                         <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <%--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>--%>
                         </ol>
                         <!-- 轮播（Carousel）项目 -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item active">
+                            <%--<div class="item active">
                                 <img src="../static/img/banner.jpg" alt="First slide">
                             </div>
                             <div class="item">
@@ -41,7 +47,7 @@
                             </div>
                             <div class="item">
                                 <img src="../static/img/banner.jpg" alt="Third slide">
-                            </div>
+                            </div>--%>
                         </div>
                         <!-- 轮播（Carousel）导航 -->
                         <a class="carousel-control left" href="#myCarousel" data-slide="prev">
@@ -129,7 +135,7 @@
                 <ul class="pager">
                     <li class="previous"><a href="#">&larr; 上一页</a></li>
                     <li>
-                        <span>1-30</span>
+                        <span id="span"><em id="number000">1</em>-30</span>
                     </li>
                     <li class="next"><a href="#">下一页 &rarr;</a></li>
                 </ul>
