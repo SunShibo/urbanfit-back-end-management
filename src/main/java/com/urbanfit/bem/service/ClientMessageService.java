@@ -9,6 +9,7 @@ import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.RandomUtils;
 import com.urbanfit.bem.util.StringUtils;
 import com.urbanfit.bem.util.message.SendMessageUtil;
+import com.urbanfit.bem.util.redisUtils.RedissonHandler;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,6 +63,8 @@ public class ClientMessageService {
         JSONObject jo = new JSONObject();
         jo.put("messageCode", number);
         jo.put("mobile", mobile);
+        // 保存验证码信息到Redis
+        RedissonHandler.getInstance().set(mobile , number , null);
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "发送短信验证码成功", jo.toString()).toString();
     }
 

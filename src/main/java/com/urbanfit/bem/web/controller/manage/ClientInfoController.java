@@ -56,8 +56,9 @@ public class ClientInfoController extends BaseCotroller{
      * 客户注册
      */
     @RequestMapping( value = "/register" )
-    public void register(HttpServletResponse response, String mobile, String password, String confirmPassword){
-        String result = clientInfoService.register(mobile, password, confirmPassword);
+    public void register(HttpServletResponse response, String mobile, String password, String confirmPassword,
+                         String authCode){
+        String result = clientInfoService.register(mobile, password, confirmPassword, authCode);
         safeTextPrint(response, result);
     }
 
@@ -113,6 +114,13 @@ public class ClientInfoController extends BaseCotroller{
     public ModelAndView redirectResetPassword(){
         ModelAndView view = new ModelAndView();
         view.setViewName("/reset_password");
+        return view;
+    }
+
+    @RequestMapping("/resetSuccess")
+    public ModelAndView redirectResetPasswordSuccess(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/reset_success");
         return view;
     }
 }

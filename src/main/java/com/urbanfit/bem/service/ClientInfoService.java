@@ -7,6 +7,7 @@ import com.urbanfit.bem.util.DateUtils;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.MD5Util;
 import com.urbanfit.bem.util.StringUtils;
+import com.urbanfit.bem.util.redisUtils.RedissonHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -25,8 +26,9 @@ public class ClientInfoService {
     /**
      * 注册用户
      */
-    public String register(String mobile, String password, String confirmPassword){
-        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(confirmPassword)){
+    public String register(String mobile, String password, String confirmPassword, String authCode){
+        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(confirmPassword)
+                || StringUtils.isEmpty(authCode)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         // 判断手机号码是否注册过
@@ -36,6 +38,11 @@ public class ClientInfoService {
         }
         if(!password.equals(confirmPassword)){
             return JsonUtils.encapsulationJSON(2, "两次密码输入不正确", "").toString();
+        }
+        // 判断验证码输入是否正确
+        String mobileAuthCode = RedissonHandler.getInstance().get(mobile);
+        if(StringUtils.isEmpty(mobileAuthCode) || !mobileAuthCode.equals(authCode)){
+            return JsonUtils.encapsulationJSON(3, "验证码有误", "").toString();
         }
         // 注册用户
         ClientInfo newClient = new ClientInfo();
