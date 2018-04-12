@@ -1,35 +1,46 @@
 $(function (){
     $("li[id^='menu_']").removeClass();
     $("#menu_message").addClass("on");
-    var aa = projectUrl+'cmodule/list';
 })
 
 $.ajax({
     type: "post",
-    url:"aa",
-    data:{'type':2},
+    url: "list",
+    data:{"type": 2},
     dataType: "json",
     success:function(res){
-        //alert(res.data.url);
         var html = '';
         var html_1 = '';
         var num = 1;
         if(res.code == 1){
-            $.each(res.data,function(k,v){
-                if(num == 1){
-                    html += '<div class="item active">';
-                    html += '<a href="#"><img src="../static/img/banner.jpg" alt="First slide"></a>';
-                    html += '</div>';
-                    html_1 += '<li data-target="#myCarousel" data-slide-to="'+v.id+'" class="active"></li>';
-                }else{
-                    html += '<div class="item">';
-                    html += '<a href="#"><img src="../static/img/banner.jpg" alt="First slide"></a>';
-                    html += '</div>';
-                    html_1 += '<li data-target="#myCarousel" data-slide-to="'+v.id+'"></li>';
-                }
-                num++;
-            });
-
+            var module = res.data.module;
+            var banner = res.data.lstBanner;
+            var baseUrl = res.data.baseUrl;  // 图片地址前缀
+            // banner部分遍历
+            if(banner != ""){
+                $.each(banner, function (i, n){
+                    alert(n.linkUrl);    // 链接地址
+                    alert(n.imageUrl);   // 图片地址
+                })
+            }
+            if(module != "" && module.content != ""){
+                $.each(module.content, function(i, n){
+                    alert(n.title);    // 标题
+                    alert(n.linkUrl);   // 链接地址
+                    /*if(num == 1){
+                     html += '<div class="item active">';
+                     html += '<a href="#"><img src="../static/img/banner.jpg" alt="First slide"></a>';
+                     html += '</div>';
+                     html_1 += '<li data-target="#myCarousel" data-slide-to="'+v.id+'" class="active"></li>';
+                     }else{
+                     html += '<div class="item">';
+                     html += '<a href="#"><img src="../static/img/banner.jpg" alt="First slide"></a>';
+                     html += '</div>';
+                     html_1 += '<li data-target="#myCarousel" data-slide-to="'+v.id+'"></li>';
+                     }
+                     num++;*/
+                });
+            }
             $(".carousel-inner").html(html);
             $(".carousel-indicators").html(html_1);
         }else{
