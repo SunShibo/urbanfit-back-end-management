@@ -30,7 +30,7 @@
                         </li>
                         <li>
                             <span><img src="../static/img/passwd.png">验 证 码</span>
-                            <input type="text" value="" placeholder="输入验证码" class="input input1" id="vcode">
+                            <input type="text" name="authCode" placeholder="输入验证码" class="input input1" id="vcode">
                             <a href="javascript:;" class="yzm" id="sendcode">获取验证码</a>
                             <p id="yzmmsg"></p>
                         </li>
