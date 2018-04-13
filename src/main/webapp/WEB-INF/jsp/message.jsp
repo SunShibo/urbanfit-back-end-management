@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/message.js"></script>
 </head>
@@ -55,7 +56,7 @@
                     <!--轮播图end-->
                     <!-- 列表 -->
                     <div class="list">
-                        <ul>
+                        <ul id="listbox">
                             <li>
                                 <a href="info_detail1.html">
                                     <div class="listimg">
@@ -109,8 +110,8 @@
                     </div>
                 </div>
                 <div class="inforight">
-                    <ul>
-                        <li>
+                    <ul class="module">
+                        <%--<li>
                             <a href="#"><img src="../static/img/tu1.jpg" alt=""></a>
                         </li>
                         <li>
@@ -121,7 +122,7 @@
                         </li>
                         <li>
                             <a href="#"><img src="../static/img/tu1.jpg" alt=""></a>
-                        </li>
+                        </li>--%>
                     </ul>
                 </div>
             </div>
@@ -129,8 +130,8 @@
             <div class="pagerbox">
                 <ul class="pager">
                     <li class="previous"><a href="#">&larr; 上一页</a></li>
-                    <li>
-                        <span id="span"><em id="number000">1</em>-30</span>
+                    <li id="page">
+                        <span><em id="number0">1</em>-30</span>
                     </li>
                     <li class="next"><a href="#">下一页 &rarr;</a></li>
                 </ul>

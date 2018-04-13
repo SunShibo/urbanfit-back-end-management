@@ -56,6 +56,9 @@ margin-bottom: 0;}
 line-height: 20px;padding:0px 12px 7px 12px;}
 .navbox1 .navboxul li.active a{border-bottom: 5px solid #171f23;}
 
+#myCarousel{min-height: 200px;}
+
+
 
 .footer{width: 100%; background: #2c2e37;overflow:hidden;padding-top: 55px;}
 .footer .footerbox{width: 75%; margin: 0 auto;display: flex;}

@@ -87,7 +87,10 @@
 .info .inforight ul{width: 100%;}
 .info .inforight ul li{width: 100%;padding-bottom: 5px; background: #fff;}
 .info .inforight ul li:last-child{padding-bottom: 0;}
-.info .inforight ul li img{width: 99%;
+.info .inforight ul li a{width: 99%;
+    display: flex;min-height: 120px;
+    justify-content: center;align-items: center;
+    color: #000;font-size: 25px;
     -webkit-box-shadow: 3px 3px 3px #8c8d8c;
     -moz-box-shadow: 3px 3px 3px #8c8d8c;
     box-shadow: 3px 3px 3px #8c8d8c;}
