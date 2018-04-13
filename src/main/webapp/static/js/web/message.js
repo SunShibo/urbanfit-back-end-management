@@ -3,6 +3,7 @@ $(function (){
     $("#menu_message").addClass("on");
 })
 
+//banner图及模块
 $.ajax({
     type: "post",
     url: "list",
@@ -57,7 +58,7 @@ $.ajax({
     }
 });
 
-
+//数据及分页
 var pageNo=1;
 $(document).ready(function(){
     $(".previous").click(function(){
