@@ -1,6 +1,8 @@
 $(function(){
     initCourseDistrict();
     $("#A_join_course").click(joinCourse);
+    $("li[id^='menu_']").removeClass();
+    $("#menu_course").addClass("on");
 })
 
 function initCourseDistrict(){
@@ -13,3 +15,4 @@ function initCourseDistrict(){
 function joinCourse(){
 
 }
+

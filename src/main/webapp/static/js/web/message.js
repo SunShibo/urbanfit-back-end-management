@@ -1,6 +1,7 @@
 $(function (){
     $("li[id^='menu_']").removeClass();
     $("#menu_message").addClass("on");
+
 })
 
 //banner图及模块
@@ -82,7 +83,7 @@ function reloadPage(){
     //alert(pageNo);
     $.ajax({
         type: "post",
-        url:"message/list",
+        url:"projectUrl+'/message/list'",
         data:{'pageNo':pageNo,'pageSize':10},
         dataType: "json",
         success:function(res){

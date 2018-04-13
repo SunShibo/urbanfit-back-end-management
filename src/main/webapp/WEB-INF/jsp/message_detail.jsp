@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/message_detail.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/message_detail.js"></script>
 </head>
 <body>
     <div class="content">
@@ -42,7 +42,7 @@
               </div>
             </div>
             <div class="inforight">
-              <ul>
+              <ul class="module">
                 <li>
                   <a href="#"><img src="../static/img/tu1.jpg" alt=""></a>
                 </li>

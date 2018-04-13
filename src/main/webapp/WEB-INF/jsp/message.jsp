@@ -12,6 +12,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/message.js"></script>
+    <script>
+        var projectUrl = '${pageContext.request.contextPath}';
+    </script>
 </head>
 <body>
     <div class="content">
@@ -131,7 +134,7 @@
                 <ul class="pager">
                     <li class="previous"><a href="#">&larr; 上一页</a></li>
                     <li id="page">
-                        <span><em id="number0">1</em>-30</span>
+                        <span>1-30</span>
                     </li>
                     <li class="next"><a href="#">下一页 &rarr;</a></li>
                 </ul>

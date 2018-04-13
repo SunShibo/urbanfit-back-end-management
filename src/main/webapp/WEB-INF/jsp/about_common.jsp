@@ -11,7 +11,7 @@
             <img src="../static/img/navbg.jpg" alt="">
             <ul id="myTab" class="navboxul">
                 <li id="about_company" class="active"><a href="${pageContext.request.contextPath}/about/company" data-toggle="tab">公司介绍</a></li>
-                <li id="about_store"><a href="" data-toggle="tab">门店查询</a></li>
+                <li id="about_store"><a href="${pageContext.request.contextPath}/about/store" data-toggle="tab">门店查询</a></li>
                 <li id="about_contact"><a href="${pageContext.request.contextPath}/about/contact" data-toggle="tab">联系我们</a></li>
                 <li id="about_join"><a href="${pageContext.request.contextPath}/about/join" data-toggle="tab">合作伙伴</a></li>
             </ul>

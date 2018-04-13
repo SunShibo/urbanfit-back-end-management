@@ -37,17 +37,7 @@ $.ajax({
                     num++;
                 })
             }
-            if(module != "" && module.content != ""){
-                $.each(module.content, function(i, n){
-                    //alert(n.title);    // 标题
-                    //alert(n.linkUrl);   // 链接地址
-                    //alert(n.imageUrl);   // 图片地址
-                    //alert(n.remark);
-                    modulehtml += '<li>';
-                    modulehtml += '<a href="'+n.linkUrl+'">'+n.title+'</a>';
-                    modulehtml += '</li>';
-                });
-            }
+
             $(".carousel-inner").html(html);
             $(".carousel-indicators").html(html_1);
             $(".module").html(modulehtml);
