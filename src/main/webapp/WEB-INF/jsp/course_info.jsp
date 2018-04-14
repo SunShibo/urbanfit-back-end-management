@@ -26,16 +26,16 @@
                                 <img src="${baseUrl}${course.courseImageUrl}" style="width:440px; height:280px;">
                             </div>
                             <ul class="sellbox">
-                                <li><h1>赛法斗-${course.courseName}</h1></li>
+                                <li><h1>赛法斗-<span id="name">${course.courseName}</span></h1></li>
                                 <li>
                                     <p><img src="../static/img/yang.jpg" width="16" height="16">
-                                      价&emsp;&emsp;格：<span>${course.coursePrice}元</span></p>
+                                      价&emsp;&emsp;格：<span id="price">${course.coursePrice}元</span></p>
                                 </li>
                                 <li>
                                     <p><img src="../static/img/zhi.jpg" width="15" height="20">
                                       上课地域：</p>
                                     <div class="select">
-                                        <input type="hidden" name="courseDistrict" value="${course.courseDistrict}">
+                                        <input type="hidden" name="courseDistrict" id="district" value="${course.courseDistrict}">
                                         <div id="city_info">
                                             <select class="prov" id="s_province" name="s_province"></select>&nbsp;&nbsp;
                                             <select class="city" id="s_city" name="s_city" ></select>&nbsp;&nbsp;
@@ -62,5 +62,8 @@
             "city" : '${city}',
             "district" : '${district}'
         };
+
+        var aa = $(".sellimg img")[0].src;
+        //alert($('#name').text());
     </script>
 </body>

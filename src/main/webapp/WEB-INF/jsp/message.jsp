@@ -17,6 +17,7 @@
     </script>
 </head>
 <body>
+<input type = "hidden" id="projectUrl" value="">
     <div class="content">
         <jsp:include page="../main.jsp"/>
         <div class="center">
@@ -142,5 +143,6 @@
         </div>
         <jsp:include page="../footer.jsp"/>
     </div>
+
 </body>
 

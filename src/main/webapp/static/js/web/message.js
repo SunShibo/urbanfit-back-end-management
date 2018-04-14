@@ -79,8 +79,10 @@ $(document).ready(function(){
     });
 });
 
+
 function reloadPage(){
     //alert(pageNo);
+    //alert(projectUrl+'/message/list');
     $.ajax({
         type: "post",
         url:"projectUrl+'/message/list'",

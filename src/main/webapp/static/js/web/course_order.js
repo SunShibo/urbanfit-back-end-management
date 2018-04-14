@@ -1,47 +1,11 @@
 $(function(){
     initCourseDistrict();
-    $("#A_join_course").click(joinCourse);
+    $("#submitorder").click(submitorder);
     $("li[id^='menu_']").removeClass();
     $("#menu_course").addClass("on");
-
-    $("#city_info").citySelect({
-        prov : store.provice,
-        city : store.city,
-        dist : store.district,
-        nodata: "none",
-        required: false
-    });
-
-    $("#proviceId").change(joinCourse);
-    $("#cityId").change(joinCourse);
-    $("#districtId").change(joinCourse);
 })
 
-function initCourseDistrict(){
-    var courseDistrict = $("input[type='courseDistrict']").val();
-    if(courseDistrict != ""){
-
-    }
-}
-
-//获取url中的参数
-function GetRequest(){
-    var url = location.search; //获取url中"?"符后的字串
-    var theRequest = new Object();
-    if (url.indexOf("?") != -1) {
-        var str = url.substr(1);
-        strs = str.split("&");
-        for(var i = 0; i < strs.length; i ++) {
-            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-        }
-    }
-    return theRequest;
-}
-//接收get参数
-var canshu = GetRequest();
-//alert(canshu['courseId']);
-
-function joinCourse(){
+function submitorder(){
     //alert(aa);
     var data = {
         courseImageUrl:aa,
@@ -96,4 +60,10 @@ function joinCourse(){
         }
     });
 }
+
+
+
+
+
+
 

@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/course_order.js"></script>
 </head>
 <body>
     <div class="content">
@@ -103,7 +104,7 @@
                     </ul>
                 </div>
                 <div class="submit">
-                    <a href="#">提交订单</a>
+                    <a href="#" id="submitorder">提交订单</a>
                 </div>
             </div>
         </div>
