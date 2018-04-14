@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/cityselect.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/course_info.js"></script>
 </head>
 <body>
@@ -35,10 +36,10 @@
                                       上课地域：</p>
                                     <div class="select">
                                         <input type="hidden" name="courseDistrict" value="${course.courseDistrict}">
-                                        <div>
-                                            <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
-                                            <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
-                                            <select id="s_county" name="s_county"></select>
+                                        <div id="city_info">
+                                            <select class="prov" id="s_province" name="s_province"></select>&nbsp;&nbsp;
+                                            <select class="city" id="s_city" name="s_city" ></select>&nbsp;&nbsp;
+                                            <select class="dist" id="s_county" name="s_county"></select>
                                         </div>
                                   </div>
                                 </li>
@@ -55,4 +56,11 @@
         </div>
         <jsp:include page="../footer.jsp"/>
     </div>
+    <script type="text/javascript">
+        var store = {
+            "provice" : '${provice}',
+            "city" : '${city}',
+            "district" : '${district}'
+        };
+    </script>
 </body>
