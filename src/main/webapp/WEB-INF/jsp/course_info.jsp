@@ -37,13 +37,14 @@
                                     <div class="select">
                                         <input type="hidden" name="courseDistrict" id="district" value="${course.courseDistrict}">
                                         <div id="city_info">
-                                            <select class="prov" id="s_province" name="s_province"></select>&nbsp;&nbsp;
-                                            <select class="city" id="s_city" name="s_city" ></select>&nbsp;&nbsp;
-                                            <select class="dist" id="s_county" name="s_county"></select>
+                                            <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
+                                            <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
+                                            <select id="s_county" name="s_county"></select>
                                         </div>
                                   </div>
                                 </li>
                                 <li>
+                                    <input type="hidden" name="courseId" value="${course.courseId}">
                                     <a href="javascript:void(0);" id="A_join_course">我要报名</a>
                                 </li>
                             </ul>

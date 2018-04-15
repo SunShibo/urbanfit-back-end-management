@@ -4,96 +4,109 @@ $(function(){
     $("li[id^='menu_']").removeClass();
     $("#menu_course").addClass("on");
 
-    $("#city_info").citySelect({
-        prov : store.provice,
-        city : store.city,
-        dist : store.district,
-        nodata: "none",
-        required: false
-    });
-
-    $("#proviceId").change(joinCourse);
-    $("#cityId").change(joinCourse);
-    $("#districtId").change(joinCourse);
+    $("#s_province").change(changeProvince);
+    $("#s_city").change(changeCity);
 })
 
 function initCourseDistrict(){
-    var courseDistrict = $("input[type='courseDistrict']").val();
+    var courseDistrict = $("input[name='courseDistrict']").val();
     if(courseDistrict != ""){
-
+        var districtProvinceArr = [];
+        var districtProvinceHtml = [];
+        var districtArr = courseDistrict.split("#");
+        // 初始化省信息
+        var province = "";
+        var city = "";
+        $.each(districtArr, function (i, n){
+            var districDetailtArr = n.split(",");
+            if(i == 0){
+                province = districDetailtArr[0];
+                city = districDetailtArr[1];
+            }
+            if(districtProvinceArr.indexOf(districDetailtArr[0]) < 0){
+                districtProvinceArr.push(districDetailtArr[0]);
+                districtProvinceHtml.push('<option value="' + districDetailtArr[0] + '">' + districDetailtArr[0] + '</option>');
+            }
+        });
+        $("#s_province").html(districtProvinceHtml.join(""));
+        // 初始化市信息
+        var districtCityArr = [];
+        var districtCityHtml = [];
+        $.each(districtArr, function (i, n){
+            var districDetailtArr = n.split(",");
+            if(districDetailtArr[0] == province && districtCityArr.indexOf(districDetailtArr[1]) < 0){
+                districtCityArr.push(districDetailtArr[1]);
+                districtCityHtml.push('<option value="' + districDetailtArr[1] + '">' + districDetailtArr[1] + '</option>');
+            }
+        });
+        $("#s_city").html(districtCityHtml.join(""));
+        // 初始化区信息
+        var districtCountyArr = [];
+        var districtCountyHtml = [];
+        $.each(districtArr, function (i, n){
+            var districDetailtArr = n.split(",");
+            if (districDetailtArr.length == 3 && districDetailtArr[1] == city && districtCountyArr.indexOf(districDetailtArr[2]) < 0) {
+                districtCountyArr.push(districDetailtArr[2]);
+                districtCountyHtml.push('<option value="' + districDetailtArr[2] + '">' + districDetailtArr[2] + '</option>');
+            }
+        });
+        $("#s_county").html(districtCountyHtml.join(""));
     }
 }
 
-//获取url中的参数
-function GetRequest(){
-    var url = location.search; //获取url中"?"符后的字串
-    var theRequest = new Object();
-    if (url.indexOf("?") != -1) {
-        var str = url.substr(1);
-        strs = str.split("&");
-        for(var i = 0; i < strs.length; i ++) {
-            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-        }
+function changeProvince(){
+    var province = $(this).val();
+    var courseDistrict = $("input[name='courseDistrict']").val();
+    if(courseDistrict != ""){
+        var districtCityArr = [];
+        var districtCityHtml = [];
+        var city = "";
+        // 初始化市信息
+        var districtArr = courseDistrict.split("#");
+        $.each(districtArr, function (i, n){
+            var districDetailtArr = n.split(",");
+            if(districDetailtArr[0] == province && districtCityArr.indexOf(districDetailtArr[1]) < 0){
+                if(i == 0){
+                    city = districDetailtArr[1];
+                }
+                districtCityArr.push(districDetailtArr[1]);
+                districtCityHtml.push('<option value="' + districDetailtArr[1] + '">' + districDetailtArr[1] + '</option>');
+            }
+        });
+        $("#s_city").html(districtCityHtml.join(""));
+        // 初始化区信息
+        var districtCountyArr = [];
+        var districtCountyHtml = [];
+        $.each(districtArr, function (i, n){
+            var districDetailtArr = n.split(",");
+            if (districDetailtArr.length == 3 && districDetailtArr[1] == city && districtCountyArr.indexOf(districDetailtArr[2]) < 0) {
+                districtCountyArr.push(districDetailtArr[2]);
+                districtCountyHtml.push('<option value="' + districDetailtArr[2] + '">' + districDetailtArr[2] + '</option>');
+            }
+        });
+        $("#s_county").html(districtCountyHtml.join(""));
     }
-    return theRequest;
 }
-//接收get参数
-var canshu = GetRequest();
-//alert(canshu['courseId']);
+
+function changeCity() {
+    var city = $(this).val();
+    var courseDistrict = $("input[name='courseDistrict']").val();
+    if (courseDistrict != "") {
+        var districtCountyArr = [];
+        var districtCountyHtml = [];
+        var districtArr = courseDistrict.split("#");
+        $.each(districtArr, function (i, n) {
+            var districDetailtArr = n.split(",");
+            if (districDetailtArr.length == 3 && districDetailtArr[1] == city && districtCountyArr.indexOf(districDetailtArr[2]) < 0) {
+                districtCountyArr.push(districDetailtArr[2]);
+                districtCountyHtml.push('<option value="' + districDetailtArr[2] + '">' + districDetailtArr[2] + '</option>');
+            }
+        });
+        $("#s_county").html(districtCountyHtml.join(""));
+    }
+}
 
 function joinCourse(){
-    //alert(aa);
-    var data = {
-        courseImageUrl:aa,
-        courseId:['courseId'],
-        courseDistrict:$("#district").val(),
-        courseName:$('#name').text(),
-        coursePrice  : $('#price').text(),
-        text  : $(".text").text(),
-    }
-
-    $.ajax({
-        type:"post",
-        url:"list",
-        dataType: "json",
-        data: data,
-        success: function(msg){
-            //console.log(msg);
-            var html = '';
-            var html1 = '';
-            if(code == 1){
-                $.each(msg.data.lstCourse,function(k,v){
-                    html +='<div class="sellimg">';
-                    html +='<img src="${baseUrl}${course.courseImageUrl}" style="width:440px; height:280px;">';
-                    html +='</div>';
-                    html +='<ul class="sellbox">';
-                    html +='<li><h1>赛法斗-<span id="name">${course.courseName}</span></h1></li>';
-                    html +='<li>';
-                    html +='<p><img src="../static/img/yang.jpg" width="16" height="16">价&emsp;&emsp;格：<span id="price">${course.coursePrice}元</span></p>';
-                    html +='</li>';
-                    html +='<li>';
-                    html +='<p><img src="../static/img/zhi.jpg" width="15" height="20">上课地域：</p>';
-                    html +='<div class="select">';
-                    html +='<input type="hidden" name="courseDistrict" id="district" value="${course.courseDistrict}">';
-                    html +='<div id="city_info">';
-                    html +='<select class="prov" id="s_province" name="s_province"></select>&nbsp;&nbsp;';
-                    html +='<select class="city" id="s_city" name="s_city" ></select>&nbsp;&nbsp;';
-                    html +='<select class="dist" id="s_county" name="s_county"></select>';
-                    html +='</div>';
-                    html +='</div>';
-                    html +='</li>';
-                    html +='<li>';
-                    html +='<a href="javascript:void(0);" id="A_join_course">我要报名</a>';
-                    html +='</li>';
-                    html +='</ul>';
-                    html1 +='<p>${course.introduce}</p>';
-                })
-                $('.sell').html(html);
-                $('.text').html(html);
-            }else{
-                alert('参数有误');
-            }
-        }
-    });
+    var courseId = $("input[name='courseId']").val();
+    window.location.href = "toJoin?courseId=" + courseId;
 }
-
