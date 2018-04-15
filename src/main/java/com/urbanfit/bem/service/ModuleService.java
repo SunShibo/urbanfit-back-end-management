@@ -12,7 +12,6 @@ import net.sf.json.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -42,6 +41,7 @@ public class ModuleService {
         jo.put("lstBanner", CollectionUtils.isEmpty(lstBanner) ? "" : JsonUtils.getJsonString4JavaListDate(
                 lstBanner, DateUtils.LONG_DATE_PATTERN));
         jo.put("module", module == null ? "" : JsonUtils.getJsonString4JavaPOJO(module, DateUtils.LONG_DATE_PATTERN));
+
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 }

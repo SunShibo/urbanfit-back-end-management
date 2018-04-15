@@ -7,7 +7,7 @@
 <%
   String pageSize = request.getParameter("pageSize");
   if (null == pageSize || "".equals(pageSize)) {
-      pageSize = "10";
+      pageSize = "3";
   }
   request.setAttribute("pageSize", pageSize);
 %>

@@ -39,7 +39,7 @@ public class BaseCotroller {
     LoginService loginService;
 
     protected PageObject pager = null;
-    private int default_page_size = 10;
+    private int default_page_size = 3;
     private int default_page_no = 1;
 
     /**

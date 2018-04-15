@@ -81,11 +81,9 @@ $(document).ready(function(){
 
 
 function reloadPage(){
-    //alert(pageNo);
-    //alert(projectUrl+'/message/list');
     $.ajax({
         type: "post",
-        url:"projectUrl+'/message/list'",
+        url : projectUrl + '/message/list',
         data:{'pageNo':pageNo,'pageSize':10},
         dataType: "json",
         success:function(res){

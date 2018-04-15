@@ -68,7 +68,9 @@
 .infoleft .list ul li{width: 100%;padding-top: 20px;background: #fff;}
 .infoleft .list ul li a{display: flex;justify-content: space-between;}
 .infoleft .list ul li .listimg{width: 20%;}
-.infoleft .list ul li .listimg img{width: 100%;}
+.infoleft .list ul li .listimg img{
+    width: 300px;
+    height: 300px;}
 .infoleft .list ul li .listtext{width: 73%;margin-right: 30px;}
 .infoleft .list ul li .listtext h1{color: #101215; font-size: 16px;font-weight: 500;margin-top: 10px;}
 .infoleft .list ul li .listtext h1 span{display:block;font-size: 14px;margin-top: 10px;}
@@ -533,3 +535,91 @@
     text-align: center;
     line-height: 30px;
 }
+.kuang{
+    width:100%;height: 100%;
+    position: fixed;top: 0;
+    left: 0;z-index: 10;
+    background: rgba(0,0,0,.5);
+    display: none;
+}
+.kuang .kuang1{
+    width: 100%;height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.kuang .kuang1 .kuang2{
+    width: 800px;height: 260px;
+    background: #fff;
+    border-radius: 5px;
+    display: none;
+}
+.kuang .kuang1 .kuang2 h1{
+    height: 70px;border-bottom: 1px solid #f6d332;
+    box-sizing:border-box;
+    padding-left: 28px;
+    display: flex;justify-content: space-between;
+    color: #333;font-size: 18px;
+    align-items: center;margin: 0;
+}
+.kuang .kuang1 .kuang2 .order2{
+    justify-content: center;
+}
+.kuang .kuang1 .kuang2 .order2 .radio{
+    margin:0 50px;
+}
+.kuang .kuang1 .kuang2 > a{
+    display: block;width: 200px;
+    height: 45px;background: #f6d332;
+    color: #001111;font-size: 18px;
+    border-radius: 5px;text-align: center;
+    line-height: 45px;margin:40px auto 0;
+}
+.kuang .kuang1 .kuang3{
+    width: 800px;
+    background: #fff;
+    border-radius: 5px;
+    display: none;
+}
+.kuang .kuang1 .kuang3 h1{
+    height: 70px;border-bottom: 1px solid #f6d332;
+    box-sizing:border-box;
+    padding-left: 28px;
+    display: flex;justify-content: space-between;
+    color: #333;font-size: 18px;
+    align-items: center;margin: 0;
+}
+.kuang .kuang1 .kuang3 > a{
+    display: block;width: 200px;
+    height: 45px;background: #f6d332;
+    color: #001111;font-size: 18px;
+    border-radius: 5px;text-align: center;
+    line-height: 45px;margin:40px auto 30px;
+}
+.kuang3 .kuangul{
+    margin: 20px 26px;background: #fff;
+    border-radius: 5px;
+    border: 1px solid #dedede;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+}
+.kuang3 .kuangul h2{
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    background: #f8f8f8;
+    box-sizing:border-box;
+    padding:0 28px;margin: 0;
+    border-bottom: 1px solid #dedede;
+    display: flex;justify-content: space-between;
+    font-size: 16px;color: #333;
+    height: 46px;align-items: center;
+}
+.kuang3 .kuangul h2 span{
+    color: #666;font-size: 14px;
+}
+.kuang3 .kuangul ul{
+    width: 45%;margin-left: 28px;
+    margin-bottom: 15px;
+}
+.kuang3 .kuangul ul li
