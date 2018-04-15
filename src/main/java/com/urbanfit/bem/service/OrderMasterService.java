@@ -101,7 +101,7 @@ public class OrderMasterService {
                 getJsonString4JavaPOJO(orderMaster, DateUtils.LONG_DATE_PATTERN)).toString();
     }
 
-    public String addClientOrderMaster(String params, HttpServletRequest request, HttpServletResponse response){
+    public String addClientOrderMaster(String params, Integer clientId, HttpServletRequest request, HttpServletResponse response){
         if(StringUtils.isEmpty(params)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }

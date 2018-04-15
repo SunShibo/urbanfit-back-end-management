@@ -57,7 +57,8 @@ public class OrderMasterController extends BaseCotroller{
 
     @RequestMapping("/add")
     public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params){
-        String result = orderMasterService.addClientOrderMaster(params, request, response);
+        ClientInfo clientInfo = getLoginClientInfo(request);
+        String result = orderMasterService.addClientOrderMaster(params, clientInfo.getClientId(), request, response);
         safeTextPrint(response, result);
     }
 
