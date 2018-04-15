@@ -58,6 +58,7 @@ public class OrderMasterController extends BaseCotroller{
     @RequestMapping("/add")
     public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params){
         ClientInfo clientInfo = getLoginClientInfo(request);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         String result = orderMasterService.addClientOrderMaster(params, clientInfo.getClientId(), request, response);
         safeTextPrint(response, result);
     }
@@ -68,6 +69,7 @@ public class OrderMasterController extends BaseCotroller{
     @RequestMapping("/payAgain")
     public void payOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params){
         String result = orderMasterService.payOrderMasterAgain(request, response, params);
+        System.out.println(result);
         safeTextPrint(response, result);
     }
 

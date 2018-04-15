@@ -108,17 +108,21 @@ public class OrderMasterService {
         OrderMaster order = null;
         try{
             order = (OrderMaster)JsonUtils.getObject4JsonString(params, OrderMaster.class);
+            // 添加登录人的id
+            order.setClientId(clientId);
+
         }catch (Exception e){
             e.printStackTrace();
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
-        if(order.getClientId() == null || order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName())
-                || StringUtils.isEmpty(order.getClientMobile()) || StringUtils.isEmpty(order.getCourseDistrict())
+        if(clientId == null || order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName())
+//                || StringUtils.isEmpty(order.getClientMobile()) || StringUtils.isEmpty(order.getCourseDistrict())
+                || StringUtils.isEmpty(order.getClientMobile())
                 || order.getPayment() == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         // 查询客户是否存在
-        ClientInfo clientInfo = clientInfoDao.queryClientById(order.getClientId());
+        ClientInfo clientInfo = clientInfoDao.queryClientById(clientId);
         if(clientInfo == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "客户不存在", "").toString();
         }

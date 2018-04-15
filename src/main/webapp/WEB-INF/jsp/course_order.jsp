@@ -27,11 +27,11 @@
                     <div class="order1">
                         <div class="orderinput">
                             <span>学生姓名<i>*</i></span>
-                            <input type="text" name="childrenName" placeholder="请输入您的姓名" class="input">
+                            <input type="text" name="childrenName" value="" placeholder="请输入您的姓名" class="input" id="name">
                         </div>
                         <div class="orderinput">
                             <span>手机号码</span>
-                            <input type="text" name="clientMobile" placeholder="请输入您的姓名" class="input">
+                            <input type="text" name="clientMobile" placeholder="请输入您的姓名" class="input" id="phone">
                         </div>
                     </div>
                     <div class="order1">
@@ -45,19 +45,19 @@
                                 </div>
                             </div>
                             <input type="text" value="" placeholder="例如：北京市海淀区" class="input" style="width: 179px;">
-                            <input type="hidden" name="courseDistrict">
+                            <input type="hidden" name="courseDistrict" id="district">
                         </div>
                     </div>
                 </div>
                 <div class="order">
                     <h1><img src="../static/img/ling.png">支付信息：</h1>
                     <div class="order2">
-                        <div class="radio">
+                        <div class="radio seleted"  seleted-value="alipay">
                             <img src="../static/img/radio1.png" class="radioimg">
                             <span><img src="../static/img/zhifubao.jpg"></span>
                         </div>
-                        <div class="radio">
-                            <img src="../static/img/radio.png" class="radioimg">
+                        <div class="radio" seleted-value="wechatpay">
+                            <img src="../static/img/radio.png" class="radioimg"  >
                             <span><img src="../static/img/weixin1.jpg"></span>
                         </div>
                     </div>
@@ -67,13 +67,13 @@
                     <div class="order1">
                         <div class="orderinput">
                             <span>课程名称</span>
-                            <input type="text" value="赛法斗-成人课程" class="input">
+                            <input type="text" value="赛法斗-成人课程" class="input" id="coursename">
                         </div>
                     </div>
                     <div class="order1">
                         <div class="orderinput">
                             <span>课程价格</span>
-                            <input type="text" value="￥9999" class="input1">
+                            <input type="text" value="￥9999" class="input1" id="courseprice">
                         </div>
                     </div>
                   </div>
@@ -82,28 +82,23 @@
                     <div class="order1">
                         <div class="orderinput">
                             <span>优 惠 码</span>
-                            <input type="text" name="couponNum" placeholder="请输入您的优惠码" class="input">
-                            <a href="#">立即兑换</a>
-                        </div>
-                    </div>
-                    <div class="order1">
-                        <div class="orderinput">
-                            <span>优 惠 码</span>
-                            <input type="text" value="2343 5758 8669 6878" class="input">
-                            <em>修改</em>
-                            <p>优惠码优惠信息显示（全场5折）</p>
+                            <input type="text" name="couponNum" placeholder="请输入您的优惠码" class="input" id="ma">
+                            <a href="javascript:;" id="change">立即兑换</a>
+                            <em id="changebtn">修改</em>
+                            <p id="couponName">优惠码优惠信息显示（全场5折）</p>
                         </div>
                     </div>
                 </div>
                 <div class="order" style="margin-bottom: 0;">
                     <h1><img src="../static/img/ling.png">课程价格：</h1>
                     <ul>
-                        <li>课程价格<span>￥9999</span></li>
-                        <li>优&emsp;&emsp;惠<span>-￥50</span></li>
-                        <li>应付总额<span class="on">￥9949</span></li>
+                        <li>课程价格<span id="price">￥9999</span></li>
+                        <li>优&emsp;&emsp;惠<span id="couponprice">-￥50</span></li>
+                        <li>应付总额<span class="on" id="payPrice">￥9949</span></li>
                     </ul>
                 </div>
                 <div class="submit">
+                    <input type="hidden" name="courseId" value="${course.courseId}" id="courseId">
                     <a href="#" id="submitorder">提交订单</a>
                 </div>
             </div>
