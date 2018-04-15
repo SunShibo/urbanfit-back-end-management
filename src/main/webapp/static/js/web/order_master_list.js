@@ -41,6 +41,34 @@ function queryOrderMasterDetail(){
                 $('.kuang').show();
                 $('.kuang3').show();
                 $('.kuang2').hide();
+                // 给文本框赋值
+                $("#detailOrderNum").text(result.data.orderNum);
+                $("#detailCreateTime").text(result.data.createTime);
+                $("#detailChildreName").text(result.data.childrenName);
+                $("#detailClientMobile").text(result.data.clientMobile);
+                $("#detailCourseDistrict").text(result.data.courseDistrict);
+                $("#detailCourseName").text(result.data.courseName);
+                $("#detailCoursePrice").text(result.data.couponPrice);
+                var payment = "支付宝";
+                if(result.data.payment == 1){
+                    payment = "微信";
+                }
+                $("#detailPayment").text(payment);
+                $("#detailPayPrice").text(result.data.payPrice);
+                var status = "未支付";
+                if(result.data.status == 1){
+                    status = "已支付";
+                }else if(result.data.status == 2){
+                    status = "已退款";
+                }else if(result.data.status == 3){
+                    status = "系统自动取消";
+                }
+                $("#detailStatus").text(status);
+                if(result.data.couponNum != ""){
+                    $("#couponDiv").show();
+                    $("#couponPrice").text(result.data.couponPrice);
+                    $("#couponName").text(result.data.couponName);
+                }
             }
         }
     });

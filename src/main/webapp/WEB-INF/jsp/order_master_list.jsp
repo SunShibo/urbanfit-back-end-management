@@ -125,7 +125,7 @@
                             <li><h3>学生信息：</h3></li>
                             <li>学生姓名：<label id="detailChildreName"></label></li>
                             <li>手机号：<label id="detailClientMobile"></label></li>
-                            <li>学生姓名：北京-北京-朝阳</li>
+                            <li>上课区域：<label id="detailCourseDistrict"></label></li>
                         </ul>
                         <ul>
                             <li><h3>课程信息：</h3></li>
@@ -140,7 +140,7 @@
                         </ul>
                         <ul id="couponDiv" style="display: none;">
                             <li><h3>优惠码：</h3></li>
-                            <li><p>-￥ <label id="couponPrice"></label><label id="couponName"></label></p></li>
+                            <li><p>-￥ <label id="couponPrice"></label>&nbsp;&nbsp;<label id="couponName"></label></p></li>
                         </ul>
                     </div>
                     <a href="javascript:void(0);" id="closeOrderDetail">确定</a>
