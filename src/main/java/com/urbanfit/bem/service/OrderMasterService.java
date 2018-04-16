@@ -108,9 +108,7 @@ public class OrderMasterService {
         OrderMaster order = null;
         try{
             order = (OrderMaster)JsonUtils.getObject4JsonString(params, OrderMaster.class);
-            // 添加登录人的id
             order.setClientId(clientId);
-
         }catch (Exception e){
             e.printStackTrace();
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();

@@ -58,8 +58,7 @@ public class AlipayUtil {
     public static String submitClientlipay(String body, String subject, String orderNum, Double price,
                                     String callbackUrl){
         //实例化客户端
-//        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",
-        AlipayClient alipayClient = new DefaultAlipayClient("https://mapi.alipay.com/gateway.do",
+        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",
                 APP_ID, APP_PRIVATE_KEY, "json", CHARSET, ALIPAY_PUBLIC_KEY, "RSA2");
         //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
         AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
