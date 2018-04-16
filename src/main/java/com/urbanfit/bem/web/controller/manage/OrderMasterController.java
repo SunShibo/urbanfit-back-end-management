@@ -60,7 +60,7 @@ public class OrderMasterController extends BaseCotroller{
         ClientInfo clientInfo = getLoginClientInfo(request);
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         String result = orderMasterService.addClientOrderMaster(params, clientInfo.getClientId(), request, response);
-        safeTextPrint(response, result);
+        safeHtmlPrint(response, result);
     }
 
     /**

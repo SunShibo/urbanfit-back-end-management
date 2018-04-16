@@ -83,10 +83,11 @@ function submitorder(){
         url:"/order/add",
         dataType: "json",
         data: {"params" : JSON.stringify(params)},
-        success: function(msg){
-            //console.log(msg);
-            if(msg.code == 1){
-                //window.location.href='';
+        success: function(result){
+            if(result.code == 1){
+                alert(result.data);
+                $('body').append(result.data);
+                $("form").attr("target", "_blank");
                 alert('成功');
             }else{
                 alert('参数有误');

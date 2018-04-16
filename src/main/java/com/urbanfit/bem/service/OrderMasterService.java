@@ -12,6 +12,7 @@ import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.OrderMaster;
 import com.urbanfit.bem.pay.AlipayUtil;
 import com.urbanfit.bem.pay.WeChatPayUtil;
+import com.urbanfit.bem.pay.WebAlipayUtil;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
 import com.urbanfit.bem.query.QueryInfo;
@@ -144,7 +145,7 @@ public class OrderMasterService {
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_callback_url");
-            String alipayResult = AlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
+            String alipayResult = WebAlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
                     orderNum, orderMaster.getPayPrice(), alipayCallbackUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
@@ -184,7 +185,7 @@ public class OrderMasterService {
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_callback_url");
-            String alipayResult = AlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
+            String alipayResult = WebAlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
                     orderMaster.getOrderNum(), orderMaster.getPrice(), alipayCallbackUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付

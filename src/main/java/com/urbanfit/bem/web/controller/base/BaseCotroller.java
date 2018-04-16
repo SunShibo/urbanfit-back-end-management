@@ -86,6 +86,23 @@ public class BaseCotroller {
         }
     }
 
+    public void safeHtmlPrint(HttpServletResponse response, String str) {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try {
+            try {
+                out = response.getWriter();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            out.write(str);
+        } finally {
+            if (out != null)
+                out.close();
+        }
+    }
+
+
     /**
      * 此方法防止当缓冲区满之后将无法继续写入数据，最终造成阻塞在waitFor()这里
      * @param process
