@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <title>重置密码</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 </head>
 <body>
     <div class="content">
@@ -23,7 +23,7 @@
                       <div class="success">
                           <img src="../static/img/yes.png">
                           <p>reset success</p>
-                          <a href="index.html" class="next">返回首页</a>
+                          <a href="/module/toHome" class="next">返回首页</a>
                       </div>
                 </div>
             </div>

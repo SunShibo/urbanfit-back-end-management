@@ -1,9 +1,11 @@
 package com.urbanfit.bem.web.controller.manage;
 
 import com.urbanfit.bem.cfg.pop.Constant;
+import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.entity.OrderMaster;
 import com.urbanfit.bem.pay.AlipayUtil;
+import com.urbanfit.bem.pay.WebAlipayUtil;
 import com.urbanfit.bem.service.OrderMasterService;
 import com.urbanfit.bem.tenpay.handler.PrepayIdRequestHandler;
 import com.urbanfit.bem.util.JsonUtils;
@@ -58,14 +60,10 @@ public class OrderMasterController extends BaseCotroller{
     @RequestMapping("/add")
     public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params){
         ClientInfo clientInfo = getLoginClientInfo(request);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         String result = orderMasterService.addClientOrderMaster(params, clientInfo.getClientId(), request, response);
         safeHtmlPrint(response, result);
     }
 
-    /**
-     * @param params {"orderNum" : "", "payment" : ""}
-     */
     @RequestMapping("/payAgain")
     public void payOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params){
         String result = orderMasterService.payOrderMasterAgain(request, response, params);
@@ -133,5 +131,12 @@ public class OrderMasterController extends BaseCotroller{
                 out.close();
             }
         }
+    }
+
+    @RequestMapping("/paySuccess")
+    public ModelAndView redirectPaySuccessPage(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/course_pay_success");
+        return view;
     }
 }

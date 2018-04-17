@@ -5,12 +5,12 @@
 <head>
   <meta charset="utf-8" />
   <title>课程报名</title>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/course_order.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+  <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/js/common/menu.js"></script>
+  <script type="text/javascript" src="/static/js/web/course_order.js"></script>
 </head>
 <body>
     <div class="content">
@@ -38,14 +38,13 @@
                         <div class="orderinput">
                             <span>上课区域</span>
                             <div class="select">
-                                <div>
+                                <input type="hidden" name="courseDistrict" id="district" value="${course.courseDistrict}">
+                                <div id="city_info">
                                     <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
                                     <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
                                     <select id="s_county" name="s_county"></select>
                                 </div>
                             </div>
-                            <input type="text" value="" placeholder="例如：北京市海淀区" class="input" style="width: 179px;">
-                            <input type="hidden" name="courseDistrict" id="district">
                         </div>
                     </div>
                 </div>
@@ -67,13 +66,13 @@
                     <div class="order1">
                         <div class="orderinput">
                             <span>课程名称</span>
-                            <input type="text" value="赛法斗-成人课程" class="input" id="coursename">
+                            <input type="text" value="${course.courseName}" class="input" id="coursename" readonly="readonly">
                         </div>
                     </div>
                     <div class="order1">
                         <div class="orderinput">
                             <span>课程价格</span>
-                            <input type="text" value="￥9999" class="input1" id="courseprice">
+                            <input type="text" value="￥${course.coursePrice}" class="input1" id="courseprice" readonly="readonly">
                         </div>
                     </div>
                   </div>
@@ -83,18 +82,19 @@
                         <div class="orderinput">
                             <span>优 惠 码</span>
                             <input type="text" name="couponNum" placeholder="请输入您的优惠码" class="input" id="ma">
-                            <a href="javascript:;" id="change">立即兑换</a>
+                            <a href="javascript:void(0);" id="change">立即兑换</a>
                             <em id="changebtn">修改</em>
                             <p id="couponName">优惠码优惠信息显示（全场5折）</p>
                         </div>
                     </div>
                 </div>
-                <div class="order" style="margin-bottom: 0;">
+                <div class="order" style="margin-bottom: 0; display: none;" id="couponDiv">
                     <h1><img src="../static/img/ling.png">课程价格：</h1>
                     <ul>
-                        <li>课程价格<span id="price">￥9999</span></li>
-                        <li>优&emsp;&emsp;惠<span id="couponprice">-￥50</span></li>
-                        <li>应付总额<span class="on" id="payPrice">￥9949</span></li>
+                        <li>课程价格<span id="price">￥${course.coursePrice}</span></li>
+                        <li>优&emsp;&emsp;惠<span>-￥<label id="couponprice"></label></span></li>
+                        <li>应付总额<span class="on">￥<label id="payPrice"></label></span></li>
+                        <input type="hidden" name="coursePrice" value="${course.coursePrice}">
                     </ul>
                 </div>
                 <div class="submit">

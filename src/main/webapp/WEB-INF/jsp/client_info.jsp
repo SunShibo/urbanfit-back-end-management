@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8"/>
   <title>我的信息</title>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-  <link type="text/css" href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet"/>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/client_info.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link type="text/css" href="/static/css/main.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/js/web/client_info.js"></script>
 </head>
 <body>
     <div class="content">

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <title>注册成功</title>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
-  <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+  <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
 </head>
 <body>
     <div class="content">
@@ -24,7 +24,7 @@
                     <div class="success">
                         <img src="../static/img/yes.png">
                         <p>join success</p>
-                        <a href="${pageContext.request.contextPath}/module/home" class="next">返回首页</a>
+                        <a href="/module/home" class="next">返回首页</a>
                     </div>
                 </div>
             </div>

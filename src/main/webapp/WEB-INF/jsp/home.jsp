@@ -5,13 +5,13 @@
 <head>
     <meta charset="utf-8" />
     <title>首页</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/home.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/menu.js"></script>
+    <script type="text/javascript" src="/static/js/web/home.js"></script>
 </head>
 <body>
     <div class="content">

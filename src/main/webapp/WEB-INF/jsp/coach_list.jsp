@@ -5,11 +5,11 @@
 <head>
     <meta charset="utf-8" />
     <title>教练列表</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/menu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/menu.js"></script>
     <style>
         ::-webkit-input-placeholder { color:#c6b98e; }
         ::-moz-placeholder { color:#c6b98e; } /* firefox 19+ */

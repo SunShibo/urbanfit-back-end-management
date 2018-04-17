@@ -61,7 +61,7 @@ public class WebAlipayUtil {
     }
 
     public static String submitClientlipay(String body, String subject, String orderNum, Double price,
-                                           String callbackUrl){
+                                           String callbackUrl, String returnUrl){
         //实例化客户端
         AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",
                 APP_ID, APP_PRIVATE_KEY, "json", CHARSET, ALIPAY_PUBLIC_KEY, "RSA2");
@@ -76,9 +76,10 @@ public class WebAlipayUtil {
         model.setOutTradeNo(orderNum);
         model.setTimeoutExpress("30m");
         model.setTotalAmount(price.toString());
-        model.setProductCode("QUICK_MSECURITY_PAY");
+        model.setProductCode("FAST_INSTANT_TRADE_PAY");
         request.setBizModel(model);
         request.setNotifyUrl(callbackUrl);
+        request.setReturnUrl(returnUrl);
         try {
             //这里和普通的接口调用不同，使用的是sdkExecute
             String form = alipayClient.pageExecute(request).getBody();

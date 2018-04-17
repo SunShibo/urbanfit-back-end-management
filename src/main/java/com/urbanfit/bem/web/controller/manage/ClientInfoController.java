@@ -155,4 +155,11 @@ public class ClientInfoController extends BaseCotroller{
         view.setViewName("/reset_success");
         return view;
     }
+
+    @RequestMapping("/signOut")
+    public ModelAndView clientSignOut(){
+
+        ModelAndView view = new ModelAndView();
+        return view;
+    }
 }

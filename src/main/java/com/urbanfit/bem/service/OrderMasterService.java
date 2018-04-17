@@ -115,8 +115,7 @@ public class OrderMasterService {
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         if(clientId == null || order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName())
-//                || StringUtils.isEmpty(order.getClientMobile()) || StringUtils.isEmpty(order.getCourseDistrict())
-                || StringUtils.isEmpty(order.getClientMobile())
+                || StringUtils.isEmpty(order.getClientMobile()) || StringUtils.isEmpty(order.getCourseDistrict())
                 || order.getPayment() == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
@@ -145,8 +144,10 @@ public class OrderMasterService {
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_callback_url");
+            String alipayReturnUrl = SystemConfig.getString("project_base_url") + SystemConfig.
+                    getString("alipay_order_return_url");
             String alipayResult = WebAlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
-                    orderNum, orderMaster.getPayPrice(), alipayCallbackUrl);
+                    orderNum, orderMaster.getPayPrice(), alipayCallbackUrl, alipayReturnUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
 
@@ -185,8 +186,10 @@ public class OrderMasterService {
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_callback_url");
+            String alipayReturnUrl = SystemConfig.getString("project_base_url") + SystemConfig.
+                    getString("alipay_order_return_url");
             String alipayResult = WebAlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
-                    orderMaster.getOrderNum(), orderMaster.getPrice(), alipayCallbackUrl);
+                    orderMaster.getOrderNum(), orderMaster.getPrice(), alipayCallbackUrl, alipayReturnUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
 

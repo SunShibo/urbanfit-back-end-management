@@ -12,21 +12,21 @@
         </div>
         <ul class="user_nav1">
             <li id="client_detail">
-                <a href="${pageContext.request.contextPath}/client/detail">
+                <a href="/client/detail">
                     <img src="../static/img/my.png" class="img">
                     <img src="../static/img/my1.png" class="img1">
                     我的信息
                 </a>
             </li>
             <li id="client_password">
-                <a href="${pageContext.request.contextPath}/client/toPassword">
+                <a href="/client/toPassword">
                     <img src="../static/img/pwd.png" class="img">
                     <img src="../static/img/pwd1.png" class="img1">
                     重置密码
                 </a>
             </li>
             <li id="client_order">
-                <a href="${pageContext.request.contextPath}/order/list">
+                <a href="/order/list">
                     <img src="../static/img/order.png" class="img">
                     <img src="../static/img/order1.png" class="img1">
                     我的订单

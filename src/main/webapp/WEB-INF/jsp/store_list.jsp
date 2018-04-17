@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <title>门店信息</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/common.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 </head>
 <body>
     <div class="content">
@@ -55,9 +55,9 @@
         </div>
         <jsp:include page="../footer.jsp"/>
     </div>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/mainJs/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common/cityselect.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/web/store_list.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/cityselect.js"></script>
+    <script type="text/javascript" src="/static/js/web/store_list.js"></script>
     <script type="text/javascript">
         var store = {
           "provice" : '${provice}',
