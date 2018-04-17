@@ -102,7 +102,7 @@ public class ClientInfoController extends BaseCotroller{
      * 重置密码
      */
     @RequestMapping(value = "/password")
-    public void updatePassword(HttpServletResponse response,Integer type, String mobile, String newPassword,
+    public void updatePassword(HttpServletResponse response, Integer type, String mobile, String newPassword,
                                String confirmPassword, String authCode){
         String result = clientInfoService.updatePassword(type, mobile, newPassword, confirmPassword, authCode);
         safeTextPrint(response, result);
@@ -157,9 +157,10 @@ public class ClientInfoController extends BaseCotroller{
     }
 
     @RequestMapping("/signOut")
-    public ModelAndView clientSignOut(){
-
+    public ModelAndView clientSignOut(HttpServletRequest request){
+        super.removeSession(request, SysConstants.CURRENT_LOGIN_CLIENT);
         ModelAndView view = new ModelAndView();
+        view.setViewName("/home");
         return view;
     }
 }
