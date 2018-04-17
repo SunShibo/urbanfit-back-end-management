@@ -60,15 +60,15 @@ public class OrderMasterController extends BaseCotroller{
     @RequestMapping("/add")
     public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params){
         ClientInfo clientInfo = getLoginClientInfo(request);
-        String result = orderMasterService.addClientOrderMaster(params, clientInfo.getClientId(), request, response);
+        String result = orderMasterService.addClientOrderMaster(params, clientInfo, request, response);
         safeHtmlPrint(response, result);
     }
 
     @RequestMapping("/payAgain")
     public void payOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params){
-        String result = orderMasterService.payOrderMasterAgain(request, response, params);
-        System.out.println(result);
-        safeTextPrint(response, result);
+        ClientInfo clientInfo = getLoginClientInfo(request);
+        String result = orderMasterService.payOrderMasterAgain(request, response, params, clientInfo);
+        safeHtmlPrint(response, result);
     }
 
     @RequestMapping("/orderAlipayCallback")

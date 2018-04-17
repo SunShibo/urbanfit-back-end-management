@@ -39,7 +39,7 @@ public class BaseCotroller {
     LoginService loginService;
 
     protected PageObject pager = null;
-    private int default_page_size = 3;
+    private int default_page_size = 10;
     private int default_page_no = 1;
 
     /**
@@ -368,6 +368,14 @@ public class BaseCotroller {
 
     public void setLoginClientInfo(ClientInfo clientInfo) {
         sput(SysConstants.CURRENT_CLIENT_INFO, clientInfo);
+    }
+
+    public void removeLoginClientInfo() {
+        sremove(SysConstants.CURRENT_CLIENT_INFO);
+    }
+
+    protected void sremove(String key) {
+        getSession().removeAttribute(key);
     }
 
     protected void sput(String key, Object value) {

@@ -159,6 +159,7 @@ public class ClientInfoController extends BaseCotroller{
     @RequestMapping("/signOut")
     public ModelAndView clientSignOut(HttpServletRequest request){
         super.removeSession(request, SysConstants.CURRENT_LOGIN_CLIENT);
+        super.removeLoginClientInfo();
         ModelAndView view = new ModelAndView();
         view.setViewName("/home");
         return view;

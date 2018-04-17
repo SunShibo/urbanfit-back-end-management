@@ -15,6 +15,9 @@ $(function (){
     $("#closeOrderDetail").click(function(){
         $(this).parents('.kuang').hide();
     });
+    // 订单支付
+    $("a[id^='A_pay_order_']").click(choosePayment);
+    $("#A_payOrder").click(payOrderMasterAgain);
 })
 
 // 初始化订单状态
@@ -23,6 +26,7 @@ function initOrderMasterStatus() {
 }
 
 function queryOrderMaster(){
+    $("form").attr("action", "/order/list");
     document.forms[0].submit();
 }
 
@@ -72,4 +76,43 @@ function queryOrderMasterDetail(){
             }
         }
     });
+}
+
+function choosePayment(){
+    $("input[name='payOrderNum']").val($(this).data("ordernum"));
+    $('.kuang').show();
+    $('.kuang2').show();
+    $('.kuang3').hide();
+}
+
+function payOrderMasterAgain(){
+    var payWay = "";
+    $(".radio").each(function(i,v){
+        if($(this).hasClass("seleted")){
+            if ($(this).attr("seleted-value") == "alipay"){
+                payWay = 0 ;
+            }
+            if ($(this).attr("seleted-value") == "wechatpay"){
+                payWay = 1 ;
+            }
+        };
+    });
+    var orderNum = $("input[name='payOrderNum']").val();
+    var params = {"orderNum" : orderNum, "payment" : payWay};
+    $.ajax({
+        url : "/order/payAgain",
+        type : "post",
+        data : {"params" : JSON.stringify(params)},
+        dataType : "json",
+        success : function (result){
+            alert(result.data);
+            alert(result.code);
+            if(result.code == 1){
+                $('body').html(result.data);
+                $("form").attr("target", "_blank");
+            }else{
+                alert('参数有误');
+            }
+        }
+    })
 }

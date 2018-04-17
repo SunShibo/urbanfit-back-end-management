@@ -12,7 +12,6 @@
     <script type="text/javascript" src="/static/js/mainJs/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/common/menu.js"></script>
     <script type="text/javascript" src="/static/js/web/message_list.js"></script>
-
 </head>
 <body>
     <div class="content">

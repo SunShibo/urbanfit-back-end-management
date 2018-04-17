@@ -1,7 +1,6 @@
 $(function (){
     $("li[id^='menu_']").removeClass();
     $("#menu_message").addClass("on");
-
 })
 
 //banner图及模块

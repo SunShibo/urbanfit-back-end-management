@@ -102,27 +102,23 @@ public class OrderMasterService {
                 getJsonString4JavaPOJO(orderMaster, DateUtils.LONG_DATE_PATTERN)).toString();
     }
 
-    public String addClientOrderMaster(String params, Integer clientId, HttpServletRequest request, HttpServletResponse response){
-        if(StringUtils.isEmpty(params)){
+    public String addClientOrderMaster(String params, ClientInfo clientInfo, HttpServletRequest request,
+                                       HttpServletResponse response){
+        if(StringUtils.isEmpty(params) || clientInfo == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         OrderMaster order = null;
         try{
             order = (OrderMaster)JsonUtils.getObject4JsonString(params, OrderMaster.class);
-            order.setClientId(clientId);
+            order.setClientId(clientInfo.getClientId());
         }catch (Exception e){
             e.printStackTrace();
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
-        if(clientId == null || order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName())
+        if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName())
                 || StringUtils.isEmpty(order.getClientMobile()) || StringUtils.isEmpty(order.getCourseDistrict())
                 || order.getPayment() == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
-        }
-        // 查询客户是否存在
-        ClientInfo clientInfo = clientInfoDao.queryClientById(clientId);
-        if(clientInfo == null){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "客户不存在", "").toString();
         }
         // 查询课程是否存在
         Course course = courseDao.queryUpCourseByCourseId(order.getCourseId());
@@ -162,8 +158,9 @@ public class OrderMasterService {
     /**
      * 订单再支付
      */
-    public String payOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params){
-        if(StringUtils.isEmpty(params)){
+    public String payOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params,
+                                      ClientInfo clientInfo){
+        if(StringUtils.isEmpty(params) || clientInfo == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         OrderMaster order = null;
@@ -181,7 +178,6 @@ public class OrderMasterService {
                 || orderMaster.getStatus() == OrderMaster.STATUS_REFUND))){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单不存在或已经支付", "").toString();
         }
-
         if (order.getPayment() == OrderMaster.PAYMENT_ALIPAY) {  // 支付宝支付
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
@@ -189,7 +185,7 @@ public class OrderMasterService {
             String alipayReturnUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_return_url");
             String alipayResult = WebAlipayUtil.submitClientlipay("众力飞特", "众力飞特课程支付",
-                    orderMaster.getOrderNum(), orderMaster.getPrice(), alipayCallbackUrl, alipayReturnUrl);
+                    orderMaster.getOrderNum(), orderMaster.getPayPrice(), alipayCallbackUrl, alipayReturnUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
 

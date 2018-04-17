@@ -27,7 +27,7 @@
             <div class="paybox user">
                 <jsp:include page="client_common.jsp"/>
                 <div class="user_box">
-                    <form id="orderForm" method="post" action="list">
+                    <form id="orderForm" method="post">
                         <h1>我的订单</h1>
                         <div class="screen">
                             <ul>
@@ -100,23 +100,23 @@
                 </div>
             </div>
         </div>
-
         <!-- 弹框 -->
         <div class="kuang">
             <div class="kuang1">
                 <div class="kuang2">
                     <h1>请选择付款方式<img src="../static/img/close1.png" class="close"></h1>
                     <div class="order2">
-                        <div class="radio">
+                        <div class="radio seleted"  seleted-value="alipay">
                             <img src="../static/img/radio1.png" class="radioimg">
-                            <span><img src="../static/img/zhifubao1.jpg"></span>
+                            <span><img src="../static/img/zhifubao.jpg"></span>
                         </div>
-                        <div class="radio">
-                            <img src="../static/img/radio.png" class="radioimg">
-                            <span><img src="../static/img/weixin2.jpg"></span>
+                        <div class="radio" seleted-value="wechatpay">
+                            <img src="../static/img/radio.png" class="radioimg"  >
+                            <span><img src="../static/img/weixin1.jpg"></span>
                         </div>
                     </div>
-                    <a href="#">确定</a>
+                    <input type="hidden" name="payOrderNum">
+                    <a href="javascript:void(0);" id="A_payOrder">确定</a>
                 </div>
                 <div class="kuang3">
                     <h1>订单详情<img src="../static/img/close1.png" class="close"></h1>
@@ -148,7 +148,6 @@
                 </div>
             </div>
         </div>
-
         <jsp:include page="../footer.jsp"/>
     </div>
 </body>
