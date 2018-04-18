@@ -4,7 +4,7 @@ public class ConstantUtil {
     /**
      * 商家向财付通申请的商家id
      */
-    public static final String PARTNER_ID = "1496184812";
+    public static final String PARTNER_ID = "1500050062";
     /**
      * 商家可以考虑读取配置文件
      */
