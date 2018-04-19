@@ -42,12 +42,13 @@ public class WeChatPayUtil {
                 // //设置获取prepayid支付参数
                 prepayReqHandler.setParameter("appid", ConstantUtil.APP_ID);
                 prepayReqHandler.setParameter("mch_id", ConstantUtil.PARTNER_ID);
+                prepayReqHandler.setParameter("device_info", "WEB");
                 prepayReqHandler.setParameter("nonce_str", noncestr);
                 prepayReqHandler.setParameter("body", body);
                 prepayReqHandler.setParameter("notify_url", callbackUrl);
                 prepayReqHandler.setParameter("out_trade_no", orderNum);
                 prepayReqHandler.setParameter("spbill_create_ip", request.getRemoteAddr());
-                prepayReqHandler.setParameter("total_fee", total+"");
+                prepayReqHandler.setParameter("total_fee", total + "");
                 prepayReqHandler.setParameter("trade_type", trade_type);
 
                 // 生成获取预支付签名

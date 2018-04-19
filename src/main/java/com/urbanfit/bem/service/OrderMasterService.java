@@ -150,7 +150,7 @@ public class OrderMasterService {
             String tenpayCallbackUrl =SystemConfig.getString("project_base_url") +  SystemConfig.
                     getString("wxpay_order_callback_url");
             return WeChatPayUtil.submitPrepayToWeChat(request, response, orderNum, "众力飞特课程支付",
-                    (int) (orderMaster.getPayPrice() * 100), "众力飞特课程支付", "", tenpayCallbackUrl).toString();
+                    (int) (orderMaster.getPayPrice() * 100), "众力飞特课程支付", "NATIVE", tenpayCallbackUrl).toString();
         }
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
     }
