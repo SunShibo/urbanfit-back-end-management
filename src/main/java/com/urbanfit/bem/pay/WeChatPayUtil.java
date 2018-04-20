@@ -19,9 +19,8 @@ import java.util.UUID;
 public class WeChatPayUtil {
     private static final Logger logger = Logger.getLogger(WeChatPayUtil.class);
 
-    public static JSONObject submitPrepayToWeChat(HttpServletRequest request, HttpServletResponse response,
-                                           String orderNum, String goodsName, int total, String body,
-                                           String trade_type, String callbackUrl) {
+    public static JSONObject submitPrepayToWeChat(HttpServletRequest request, HttpServletResponse response, String orderNum,
+                                           String goodsName, int total, String callbackUrl, String tradeType) {
         PackageRequestHandler packageReqHandler = new PackageRequestHandler(
                 request, response);// 生成package的请求类
         PrepayIdRequestHandler prepayReqHandler = new PrepayIdRequestHandler(
@@ -42,14 +41,13 @@ public class WeChatPayUtil {
                 // //设置获取prepayid支付参数
                 prepayReqHandler.setParameter("appid", ConstantUtil.APP_ID);
                 prepayReqHandler.setParameter("mch_id", ConstantUtil.PARTNER_ID);
-                prepayReqHandler.setParameter("device_info", "WEB");
                 prepayReqHandler.setParameter("nonce_str", noncestr);
-                prepayReqHandler.setParameter("body", body);
+                prepayReqHandler.setParameter("body", "孩儿帮");
                 prepayReqHandler.setParameter("notify_url", callbackUrl);
                 prepayReqHandler.setParameter("out_trade_no", orderNum);
                 prepayReqHandler.setParameter("spbill_create_ip", request.getRemoteAddr());
                 prepayReqHandler.setParameter("total_fee", total + "");
-                prepayReqHandler.setParameter("trade_type", trade_type);
+                prepayReqHandler.setParameter("trade_type", tradeType);
 
                 // 生成获取预支付签名
                 String sign = prepayReqHandler.createMD5Sign(ConstantUtil.PARTNER_KEY);
@@ -62,8 +60,7 @@ public class WeChatPayUtil {
                     clientHandler.setParameter("appid", ConstantUtil.APP_ID);
                     clientHandler.setParameter("noncestr", noncestr);
                     clientHandler.setParameter("package", "Sign=WXPay");
-                    clientHandler
-                            .setParameter("partnerid", ConstantUtil.PARTNER_ID);
+                    clientHandler.setParameter("partnerid", ConstantUtil.PARTNER_ID);
                     clientHandler.setParameter("prepayid", prepayid);
                     clientHandler.setParameter("timestamp", timestamp);
                     // 生成签名
