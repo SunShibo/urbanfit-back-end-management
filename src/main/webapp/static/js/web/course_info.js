@@ -3,6 +3,8 @@ $(function(){
     $("#A_join_course").click(joinCourse);
     $("li[id^='menu_']").removeClass();
     $("#menu_course").addClass("on");
+    $("li[id^='module_course_']").removeClass();
+    $("#module_course_" + courseId + "").addClass("active");
 
     $("#s_province").change(changeProvince);
     $("#s_city").change(changeCity);

@@ -58,13 +58,6 @@
         <jsp:include page="../footer.jsp"/>
     </div>
     <script type="text/javascript">
-        var store = {
-            "provice" : '${provice}',
-            "city" : '${city}',
-            "district" : '${district}'
-        };
-
-        var aa = $(".sellimg img")[0].src;
-        //alert($('#name').text());
+        var courseId = '${course.courseId}';
     </script>
 </body>
