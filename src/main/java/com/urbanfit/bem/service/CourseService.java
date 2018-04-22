@@ -1,8 +1,11 @@
 package com.urbanfit.bem.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.dao.CourseDao;
 import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.dto.ResultDTOBuilder;
+import com.urbanfit.bem.util.DateUtils;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.StringUtils;
 import org.springframework.stereotype.Service;
@@ -57,5 +60,21 @@ public class CourseService {
 
     public Course queryUpCourseByCourseId(Integer courseId){
         return courseDao.queryUpCourseByCourseId(courseId);
+    }
+
+    public String queryCourseDetail(Integer courseId){
+        if(courseId == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        Course course = courseDao.queryUpCourseByCourseId(courseId);
+        JSONObject jo = new JSONObject();
+        if(course == null){
+            jo.put("isHave", 0);
+            jo.put("course", "");
+        }else{
+            jo.put("isHave", 1);
+            jo.put("course", JsonUtils.getJsonString4JavaPOJO(course, DateUtils.LONG_DATE_PATTERN));
+        }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 }

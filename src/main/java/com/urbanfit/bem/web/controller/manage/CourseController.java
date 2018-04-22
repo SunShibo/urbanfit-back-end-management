@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Administrator on 2018/4/10.
@@ -34,5 +35,11 @@ public class CourseController extends BaseCotroller{
         view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
         view.addObject("course", courseService.queryUpCourseByCourseId(courseId));
         return view;
+    }
+
+    @RequestMapping("/courseDetail")
+    public void queryCourseById(HttpServletResponse response, Integer courseId){
+        String result = courseService.queryCourseDetail(courseId);
+        safeTextPrint(response, result);
     }
 }
