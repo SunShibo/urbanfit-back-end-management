@@ -10,26 +10,22 @@ import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.entity.Coupon;
 import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.OrderMaster;
-import com.urbanfit.bem.pay.AlipayUtil;
-import com.urbanfit.bem.pay.WeChatPayUtil;
-import com.urbanfit.bem.pay.WebAlipayUtil;
+import com.urbanfit.bem.pay.*;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
 import com.urbanfit.bem.query.QueryInfo;
+import com.urbanfit.bem.tenpay.util.JsonUtil;
 import com.urbanfit.bem.util.DateUtils;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.RandomUtils;
 import com.urbanfit.bem.util.StringUtils;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -104,7 +100,11 @@ public class OrderMasterService {
 
     public String addClientOrderMaster(String params, ClientInfo clientInfo, HttpServletRequest request,
                                        HttpServletResponse response){
-        if(StringUtils.isEmpty(params) || clientInfo == null){
+        if(clientInfo == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "没有登录账号", "").toString();
+        }
+
+        if(StringUtils.isEmpty(params)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         OrderMaster order = null;
@@ -147,10 +147,11 @@ public class OrderMasterService {
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
 
-            String tenpayCallbackUrl =SystemConfig.getString("project_base_url") +  SystemConfig.
+            String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
                     getString("wxpay_order_callback_url");
-            return WeChatPayUtil.submitPrepayToWeChat(request, response, orderNum, "众力飞特课程支付",
-                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "NATIVE ").toString();
+            return WebWeChatPayUtil.submitPrepayToWeChat(request, response, orderNum, "众力飞特课程支付",
+                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "NATIVE", order.getCourseId().
+                    toString()).toString();
         }
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
     }
@@ -160,7 +161,10 @@ public class OrderMasterService {
      */
     public String payOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params,
                                       ClientInfo clientInfo){
-        if(StringUtils.isEmpty(params) || clientInfo == null){
+        if(clientInfo == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "没有登录账号", "").toString();
+        }
+        if(StringUtils.isEmpty(params)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         OrderMaster order = null;
@@ -189,10 +193,11 @@ public class OrderMasterService {
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
 
-            String tenpayCallbackUrl =SystemConfig.getString("project_base_url") +  SystemConfig.
+            String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
                     getString("wxpay_order_callback_url");
-            return WeChatPayUtil.submitPrepayToWeChat(request, response, order.getOrderNum(), "众力飞特课程支付",
-                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "NATIVE").toString();
+            return WebWeChatPayUtil.submitPrepayToWeChat(request, response, order.getOrderNum(), "众力飞特课程支付",
+                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "NATIVE", orderMaster.getCourseId().
+                            toString()).toString();
         }
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
     }
@@ -202,7 +207,9 @@ public class OrderMasterService {
      */
     public void payOrderMasterSuccess(String orderNum, Integer payment){
         OrderMaster orderMaster = orderMasterDao.queryOrderMaterDetail(orderNum);
+        System.out.println("service========支付方法====");
         if(orderMaster != null && orderMaster.getStatus() == OrderMaster.STATUS_WAITING_PAY){
+            System.out.println("=========真正支付==========");
             // 修改支付状态、支付时间、支付类型
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("orderNum", orderNum);
@@ -245,6 +252,17 @@ public class OrderMasterService {
         return orderMaster;
     }
 
+    public String queryPayOrderMasterDetail(String orderNum){
+        if(StringUtils.isEmpty(orderNum)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        OrderMaster orderMaster = orderMasterDao.queryOrderMasterByOrderNum(orderNum);
+        if(orderMaster == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单不存在", "").toString();
+        }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", orderMaster.getStatus()
+                + "").toString();
+    }
 
     private Date getSystemCancleTime() {
         long curren = System.currentTimeMillis();

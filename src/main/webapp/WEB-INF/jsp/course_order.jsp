@@ -17,7 +17,7 @@
         <jsp:include page="../main.jsp"/>
         <div class="center">
             <div class="route">
-              <span>填写订单信息</span>
+                <span>填写订单信息</span>
             </div>
         </div>
         <div class="pay">

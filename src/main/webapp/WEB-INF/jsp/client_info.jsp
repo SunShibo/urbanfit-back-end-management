@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/common.css">
   <link type="text/css" href="/static/css/main.css" rel="stylesheet"/>
   <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/js/common/menu.js"></script>
   <script type="text/javascript" src="/static/js/web/client_info.js"></script>
 </head>
 <body>

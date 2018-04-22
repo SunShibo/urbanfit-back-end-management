@@ -105,6 +105,7 @@ public class WebAlipayUtil {
             }
             //乱码解决，这段代码在出现乱码时使用。
             params.put(name, valueStr);
+            System.out.println("name：" + name + "，value：" + valueStr);
         }
         //切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
         return AlipaySignature.rsaCheckV1(params, ALIPAY_PUBLIC_KEY, CHARSET, "RSA2");

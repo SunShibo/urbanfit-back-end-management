@@ -18,6 +18,15 @@ $(function (){
     // 订单支付
     $("a[id^='A_pay_order_']").click(choosePayment);
     $("#A_payOrder").click(payOrderMasterAgain);
+
+    $(".radio").click(function () {
+        $(".radio").each(function (i, v) {
+            $(this).find('.radioimg').attr('src', '../static/img/radio.png');
+            $(this).removeClass("seleted");
+        });
+        $(this).find('.radioimg').attr('src', '../static/img/radio1.png');
+        $(this).addClass('seleted');
+    });
 })
 
 // 初始化订单状态
@@ -52,7 +61,7 @@ function queryOrderMasterDetail(){
                 $("#detailClientMobile").text(result.data.clientMobile);
                 $("#detailCourseDistrict").text(result.data.courseDistrict);
                 $("#detailCourseName").text(result.data.courseName);
-                $("#detailCoursePrice").text(result.data.couponPrice);
+                $("#detailCoursePrice").text(result.data.price);
                 var payment = "支付宝";
                 if(result.data.payment == 1){
                     payment = "微信";
@@ -105,11 +114,16 @@ function payOrderMasterAgain(){
         data : {"params" : JSON.stringify(params)},
         dataType : "json",
         success : function (result){
-            alert(result.data);
-            alert(result.code);
             if(result.code == 1){
-                $('body').html(result.data);
-                $("form").attr("target", "_blank");
+                if(payWay == 0){   // 支付宝支付
+                    $('body').append(result.data);
+                    $("form").attr("target", "_blank");
+                }else if(payWay == 1){  // 微信支付
+                    var orderNum = result.data.orderNum;
+                    var wechatPayQr = result.data.wechatPayQr;
+                    window.location.href = "/order/wechatPay?orderNum=" + orderNum
+                        + "&wechatPayQr=" + wechatPayQr;
+                }
             }else{
                 alert('参数有误');
             }

@@ -1,12 +1,15 @@
-<<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8" />
-  <title>支付成功</title>
-  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+   <meta charset="utf-8" />
+   <title>支付成功</title>
+   <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+   <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/menu.js"></script>
 </head>
 <body>
     <div class="content">
@@ -25,7 +28,7 @@
                             <p>恭喜您，支付成功！<span>我们会尽快处理您的订单</span></p>
                         </div>
                         <div class="payorder">
-                          <a href="${pageContext.request.contextPath}/module/toHome">返回首页</a>
+                          <a href="/module/toHome">返回首页</a>
                         </div>
                   </div>
               </div>

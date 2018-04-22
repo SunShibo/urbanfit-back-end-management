@@ -10,6 +10,7 @@ import com.urbanfit.bem.service.OrderMasterService;
 import com.urbanfit.bem.tenpay.handler.PrepayIdRequestHandler;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,11 +75,16 @@ public class OrderMasterController extends BaseCotroller{
     @RequestMapping("/orderAlipayCallback")
     public void payOrderMasterSuccessAlipayCallback(HttpServletRequest request, HttpServletResponse response)
             throws Exception{
+        System.out.println("================调用支付宝支付回调函数==============");
         String result = "fail";
+        System.out.println("checkAlipayCallback：" + WebAlipayUtil.checkAlipayCallback(request));
         // 支付宝回调函数参数验证通过
-        if(AlipayUtil.checkAlipayCallback(request)){
+        /*if(WebAlipayUtil.checkAlipayCallback(request)){*/
             Map<String, String> params = AlipayUtil.getAlipayCallbackParams(request);
+            System.out.println(params.get("trade_status"));
             if (params.get("trade_status").equals(AlipayUtil.TRADE_SUCCESS)) {
+                System.out.println("============即将进入service==========");
+                System.out.println("out_trade_no" + params.get("out_trade_no"));
                 // 同步支付信息
                 orderMasterService.payOrderMasterSuccess(params.get("out_trade_no"), OrderMaster.PAYMENT_ALIPAY);
                 result = "success";
@@ -87,9 +93,9 @@ public class OrderMasterController extends BaseCotroller{
             } else {
                 log.debug("支付宝回调支付结果未成功：状态trade_status=" + params.get("trade_status"));
             }
-        }else {
+       /* }else {
             log.debug("---------------支付宝回调签名验证失败-------------");
-        }
+        }*/
         safeTextPrint(response, result);
     }
 
@@ -138,5 +144,22 @@ public class OrderMasterController extends BaseCotroller{
         ModelAndView view = new ModelAndView();
         view.setViewName("/course_pay_success");
         return view;
+    }
+
+    @RequestMapping("/wechatPay")
+    public ModelAndView redirectWechatPayPage(String orderNum, String wechatPayQr){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/course_wechat_pay");
+        view.addObject("orderNum", orderNum);
+        view.addObject("order", orderMasterService.queryOderMaterDetail(orderNum));
+        view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
+        view.addObject("wechatPayQr", wechatPayQr);
+        return view;
+    }
+
+    @RequestMapping("/orderDetail")
+    public void queryPayOrderMasterDetail(HttpServletResponse response, String orderNum){
+        String result = orderMasterService.queryPayOrderMasterDetail(orderNum);
+        safeTextPrint(response, result);
     }
 }

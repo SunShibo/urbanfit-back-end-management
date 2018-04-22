@@ -106,8 +106,15 @@ function submitorder(){
         data: {"params" : JSON.stringify(params)},
         success: function(result){
             if(result.code == 1){
-                $('body').append(result.data);
-                $("form").attr("target", "_blank");
+                if(payWay == 0){   // 支付宝支付
+                    $('body').append(result.data);
+                    $("form").attr("target", "_blank");
+                }else if(payWay == 1){  // 微信支付
+                    var orderNum = result.data.orderNum;
+                    var wechatPayQr = result.data.wechatPayQr;
+                    window.location.href = "/order/wechatPay?orderNum=" + orderNum
+                        + "&wechatPayQr=" + wechatPayQr;
+                }
             }else{
                 alert('参数有误');
             }
