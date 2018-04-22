@@ -38,4 +38,12 @@ public class ActivityMessageController extends BaseCotroller{
         view.addObject("message", activityMessageService.queryActivityMessageDetail(messageId));
         return view;
     }
+
+    @RequestMapping("/toDetail")
+    public ModelAndView redirectActivityMessageDetail(Integer messageId){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/message_detail");
+        view.addObject("messageId", messageId);
+        return view;
+    }
 }
