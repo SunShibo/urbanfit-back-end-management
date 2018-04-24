@@ -1,16 +1,14 @@
 package com.urbanfit.bem.web.controller.manage;
 
-import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.entity.OrderMaster;
 import com.urbanfit.bem.pay.AlipayUtil;
 import com.urbanfit.bem.pay.WebAlipayUtil;
+import com.urbanfit.bem.service.ClientInfoService;
 import com.urbanfit.bem.service.OrderMasterService;
 import com.urbanfit.bem.tenpay.handler.PrepayIdRequestHandler;
-import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
-import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +28,8 @@ import java.util.Map;
 public class OrderMasterController extends BaseCotroller{
     @Resource
     private OrderMasterService orderMasterService;
+    @Resource
+    private ClientInfoService clientInfoService;
 
     @RequestMapping("/list")
     public ModelAndView queryClientOrderMaster(HttpServletRequest request, String orderNum, Integer status,
@@ -161,5 +161,26 @@ public class OrderMasterController extends BaseCotroller{
     public void queryPayOrderMasterDetail(HttpServletResponse response, String orderNum){
         String result = orderMasterService.queryPayOrderMasterDetail(orderNum);
         safeTextPrint(response, result);
+    }
+
+    @RequestMapping("/orderList")
+    public void queryOrderMasterList(HttpServletResponse response, Integer pageNo, Integer pageSize, Integer clientId){
+        String result = orderMasterService.queryOrderMasterList(clientId, getQueryInfo(pageNo, pageSize));
+        safeTextPrint(response, result);
+    }
+
+    @RequestMapping("/queryOrderDetail")
+    public void queryClientOrderMasterDetail(HttpServletResponse response, String orderNum){
+        String result = orderMasterService.queryClientOrderMasterDetail(orderNum);
+        safeTextPrint(response, result);
+    }
+
+    /**
+     * 微信公众号在支付
+     */
+    @RequestMapping("/payWechatCommonAgain")
+    public void payClientOrderMasterAgain(HttpServletRequest request, HttpServletResponse response){
+        String result = orderMasterService.payClientOrderMasterAgain("", request, response);
+        safeHtmlPrint(response, result);
     }
 }

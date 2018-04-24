@@ -46,6 +46,7 @@ public class WebWeChatPayUtil {
 
             Integer execute_time = (int) ((endTime-startTime)/1000);
             logger.info("支付结果：" + resXml);
+            System.out.println("支付结果：" + resXml);
             Map map = XMLUtil.doXMLParse(resXml);
 
             JSONObject reportParams = new JSONObject();

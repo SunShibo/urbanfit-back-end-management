@@ -19,6 +19,7 @@ import com.urbanfit.bem.util.DateUtils;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.RandomUtils;
 import com.urbanfit.bem.util.StringUtils;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -202,6 +204,33 @@ public class OrderMasterService {
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
     }
 
+    public String payClientOrderMasterAgain(String params, HttpServletRequest request, HttpServletResponse response){
+        if(StringUtils.isEmpty(params)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        OrderMaster order = null;
+        try {
+            order = (OrderMaster)JsonUtils.getObject4JsonString(params, OrderMaster.class);
+        }catch (Exception e){
+            e.printStackTrace();
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        if(order.getPayment() == null || StringUtils.isEmpty(order.getOrderNum())){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        OrderMaster orderMaster = orderMasterDao.queryOrderMaterDetail(order.getOrderNum());
+        if(orderMaster == null || (orderMaster != null && (orderMaster.getStatus() == OrderMaster.STATUS_PAYED
+                || orderMaster.getStatus() == OrderMaster.STATUS_REFUND))){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单不存在或已经支付", "").toString();
+        }
+        String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
+                getString("wxpay_order_callback_url");
+        return WebWeChatPayUtil.submitPrepayToWeChat(request, response, order.getOrderNum(), "众力飞特课程支付",
+                (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "JSAPI", orderMaster.getCourseId().
+                        toString()).toString();
+    }
+
+
     /**
      * 支付成功回调函数
      */
@@ -262,6 +291,37 @@ public class OrderMasterService {
         }
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", orderMaster.getStatus()
                 + "").toString();
+    }
+
+    public String queryClientOrderMasterDetail(String orderNum){
+        OrderMaster orderMaster = orderMasterDao.queryOrderMasterByOrderNum(orderNum);
+        if(orderMaster == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单不存在", "").toString();
+        }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", JsonUtils.
+                getJsonString4JavaPOJO(orderMaster, DateUtils.LONG_DATE_PATTERN)).toString();
+    }
+
+    public String queryOrderMasterList(Integer clientId, QueryInfo queryInfo){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("clientId", clientId);
+        if(queryInfo != null){
+            map.put("pageOffset", queryInfo.getPageOffset());
+            map.put("pageSize", queryInfo.getPageSize());
+        }
+        PageObjectUtil<OrderMaster> page = new PageObjectUtil<OrderMaster>();
+        PageObject pager =  page.savePageObject(orderMasterDao.queryClientOrderMasterCount(map),
+                orderMasterDao.queryClientOrderMasterList(map), queryInfo);
+        List<OrderMaster> lstOrder = pager.getDatas();
+        JSONObject jo = new JSONObject();
+        if(lstOrder != null && lstOrder.size() != 0){
+            jo.put("totalRecord", pager.getTotalRecord());
+            jo.put("lstOrder", JsonUtils.getJsonString4JavaListDate(lstOrder, DateUtils.LONG_DATE_PATTERN));
+        }else{
+            jo.put("totalRecord", pager.getTotalRecord());
+            jo.put("lstOrder", "");
+        }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 
     private Date getSystemCancleTime() {

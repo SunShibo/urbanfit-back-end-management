@@ -111,4 +111,8 @@ public class ClientInfoService {
         clientInfoDao.updateClientInfo(map);
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "修改信息成功", "").toString();
     }
+
+    public ClientInfo queryClientInfoByClientId(Integer clientId){
+        return clientInfoDao.queryClientById(clientId);
+    }
 }
