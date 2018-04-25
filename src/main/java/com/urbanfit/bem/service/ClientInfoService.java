@@ -115,4 +115,24 @@ public class ClientInfoService {
     public ClientInfo queryClientInfoByClientId(Integer clientId){
         return clientInfoDao.queryClientById(clientId);
     }
+
+    public String updatePassword(Integer type, String mobile, String newPassword, String confirmPassword){
+        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(newPassword) || StringUtils.isEmpty(confirmPassword)
+                || type == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        ClientInfo clientInfo = clientInfoDao.queryClientInfoByMobile(mobile);
+        if(clientInfo == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
+        }
+        if(!newPassword.equals(confirmPassword)){
+            return JsonUtils.encapsulationJSON(2, "两次密码输入不正确", "").toString();
+        }
+        // 修改客户密码
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("mobile", mobile);
+        map.put("password", newPassword);
+        clientInfoDao.updatePassword(map);
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "修改密码成功", "").toString();
+    }
 }

@@ -1,6 +1,5 @@
 package com.urbanfit.bem.web.controller;
 
-import com.bskcare.ch.util.http.HttpClientUtils;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.StringUtils;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
@@ -16,7 +15,7 @@ import java.util.Map;
 public class GetJssdkSignature extends BaseCotroller{
     private static final long serialVersionUID = 1L;
 
-    public static String getAccessToken() {
+    /*public static String getAccessToken() {
         String access_token = "";
         try {
             String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential"
@@ -70,5 +69,5 @@ public class GetJssdkSignature extends BaseCotroller{
         String result = formatter.toString();
         formatter.close();
         return result;
-    }
+    }*/
 }

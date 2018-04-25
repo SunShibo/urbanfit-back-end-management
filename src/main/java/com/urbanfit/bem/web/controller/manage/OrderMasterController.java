@@ -198,7 +198,7 @@ public class OrderMasterController extends BaseCotroller{
         safeHtmlPrint(response, result);
     }
 
-    @RequestMapping("/getSignature")
+    /*@RequestMapping("/getSignature")
     public void getSignatureResult(HttpServletResponse response, String url) throws Exception {
         // 时间戳
         String timestamp = Long.toString(System.currentTimeMillis() / 1000);
@@ -232,5 +232,5 @@ public class OrderMasterController extends BaseCotroller{
         jo.put("timestamp", timestamp);
         jo.put("signature", signature);
         safeTextPrint(response, jo.toString());
-    }
+    }*/
 }

@@ -2,6 +2,7 @@ package com.urbanfit.bem.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.urbanfit.bem.cfg.pop.Constant;
+import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.dao.CourseDao;
 import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.dto.ResultDTOBuilder;
@@ -70,9 +71,11 @@ public class CourseService {
         JSONObject jo = new JSONObject();
         if(course == null){
             jo.put("isHave", 0);
+            jo.put("baseUrl", SystemConfig.getString("image_base_url"));
             jo.put("course", "");
         }else{
             jo.put("isHave", 1);
+            jo.put("baseUrl", SystemConfig.getString("image_base_url"));
             jo.put("course", JsonUtils.getJsonString4JavaPOJO(course, DateUtils.LONG_DATE_PATTERN));
         }
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
