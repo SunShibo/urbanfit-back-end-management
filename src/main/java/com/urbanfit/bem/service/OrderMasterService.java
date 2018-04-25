@@ -226,7 +226,7 @@ public class OrderMasterService {
         String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
                 getString("wxpay_order_callback_url");
         return WebWeChatPayUtil.submitPrepayToWeChat(request, response, order.getOrderNum(), "众力飞特课程支付",
-                (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "JSAPI", orderMaster.getCourseId().
+                (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "MWEB", orderMaster.getCourseId().
                         toString()).toString();
     }
 

@@ -361,6 +361,18 @@
       <version>2.2</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.bskcare.ch</groupId>
+      <artifactId>common-base</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.bskcare.ch</groupId>
+      <artifactId>common-utils</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
     <!--<dependency>-->
     <!--<groupId>org.springframework.boot</groupId>-->
     <!--<artifactId>spring-boot-starter-web</artifactId>-->

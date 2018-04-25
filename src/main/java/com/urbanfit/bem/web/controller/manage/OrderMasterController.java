@@ -8,7 +8,9 @@ import com.urbanfit.bem.pay.WebAlipayUtil;
 import com.urbanfit.bem.service.ClientInfoService;
 import com.urbanfit.bem.service.OrderMasterService;
 import com.urbanfit.bem.tenpay.handler.PrepayIdRequestHandler;
+import com.urbanfit.bem.web.controller.GetJssdkSignature;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2018/4/9.
@@ -175,12 +181,56 @@ public class OrderMasterController extends BaseCotroller{
         safeTextPrint(response, result);
     }
 
+    @RequestMapping("/addOrder")
+    public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params,
+                                     Integer clientId){
+        ClientInfo clientInfo = clientInfoService.queryClientInfoByClientId(clientId);
+        String result = orderMasterService.addClientOrderMaster(params, clientInfo, request, response);
+        safeHtmlPrint(response, result);
+    }
+
     /**
      * 微信公众号在支付
      */
     @RequestMapping("/payWechatCommonAgain")
-    public void payClientOrderMasterAgain(HttpServletRequest request, HttpServletResponse response){
-        String result = orderMasterService.payClientOrderMasterAgain("", request, response);
+    public void payClientOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params){
+        String result = orderMasterService.payClientOrderMasterAgain(params, request, response);
         safeHtmlPrint(response, result);
+    }
+
+    @RequestMapping("/getSignature")
+    public void getSignatureResult(HttpServletResponse response, String url) throws Exception {
+        // 时间戳
+        String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+        // 随机数
+        String nonceStr = UUID.randomUUID().toString();
+        String token = GetJssdkSignature.getAccessToken();
+        String ticket = GetJssdkSignature.getJsapiTicket(token);
+        String str;
+        String signature = "";
+        url = url.indexOf("#") >= 0 ? url.substring(0, url.indexOf("#")) : url;
+        // 注意这里参数名必须全部小写，且必须有序
+        str = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr
+                + "&timestamp=" + timestamp + "&url=" + url;
+        System.out.println(str);
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+            crypt.reset();
+            crypt.update(str.getBytes("UTF-8"));
+            signature = GetJssdkSignature.byteToHex(crypt.digest());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jo = new JSONObject();
+        jo.put("url", url);
+        jo.put("appId", "wx99369550bd4bcf10");
+        jo.put("jsapi_ticket", ticket);
+        jo.put("noncestr", nonceStr);
+        jo.put("timestamp", timestamp);
+        jo.put("signature", signature);
+        safeTextPrint(response, jo.toString());
     }
 }
