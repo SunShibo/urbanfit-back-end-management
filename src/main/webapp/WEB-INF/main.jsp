@@ -12,8 +12,8 @@
                 <a href="javascript:void(0);"><img src="../static/img/logo.png" alt=""></a>
                 <c:if test="${empty currentClient}">
                     <ul>
-                        <li><a href="/client/toRegister">join</a></li>
-                        <li><a href="/client/toLogin">log in</a></li>
+                        <li><a href="/client/toRegister">注册</a></li>
+                        <li><a href="/client/toLogin">登录</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${not empty currentClient}">
@@ -24,7 +24,7 @@
                                 <c:if test="${not empty currentClient.name}">${currentClient.name}</c:if>
                             </a>
                         </li>
-                        <li><a href="/client/signOut">sign out</a></li>
+                        <li><a href="/client/signOut">退出</a></li>
                     </ul>
                 </c:if>
             </div>
