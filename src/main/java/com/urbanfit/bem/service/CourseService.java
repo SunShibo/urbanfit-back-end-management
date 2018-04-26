@@ -68,16 +68,14 @@ public class CourseService {
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         Course course = courseDao.queryUpCourseByCourseId(courseId);
-        JSONObject jo = new JSONObject();
+
         if(course == null){
-            jo.put("isHave", 0);
-            jo.put("baseUrl", SystemConfig.getString("image_base_url"));
-            jo.put("course", "");
-        }else{
-            jo.put("isHave", 1);
-            jo.put("baseUrl", SystemConfig.getString("image_base_url"));
-            jo.put("course", JsonUtils.getJsonString4JavaPOJO(course, DateUtils.LONG_DATE_PATTERN));
+           return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "查询失败", "").toString();
         }
+
+        JSONObject jo = new JSONObject();
+        jo.put("baseUrl", SystemConfig.getString("image_base_url"));
+        jo.put("course", JsonUtils.getJsonString4JavaPOJO(course, DateUtils.LONG_DATE_PATTERN));
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 }
