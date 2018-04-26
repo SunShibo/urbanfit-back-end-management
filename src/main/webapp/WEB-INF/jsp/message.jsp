@@ -71,7 +71,7 @@
                             <ul id="listbox">
                                 <c:forEach items="${lstMessage}" var="message">
                                     <li>
-                                        <a href="info_detail1.html">
+                                        <a href="/message/toDetail?messageId=${message.messageId}">
                                             <div class="listimg">
                                                 <img src="${baseUrl}${message.thumbnails}">
                                             </div>
