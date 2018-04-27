@@ -5,41 +5,33 @@ $(function (){
 })
 
 
-$.ajax({
+/*$.ajax({
     type: "post",
     url: "list",
     data:{"type": 2},
     dataType: "json",
     success:function(res){
-        var html = '';
-        var html_1 = '';
         var modulehtml = '';
-        var num = 1;
         if(res.code == 1){
             var module = res.data.module;
             //var content = res.data.module.content;
             //var baseUrl = res.data.baseUrl;  // 图片地址前缀
-            console.log(module);
+            console.log(res.data.module);
             if(module != "" && content != ""){
+                alert(11);
                 $.each(content, function(i, n){
-                    //alert(n.title);    // 标题
-                    //alert(n.linkUrl);   // 链接地址
-                    //alert(n.imageUrl);   // 图片地址
-                    //alert(n.remark);
                     modulehtml += '<li>';
                     modulehtml += '<a href="'+n.linkUrl+'">'+n.title+'</a>';
                     modulehtml += '</li>';
                 });
             }
-            $(".carousel-inner").html(html);
-            $(".carousel-indicators").html(html_1);
             $(".module").html(modulehtml);
         }else{
             alert("接口请求错误");
         }
 
     }
-});
+});*/
 
 //获取url中的参数
 function GetRequest(){
@@ -65,24 +57,24 @@ $.ajax({
     success:function(res){
         var html = '';
         if(res.code == 1){
+            //alert(canshu['messageId']);
             var module = res.data.module;
             var baseUrl0 = res.data.baseUrl;  // 图片地址前缀
             var activityMessage = res.data.activityMessage;
+            //console.log(activityMessage);
             if(activityMessage != ""){
-                $.each(activityMessage, function(k, v){
-                    html += '<h1>'+v.title;
-                    html += '<span>'+v.createTime+'</span>';
-                    html += '</h1>';
-                    html += '<div>';
-                    html += '<p>'+v.content+'</p>';
-                    html += '</div>';
-                });
+                html += '<h1>'+activityMessage.title;
+                html += '<span>'+activityMessage.createTime+'</span>';
+                html += '</h1>';
+                html += '<div>';
+                html += '<p>'+activityMessage.content+'</p>';
+                html += '</div>';
             }
             $(".info_detail").html(html);
         }else if(res.code == 0){
             alert("查询不到数据");
         }else{
-            alert("接口请求错误11")
+            alert("接口请求错误")
         }
 
     }

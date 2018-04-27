@@ -41,7 +41,7 @@
                 </div>
               </div>
             </div>
-            <div class="inforight">
+            <%--<div class="inforight">
               <ul class="module">
                 <li>
                   <a href="#"><img src="../static/img/tu1.jpg" alt=""></a>
@@ -56,7 +56,7 @@
                   <a href="#"><img src="../static/img/tu1.jpg" alt=""></a>
                 </li>
               </ul>
-            </div>
+            </div>--%>
           </div>
         </div>
         <jsp:include page="../footer.jsp"/>
