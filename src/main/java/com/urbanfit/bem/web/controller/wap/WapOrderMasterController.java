@@ -44,4 +44,9 @@ public class WapOrderMasterController extends BaseCotroller{
         String result = orderMasterService.payWapOrderMasterAgain(params, request, response);
         safeHtmlPrint(response, result);
     }
+
+    @RequestMapping("/wechatPayAgain")
+    public void wechatPayWapOrderMasterAgain(HttpServletRequest request){
+        System.out.println(request.getParameter("code"));
+    }
 }
