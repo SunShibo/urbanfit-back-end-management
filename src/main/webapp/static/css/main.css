@@ -1,4 +1,8 @@
 /***************** 首页 *****************/
+.item a{display: block;
+    width:100%;}
+.item a img{display: block;
+    width:100%;}
 .index{width:100%;}
 .index .banner{width: 100%;}
 .index1{width: 100%;display: flex;}
