@@ -8,11 +8,13 @@ $(function(){
 
     $("#s_province").change(changeProvince);
     $("#s_city").change(changeCity);
+
+    $("#A_join_waiting_course").click(joinWaitingCourse);
 })
 
 function initCourseDistrict(){
     var courseDistrict = $("input[name='courseDistrict']").val();
-    if(courseDistrict != ""){
+    if(courseDistrict != "" && courseDistrict != "undefined" && typeof(courseDistrict) != "undefined") {
         var districtProvinceArr = [];
         var districtProvinceHtml = [];
         var districtArr = courseDistrict.split("#");
@@ -111,4 +113,34 @@ function changeCity() {
 function joinCourse(){
     var courseId = $("input[name='courseId']").val();
     window.location.href = "toJoin?courseId=" + courseId;
+}
+
+function joinWaitingCourse(){
+    var clientName = $("input[name='clientName']").val();
+    if(clientName == ""){
+        alert("请输入姓名");
+        return;
+    }
+    var clientMobile = $("input[name='clientMobile']").val();
+    if(clientMobile == ""){
+        alert("请输入联系电话");
+        return;
+    }
+    $.ajax({
+        url : "/join/add",
+        type : "post",
+        data : {"clientName" : clientName, "clientMobile" : clientMobile},
+        dataType : "json",
+        success : function(result){
+            if(result.code == 1){
+                alert("报名成功");
+                $("input[name='clientName']").val("");
+                $("input[name='clientMobile']").val("");
+                return ;
+            }else{
+                alert("操作失败，请重新报名！");
+                return ;
+            }
+        }
+    })
 }

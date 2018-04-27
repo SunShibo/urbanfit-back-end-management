@@ -25,6 +25,7 @@ public class CourseController extends BaseCotroller{
         view.setViewName("/course_info");
         view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
         view.addObject("course", courseService.queryUpCourseByCourseId(courseId));
+        view.addObject("courseId", courseId);
         return view;
     }
 
