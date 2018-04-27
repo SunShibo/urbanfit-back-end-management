@@ -4,7 +4,7 @@ $(function (){
 })
 
 //banner图及模块
-$.ajax({
+/*$.ajax({
     type: "post",
     url: "list",
     data:{"type": 2},
@@ -56,10 +56,10 @@ $.ajax({
         }
 
     }
-});
+});*/
 
 //数据及分页
-var pageNo=1;
+/*var pageNo=1;
 $(document).ready(function(){
     $(".previous").click(function(){
         pageNo = pageNo- 1;
@@ -120,13 +120,13 @@ function reloadPage(){
                 });
                 $("#listbox").html(listbox);
             }else{
-                alert("接口请求错误");
+                alert("接口请求错误00");
             }
 
         }
     });
 };
-reloadPage();
+reloadPage();*/
 
 
 

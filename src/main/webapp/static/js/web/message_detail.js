@@ -11,20 +11,28 @@ $.ajax({
     data:{"type": 2},
     dataType: "json",
     success:function(res){
+        var html = '';
+        var html_1 = '';
         var modulehtml = '';
+        var num = 1;
         if(res.code == 1){
             var module = res.data.module;
-            var baseUrl = res.data.baseUrl;  // 图片地址前缀
-
-            if(module != "" && module.content != ""){
-                $.each(module.content, function(i, n){
+            //var content = res.data.module.content;
+            //var baseUrl = res.data.baseUrl;  // 图片地址前缀
+            console.log(module);
+            if(module != "" && content != ""){
+                $.each(content, function(i, n){
                     //alert(n.title);    // 标题
                     //alert(n.linkUrl);   // 链接地址
+                    //alert(n.imageUrl);   // 图片地址
+                    //alert(n.remark);
                     modulehtml += '<li>';
                     modulehtml += '<a href="'+n.linkUrl+'">'+n.title+'</a>';
                     modulehtml += '</li>';
                 });
             }
+            $(".carousel-inner").html(html);
+            $(".carousel-indicators").html(html_1);
             $(".module").html(modulehtml);
         }else{
             alert("接口请求错误");
@@ -52,7 +60,7 @@ var canshu = GetRequest();
 $.ajax({
     type: "post",
     url: "detail",
-    data:{"messageId": canshu},
+    data:{"messageId": canshu['messageId']},
     dataType: "json",
     success:function(res){
         var html = '';
@@ -74,7 +82,7 @@ $.ajax({
         }else if(res.code == 0){
             alert("查询不到数据");
         }else{
-            alert("接口请求错误")
+            alert("接口请求错误11")
         }
 
     }
