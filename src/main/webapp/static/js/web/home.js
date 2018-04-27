@@ -30,7 +30,7 @@ $.ajax({
                         html_1 += '<li data-target="#myCarousel" data-slide-to="'+n.sort+'" class="active"></li>';
                     }else{
                         html += '<div class="item">';
-                        html += '<a href="'+n.linkUrl+'"><img src="'+n.imageUrl+'" alt="'+n.title+'"></a>';
+                        html += '<a href="'+n.linkUrl+'"><img src="'+baseUrl+n.imageUrl+'" alt="'+n.title+'"></a>';
                         html += '</div>';
                         html_1 += '<li data-target="#myCarousel" data-slide-to="'+n.sort+'"></li>';
                     }
