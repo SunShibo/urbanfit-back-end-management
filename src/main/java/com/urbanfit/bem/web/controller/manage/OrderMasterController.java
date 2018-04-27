@@ -169,34 +169,6 @@ public class OrderMasterController extends BaseCotroller{
         safeTextPrint(response, result);
     }
 
-    @RequestMapping("/orderList")
-    public void queryOrderMasterList(HttpServletResponse response, Integer pageNo, Integer pageSize, Integer clientId){
-        String result = orderMasterService.queryOrderMasterList(clientId, getQueryInfo(pageNo, pageSize));
-        safeTextPrint(response, result);
-    }
-
-    @RequestMapping("/queryOrderDetail")
-    public void queryClientOrderMasterDetail(HttpServletResponse response, String orderNum){
-        String result = orderMasterService.queryClientOrderMasterDetail(orderNum);
-        safeTextPrint(response, result);
-    }
-
-    @RequestMapping("/addOrder")
-    public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params,
-                                     Integer clientId){
-        ClientInfo clientInfo = clientInfoService.queryClientInfoByClientId(clientId);
-        String result = orderMasterService.addClientOrderMaster(params, clientInfo, request, response);
-        safeHtmlPrint(response, result);
-    }
-
-    /**
-     * 微信公众号在支付
-     */
-    @RequestMapping("/payWechatCommonAgain")
-    public void payClientOrderMasterAgain(HttpServletRequest request, HttpServletResponse response, String params){
-        String result = orderMasterService.payClientOrderMasterAgain(params, request, response);
-        safeHtmlPrint(response, result);
-    }
 
     /*@RequestMapping("/getSignature")
     public void getSignatureResult(HttpServletResponse response, String url) throws Exception {

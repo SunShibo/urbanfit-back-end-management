@@ -60,16 +60,14 @@ public class WebAlipayUtil {
         return "";
     }
 
-    public static String submitClientlipay(String body, String subject, String orderNum, Double price,
+    public static String submitClientAlipay(String body, String subject, String orderNum, Double price,
                                            String callbackUrl, String returnUrl){
         //实例化客户端
         AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",
                 APP_ID, APP_PRIVATE_KEY, "json", CHARSET, ALIPAY_PUBLIC_KEY, "RSA2");
         //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
-        /*AlipayTradeWapPayRequest request = new AlipayTradeWapPayRequest();*/
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
         //SDK已经封装掉了公共参数，这里只需要传入业务参数。以下方法为sdk的model入参方式(model和biz_content同时存在的情况下取biz_content)。
-        /*AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();*/
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
         model.setBody(body);
         model.setSubject(subject);
