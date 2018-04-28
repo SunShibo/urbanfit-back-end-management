@@ -58,7 +58,6 @@ $.ajax({
         var html = '';
         if(res.code == 1){
             //alert(canshu['messageId']);
-            var module = res.data.module;
             var baseUrl0 = res.data.baseUrl;  // 图片地址前缀
             var activityMessage = res.data.activityMessage;
             //console.log(activityMessage);
@@ -67,6 +66,7 @@ $.ajax({
                 html += '<span>'+activityMessage.createTime+'</span>';
                 html += '</h1>';
                 html += '<div>';
+                html += '<img src="'+baseUel0+activityMessage.imageDetail+'">';
                 html += '<p>'+activityMessage.content+'</p>';
                 html += '</div>';
             }
