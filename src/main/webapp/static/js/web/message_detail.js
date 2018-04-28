@@ -66,7 +66,7 @@ $.ajax({
                 html += '<span>'+activityMessage.createTime+'</span>';
                 html += '</h1>';
                 html += '<div>';
-                html += '<img src="'+baseUel0+activityMessage.imageDetail+'">';
+                html += '<img src="'+baseUrl0+activityMessage.detailImage+'">';
                 html += '<p>'+activityMessage.content+'</p>';
                 html += '</div>';
             }
