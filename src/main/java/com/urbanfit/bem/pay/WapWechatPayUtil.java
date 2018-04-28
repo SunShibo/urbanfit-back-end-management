@@ -3,12 +3,9 @@ package com.urbanfit.bem.pay;
 import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.tenpay.util.ConstantUtil;
 import com.urbanfit.bem.tenpay.util.XMLUtil;
-import com.urbanfit.bem.util.QRUtil;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -33,7 +30,8 @@ public class WapWechatPayUtil {
             packageParams.put("body", goodsName);
             packageParams.put("out_trade_no", orderNum);
             packageParams.put("total_fee", totalPrice);
-            packageParams.put("spbill_create_ip", request.getLocalAddr());
+            System.out.println("ipAddress：" + request.getRemoteAddr());
+            packageParams.put("spbill_create_ip", request.getRemoteAddr());
             packageParams.put("notify_url", callbackUrl);
             packageParams.put("trade_type", tradeType);
 
@@ -42,9 +40,8 @@ public class WapWechatPayUtil {
 
             String requestXML = PayCommonUtil.getRequestXml(packageParams);
             logger.info("支付请求：" + requestXML);
-            long startTime=System.currentTimeMillis();
+            System.out.println("支付请求：" + requestXML);
             String resXml = HttpRequest.postData(ConstantUtil.URL, requestXML);
-            long endTime=System.currentTimeMillis();
 
             logger.info("支付结果：" + resXml);
             System.out.println("支付结果：" + resXml);
@@ -52,7 +49,10 @@ public class WapWechatPayUtil {
             //交易保障
             if (map.get("return_code").toString().equals("SUCCESS") && map.get("result_code").toString().equals("SUCCESS")) {
                 JSONObject reportParams = new JSONObject();
-                reportParams.put("appid", map.get("appid"));
+                reportParams.put("wechatPayUrl", map.get("mweb_url"));
+                retJson.put("code", Constant.INTERFACE_SUCC);
+                retJson.put("message", "调用微信支付成功");
+                retJson.put("data", reportParams.toString());
             } else {
                 retJson.put("code", Constant.INTERFACE_FAIL);
                 retJson.put("message", map.get("err_code_des").toString());
