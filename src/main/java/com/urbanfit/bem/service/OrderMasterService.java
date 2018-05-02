@@ -236,8 +236,10 @@ public class OrderMasterService {
 
             String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
                     getString("wxpay_order_callback_url");
+            String tenpayReturnUrl = SystemConfig.getString("wap_project_base_url") + SystemConfig.
+                    getString("wxpay_order_return_url");
             return WapWechatPayUtil.submitPrepayToWeChat(request,order.getOrderNum(), "众力飞特课程支付",
-                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "MWEB").toString();
+                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "MWEB", tenpayReturnUrl).toString();
         }
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
     }

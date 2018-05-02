@@ -6,6 +6,7 @@ import com.urbanfit.bem.tenpay.util.XMLUtil;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -19,7 +20,8 @@ public class WapWechatPayUtil {
     private static final Logger logger = Logger.getLogger(WapWechatPayUtil.class);
 
     public static JSONObject submitPrepayToWeChat(HttpServletRequest request, String orderNum, String goodsName,
-                                                  int totalPrice, String callbackUrl, String tradeType) {
+                                                  int totalPrice, String callbackUrl, String tradeType,
+                                                  String returnUrl) {
         JSONObject retJson = new JSONObject();
         try {
             String noncestr = UUID.randomUUID().toString().replace("-", "");
@@ -30,8 +32,8 @@ public class WapWechatPayUtil {
             packageParams.put("body", goodsName);
             packageParams.put("out_trade_no", orderNum);
             packageParams.put("total_fee", totalPrice);
-            System.out.println("ipAddress：" + request.getRemoteAddr());
-            packageParams.put("spbill_create_ip", request.getRemoteAddr());
+            System.out.println("ipAddress：" + getIpAddr(request));
+            packageParams.put("spbill_create_ip", getIpAddr(request));
             packageParams.put("notify_url", callbackUrl);
             packageParams.put("trade_type", tradeType);
 
@@ -49,7 +51,9 @@ public class WapWechatPayUtil {
             //交易保障
             if (map.get("return_code").toString().equals("SUCCESS") && map.get("result_code").toString().equals("SUCCESS")) {
                 JSONObject reportParams = new JSONObject();
-                reportParams.put("wechatPayUrl", map.get("mweb_url"));
+                System.out.println("urlEncoder" + URLEncoder.encode(returnUrl, "utf-8"));
+                String wechatPayUrl = map.get("mweb_url").toString() + "&redirect_url=" + returnUrl;
+                reportParams.put("wechatPayUrl", wechatPayUrl);
                 retJson.put("code", Constant.INTERFACE_SUCC);
                 retJson.put("message", "调用微信支付成功");
                 retJson.put("data", reportParams.toString());
@@ -66,5 +70,22 @@ public class WapWechatPayUtil {
         }
         System.out.println(retJson.toString());
         return retJson;
+    }
+
+    /**
+     * 获取ip地址
+     */
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 }
