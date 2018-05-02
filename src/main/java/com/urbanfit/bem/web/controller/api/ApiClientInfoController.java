@@ -55,9 +55,8 @@ public class ApiClientInfoController extends BaseCotroller{
      * 客户注册
      */
     @RequestMapping( value = "/register" )
-    public void register(HttpServletResponse response, String mobile, String password, String confirmPassword,
-                         String authCode){
-        String result = clientInfoService.register(mobile, password, confirmPassword, authCode);
+    public void register(HttpServletResponse response, String mobile, String password, String confirmPassword){
+        String result = clientInfoService.register(mobile, password, confirmPassword);
         safeTextPrint(response, result);
     }
 

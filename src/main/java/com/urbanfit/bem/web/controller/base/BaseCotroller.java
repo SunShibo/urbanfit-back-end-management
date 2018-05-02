@@ -72,6 +72,7 @@ public class BaseCotroller {
      */
     public void safeTextPrint(HttpServletResponse response, String str) {
         response.setContentType("text/plain;charset=UTF-8");
+        System.out.println("返回值信息：" + str);
         PrintWriter out = null;
         try {
             try {

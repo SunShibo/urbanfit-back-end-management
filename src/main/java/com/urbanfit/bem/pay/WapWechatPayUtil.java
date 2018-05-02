@@ -51,7 +51,6 @@ public class WapWechatPayUtil {
             //交易保障
             if (map.get("return_code").toString().equals("SUCCESS") && map.get("result_code").toString().equals("SUCCESS")) {
                 JSONObject reportParams = new JSONObject();
-                System.out.println("urlEncoder" + URLEncoder.encode(returnUrl, "utf-8"));
                 String wechatPayUrl = map.get("mweb_url").toString() + "&redirect_url=" + returnUrl;
                 reportParams.put("wechatPayUrl", wechatPayUrl);
                 retJson.put("code", Constant.INTERFACE_SUCC);

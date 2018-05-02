@@ -37,10 +37,4 @@ public class CourseController extends BaseCotroller{
         view.addObject("course", courseService.queryUpCourseByCourseId(courseId));
         return view;
     }
-
-    @RequestMapping("/courseDetail")
-    public void queryCourseById(HttpServletResponse response, Integer courseId){
-        String result = courseService.queryCourseDetail(courseId);
-        safeTextPrint(response, result);
-    }
 }
