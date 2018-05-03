@@ -33,8 +33,8 @@
                                         <li>
                                           <h3><img src="../static/img/ling.png">${store.storeName}</h3>
                                           <p>地址：${store.storeDistrict}${store.storeAddress}</p>
-                                          <p>电话：${store.mobile}</p>
-                                          <p>联系：${store.contactName}</p>
+                                          <%--<p>电话：${store.mobile}</p>
+                                          <p>联系：${store.contactName}</p>--%>
                                         </li>
                                     </c:forEach>
                                 </ul>
