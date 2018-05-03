@@ -56,7 +56,7 @@
         <jsp:include page="../footer.jsp"/>
     </div>
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/cityselect.js"></script>
+    <script type="text/javascript" src="/static/js/common/distpicker.js"></script>
     <script type="text/javascript" src="/static/js/web/store_list.js"></script>
     <script type="text/javascript">
         var store = {

@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/common/menu.js"></script>
-    <script type="text/javascript" src="/static/js/common/cityselect.js"></script>
     <script type="text/javascript" src="/static/js/web/course_info.js"></script>
 </head>
 <body>

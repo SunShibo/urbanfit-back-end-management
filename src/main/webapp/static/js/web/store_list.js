@@ -4,12 +4,10 @@ $(function (){
     $("li[id^='menu_']").removeClass();
     $("#menu_about").addClass("on");
 
-    $("#city_info").citySelect({
-        prov : store.provice,
+    $("#city_info").distpicker({
+        province : store.provice,
         city : store.city,
-        dist : store.district,
-        nodata: "none",
-        required: false
+        district : store.district,
     });
 
     $("#proviceId").change(queryStore);
