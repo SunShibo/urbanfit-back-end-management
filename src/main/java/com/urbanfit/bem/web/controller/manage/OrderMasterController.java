@@ -34,8 +34,6 @@ import java.util.UUID;
 public class OrderMasterController extends BaseCotroller{
     @Resource
     private OrderMasterService orderMasterService;
-    @Resource
-    private ClientInfoService clientInfoService;
 
     @RequestMapping("/list")
     public ModelAndView queryClientOrderMaster(HttpServletRequest request, String orderNum, Integer status,
@@ -168,41 +166,4 @@ public class OrderMasterController extends BaseCotroller{
         String result = orderMasterService.queryPayOrderMasterDetail(orderNum);
         safeTextPrint(response, result);
     }
-
-
-    /*@RequestMapping("/getSignature")
-    public void getSignatureResult(HttpServletResponse response, String url) throws Exception {
-        // 时间戳
-        String timestamp = Long.toString(System.currentTimeMillis() / 1000);
-        // 随机数
-        String nonceStr = UUID.randomUUID().toString();
-        String token = GetJssdkSignature.getAccessToken();
-        String ticket = GetJssdkSignature.getJsapiTicket(token);
-        String str;
-        String signature = "";
-        url = url.indexOf("#") >= 0 ? url.substring(0, url.indexOf("#")) : url;
-        // 注意这里参数名必须全部小写，且必须有序
-        str = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr
-                + "&timestamp=" + timestamp + "&url=" + url;
-        System.out.println(str);
-        try {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.reset();
-            crypt.update(str.getBytes("UTF-8"));
-            signature = GetJssdkSignature.byteToHex(crypt.digest());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        JSONObject jo = new JSONObject();
-        jo.put("url", url);
-        jo.put("appId", "wx99369550bd4bcf10");
-        jo.put("jsapi_ticket", ticket);
-        jo.put("noncestr", nonceStr);
-        jo.put("timestamp", timestamp);
-        jo.put("signature", signature);
-        safeTextPrint(response, jo.toString());
-    }*/
 }
