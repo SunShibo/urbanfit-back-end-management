@@ -6,8 +6,8 @@ $(function(){
 //banner图
 $.ajax({
     type: "post",
-    url: "list",
-    data:{"type": 2},
+    url: "/module/list",
+    data:{"type": 1},
     dataType: "json",
     success:function(res){
         var html = '';
@@ -21,8 +21,6 @@ $.ajax({
             // banner部分遍历
             if(banner != ""){
                 $.each(banner, function (i, n){
-                    //alert(n.linkUrl);    // 链接地址
-                    //alert(baseUrl+n.imageUrl);   // 图片地址
                     if(num == 1){
                         html += '<div class="item active">';
                         html += '<a href="'+n.linkUrl+'"><img src="'+baseUrl+n.imageUrl+'" alt="'+n.title+'"></a>';
