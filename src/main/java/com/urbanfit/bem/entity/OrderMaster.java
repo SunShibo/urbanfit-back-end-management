@@ -59,6 +59,7 @@ public class OrderMaster extends BaseModel{
     private Integer courseType;
     private String couponName;
     private String sourceName;
+    private String remarks;
 
 
     public Integer getOrderId() {
@@ -251,6 +252,14 @@ public class OrderMaster extends BaseModel{
 
     public void setSystemCancleTime(Date systemCancleTime) {
         this.systemCancleTime = systemCancleTime;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }
 

@@ -144,6 +144,10 @@
                             <li><h3>优惠码：</h3></li>
                             <li><p>-￥ <label id="couponPrice"></label>&nbsp;&nbsp;<label id="couponName"></label></p></li>
                         </ul>
+                        <ul id="remarksDiv" style="display: none;">
+                            <li><h3>备注信息：</h3></li>
+                            <li>备注：<label id="remarks"></label></li>
+                        </ul>
                     </div>
                     <a href="javascript:void(0);" id="closeOrderDetail">确定</a>
                 </div>

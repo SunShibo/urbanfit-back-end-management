@@ -82,6 +82,10 @@ function queryOrderMasterDetail(){
                     $("#couponPrice").text(result.data.couponPrice);
                     $("#couponName").text(result.data.couponName);
                 }
+                if(result.data.remarks != ""){
+                    $("#remarksDiv").show();
+                    $("#remarks").text(result.data.remarks);
+                }
             }
         }
     });

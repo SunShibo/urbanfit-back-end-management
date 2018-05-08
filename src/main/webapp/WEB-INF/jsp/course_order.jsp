@@ -76,7 +76,7 @@
                             <input type="text" value="￥${course.coursePrice}" class="input1" id="courseprice" readonly="readonly">
                         </div>
                     </div>
-                  </div>
+                </div>
                 <div class="order">
                     <h1><img src="../static/img/ling.png">优惠码：</h1>
                     <div class="order1">
@@ -98,9 +98,18 @@
                         <input type="hidden" name="coursePrice" value="${course.coursePrice}">
                     </ul>
                 </div>
+                <div class="order">
+                    <h1><img src="../static/img/ling.png">备注：</h1>
+                    <div class="order1">
+                        <div class="orderinput">
+                            <span>备注</span>
+                            <input type="text" class="input" id="remarks" name="remarks">
+                        </div>
+                    </div>
+                </div>
                 <div class="submit">
                     <input type="hidden" name="courseId" value="${course.courseId}" id="courseId">
-                    <a href="#" id="submitorder">提交订单</a>
+                    <a href="javascript:void(0);" id="submitorder">提交订单</a>
                 </div>
             </div>
         </div>

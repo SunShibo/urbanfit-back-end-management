@@ -275,6 +275,7 @@ public class OrderMasterService {
         orderMaster.setCourseDistrict(order.getCourseDistrict());
         double payPrice = course.getCoursePrice();
         orderMaster.setPayPrice(payPrice);
+        orderMaster.setRemarks(order.getRemarks());
         // 获取支付价格，如果没有使用优惠码，支付价格为课程价格，如果使用优惠码，支付价格为课程价格-优惠码价格
         if(coupon != null){
             payPrice = payPrice - (payPrice * coupon.getPercent() / (double)100);

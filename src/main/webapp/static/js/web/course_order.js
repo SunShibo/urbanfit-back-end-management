@@ -90,14 +90,15 @@ function submitorder(){
     if(districtInfo != ""){
         courseDistrict += "," + districtInfo;
     }
-
+    var remarks = $("#remarks").val();
     var params = {
         "childrenName" : name,
         "clientMobile" : mobile,
         "couponNum" : $("#ma").val(),
         "courseId" : $('#courseId').val(),
         "payment" : payWay,
-        "courseDistrict" : courseDistrict
+        "courseDistrict" : courseDistrict,
+        "remarks": remarks
     }
     $.ajax({
         type:"post",

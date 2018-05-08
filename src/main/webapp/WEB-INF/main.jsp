@@ -37,10 +37,10 @@
                 <li id="menu_match"><a href="/about/match">赛法斗</a></li>
                 <li id="menu_course"><a href="/course/detail?courseId=1">课程报名</a>
                     <div class="menubox1">
-                        <a href="/course/detail?courseId=2">青少年课程</a>
-                        <a href="/course/detail?courseId=1">成人课程</a>
-                        <a href="/course/detail?courseId=3">私教课程</a>
-                        <a href="/course/detail?courseId=4">特色课程</a>
+                        <a href="/course/detail?courseId=1">少儿课程小课包</a>
+                        <a href="/course/detail?courseId=3">少儿课程中课包</a>
+                        <a href="/course/detail?courseId=3">少儿课程大课包</a>
+                        <a href="/course/detail?courseId=4">少儿课程无限包</a>
                     </div>
                     <div class="menubox"></div>
                 </li>
