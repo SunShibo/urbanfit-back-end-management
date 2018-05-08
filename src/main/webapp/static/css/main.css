@@ -34,11 +34,20 @@
 }
 
 .index1 .index1right{width: 59.6%; background: #ffeda9;}
-.index1 .index1right > img{width: 100%;}
 .index1 .index1right .index1right1{position: relative;width: 100%;height: 177px;display: flex;align-items: center;}
 .index1 .index1right .index1right1 > img{width: 100%;height: 100%;}
 .index1 .index1right .index1right1 span{position: absolute;color: #fff;font-size: 18px;right: 17%;text-align: right;}
 .index1 .index1right .index1right1 span img{margin-bottom: 10px;}
+.index1 .index1right > img{width: 100%;}
+.index1 .index1right .rightbox{width: 100%;position: relative;}
+.index1 .index1right .rightbox > img{width: 100%;}
+.index1 .index1right .rightbox ul{ position: absolute;top: 30px; width:100%;}
+.index1 .index1right .rightbox ul li{width:65%;height: 70px;margin-left: 40px;margin-top: 24px;line-height: 70px;}
+.index1 .index1right .rightbox ul li.one{ background:url(../img/titlebg.png) no-repeat; background-size: 100% 100%;}
+.index1 .index1right .rightbox ul li.two{ background:url(../img/titlebg1.png) no-repeat; background-size: 100% 100%;}
+.index1 .index1right .rightbox ul li.three{ background:url(../img/titlebg2.png) no-repeat; background-size: 100% 100%;}
+.index1 .index1right .rightbox ul li.four{ background:url(../img/titlebg3.png) no-repeat; background-size: 100% 100%;}
+.index1 .index1right .rightbox ul li a{display: block;color: #fff;font-size: 14px;padding-left: 20px;}
 
 .indexmap{width: 80%;margin:50px auto;background: #fff;}
 .indexmap .indexmap1{width: 100%;display: flex;align-items: center;}
