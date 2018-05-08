@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>众力飞特</title>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
     <div class="top">

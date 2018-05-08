@@ -3,11 +3,12 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <head>
-   <meta charset="utf-8" />
-   <title>支付成功</title>
-   <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-   <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
-   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <meta charset="utf-8" />
+    <title>支付成功</title>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/common/menu.js"></script>
 </head>

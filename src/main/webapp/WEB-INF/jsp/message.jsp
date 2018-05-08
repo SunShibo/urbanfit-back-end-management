@@ -5,12 +5,14 @@
 <head>
     <meta charset="utf-8" />
     <title>活动资讯</title>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="/static/css/common.css">
     <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/mainJs/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/common/menu.js"></script>
+    <script type="text/javascript" src="/static/js/jwplayer-7.2.2/jwplayer.js"></script>
     <script type="text/javascript" src="/static/js/web/message_list.js"></script>
 </head>
 <body>

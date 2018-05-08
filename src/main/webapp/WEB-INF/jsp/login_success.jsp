@@ -1,13 +1,14 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8" />
-  <title>登录成功</title>
-  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
-  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
-  <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/js/web/login.js"></script>
+    <meta charset="utf-8" />
+    <title>登录成功</title>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/web/login.js"></script>
 </head>
 <body>
     <div class="content">
