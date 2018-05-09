@@ -16,8 +16,14 @@
                 <img src="../static/img/logofooter.png">
             </div>
             <div class="erweima">
-                <img src="../static/img/maa.jpg">
-                <img src="../static/img/maa1.jpg">
+                <div>
+                    <img src="../static/img/maa.jpg">
+                    <p>众力飞特赛法斗微信公众号</p>
+                </div>
+                <div>
+                    <img src="../static/img/maa1.jpg">
+                    <p>关注众力飞特微博</p>
+                </div>
             </div>
         </div>
         <p>合作单位：<span>北京博克森传媒科技股份有限公司</span>
