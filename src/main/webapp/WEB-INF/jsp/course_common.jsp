@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="route">
-        <span>课程介绍</span>
+        <span>课程报名</span>
         <div class="navbox1">
             <img src="../static/img/navbg.jpg" alt="">
             <ul id="myTab" class="navboxul">
