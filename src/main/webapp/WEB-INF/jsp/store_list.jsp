@@ -13,7 +13,7 @@
     <div class="content">
         <jsp:include page="../main.jsp"/>
         <div class="center">
-            <jsp:include page="about_common.jsp"/>
+            <%--<jsp:include page="about_common.jsp"/>--%>
             <form method="post" id="storeForm" action="list">
                 <div class="course">
                     <div id="myTabContent" class="tab-content" style="width: 100%;padding-bottom:0;">
@@ -59,6 +59,7 @@
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/common/distpicker.js"></script>
     <script type="text/javascript" src="/static/js/web/store_list.js"></script>
+    <script type="text/javascript" src="/static/js/common/menu.js"></script>
     <script type="text/javascript">
         var store = {
           "provice" : '${provice}',

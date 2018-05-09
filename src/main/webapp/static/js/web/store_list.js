@@ -2,7 +2,7 @@ $(function (){
     $("li[id^='about_']").removeClass();
     $("li[id='about_store']").addClass("active");
     $("li[id^='menu_']").removeClass();
-    $("#menu_about").addClass("on");
+    $("#menu_auth").addClass("on");
 
     $("#city_info").distpicker({
         province : store.provice,

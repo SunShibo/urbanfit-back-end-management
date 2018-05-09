@@ -45,11 +45,12 @@
                     <div class="menubox"></div>
                 </li>
                 <li id="menu_coach"><a href="/coach/list">教练团队</a></li>
-                <li id="menu_auth"><a href="/auth/authPage">认证查询</a></li>
+                <%--<li id="menu_auth"><a href="/auth/authPage">认证查询</a></li>--%>
+                <li id="menu_auth"><a href="/store/list">俱乐部</a></li>
                 <li id="menu_about"><a href="/about/company">关于我们</a>
                     <div class="menubox1">
                         <a href="/about/company">公司介绍</a>
-                        <a href="/store/list">俱乐部</a>
+                        <%--<a href="/store/list">俱乐部</a>--%>
                         <a href="/about/contact">联系我们</a>
                         <a href="/about/join">合作伙伴</a>
                     </div>
