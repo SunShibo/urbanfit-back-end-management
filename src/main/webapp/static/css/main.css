@@ -84,7 +84,7 @@
 .infoleft .list ul li .listimg img{
     width: 100%;
     height: auto;}
-.infoleft .list ul li .listtext{width: 73%;margin-right: 30px;}
+.infoleft .list ul li .listtext{width: 73%;margin-right: 30px;max-height: 103px;overflow: hidden;}
 .infoleft .list ul li .listtext h1{color: #101215; font-size: 16px;font-weight: 500;margin-top: 10px;}
 .infoleft .list ul li .listtext h1 span{display:block;font-size: 14px;margin-top: 10px;}
 .infoleft .list ul li .listtext p{color: #101215; font-size: 14px;}
