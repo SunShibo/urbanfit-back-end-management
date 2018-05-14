@@ -54,6 +54,51 @@
                         <li>
                             <a href="javascript:void(0);"><img src="../static/img/logo3.jpg"></a>
                         </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo12.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo13.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo14.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo15.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo16.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo17.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo18.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo19.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo200.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo21.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo22.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo23.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo24.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo25.png"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="../static/img/logo26.png"></a>
+                        </li>
                     </ul>
                     <img src="../static/img/bg.jpg" alt="">
                 </div>
