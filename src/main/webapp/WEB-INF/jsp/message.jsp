@@ -71,18 +71,31 @@
                         <!-- 列表 -->
                         <div class="list">
                             <ul id="listbox">
-                                <c:forEach items="${lstMessage}" var="message">
-                                    <li>
-                                        <a href="/message/toDetail?messageId=${message.messageId}">
-                                            <div class="listimg">
-                                                <img src="${baseUrl}${message.thumbnails}">
-                                            </div>
-                                            <div class="listtext">
-                                                <h1>${message.title}<span><fmt:formatDate value="${message.createTime}" pattern="yyyy-MM-dd"/></span></h1>
-                                                <p>${message.content}</p>
-                                            </div>
-                                        </a>
-                                    </li>
+                                <c:forEach items="${lstMessage}" var="message" varStatus="status">
+                                    <c:if test="${(status.index + 1) % 2 == 0}">
+                                        <li>
+                                            <a href="info_detail2.html">
+                                                <div class="listtext1">
+                                                    <h1>${message.title}<span><fmt:formatDate value="${message.createTime}" pattern="yyyy-MM-dd"/></span></h1>
+                                                    <p>${message.introduce}</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${(status.index + 1) % 2 != 0}">
+                                        <li>
+                                            <a href="/message/toDetail?messageId=${message.messageId}">
+                                                <div class="listimg">
+                                                    <img src="${baseUrl}${message.thumbnails}">
+                                                </div>
+                                                <div class="listtext">
+                                                    <h1>${message.title}<span><fmt:formatDate value="${message.createTime}" pattern="yyyy-MM-dd"/></span></h1>
+                                                    <p>${message.introduce}</p>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                    </c:if>
                                 </c:forEach>
                             </ul>
                         </div>
