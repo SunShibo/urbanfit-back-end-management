@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
-    <title>首页</title>
+    <title>众力飞特</title>
     <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="/static/css/common.css">
     <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
