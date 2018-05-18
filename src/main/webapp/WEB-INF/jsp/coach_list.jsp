@@ -52,6 +52,7 @@
                                             <img src="${baseUrl}${coach.headPortrait}">
                                         </div>
                                         <div class="coachtext">
+                                            <h2>${coach.coachName}<span>${coach.coachTitle}</span></h2>
                                             ${coach.introduce}
                                         </div>
                                     </li>
