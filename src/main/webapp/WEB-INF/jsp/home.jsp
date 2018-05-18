@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <title>首页</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">--
     <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>

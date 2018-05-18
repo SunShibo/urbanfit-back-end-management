@@ -103,7 +103,7 @@ public class OrderMasterService {
     public String addClientOrderMaster(String params, ClientInfo clientInfo, HttpServletRequest request,
                                        HttpServletResponse response){
         if(clientInfo == null){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "没有登录账号", "").toString();
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_CLIENT_NO_LOGIN, "没有登录账号", "").toString();
         }
 
         if(StringUtils.isEmpty(params)){

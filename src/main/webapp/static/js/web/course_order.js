@@ -116,6 +116,9 @@ function submitorder(){
                     window.location.href = "/order/wechatPay?orderNum=" + orderNum
                         + "&wechatPayQr=" + wechatPayQr;
                 }
+                window.location.href = "/client/toLogin";
+            }else if(result.code == -4){   // 客户没有登陆，跳转到登陆页面
+                window.location.href = "/client/toLogin";
             }else{
                 alert('参数有误');
             }

@@ -17,4 +17,9 @@ public class Constant {
      * 接口： 成功
      */
     public static final int INTERFACE_SUCC = 1;
+
+    /**
+     * 客户没有登陆
+     */
+    public static final int INTERFACE_CLIENT_NO_LOGIN = -4;
 }
