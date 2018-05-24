@@ -14,10 +14,12 @@
 .index1 .index1left .index1text{ margin-left: 25%;margin-right: 10%; }
 .index1 .index1left .index1text h1{font-size: 30px;font-weight: 600;margin-top: 50px;line-height: 40px;}
 .index1 .index1left .index1text h1 a{color: #101215;display: block;}
+.index1 .index1left .index1text div{ border-bottom: 1px solid #c6b77f;}
 .index1 .index1left .index1text div a{display: flex;}
 .index1 .index1left .index1text div a span{width: 31%;}
 .index1 .index1left .index1text div a span img{width: 100%;}
 .index1 .index1left .index1text div a p{width:69%;font-size: 14px;color: #333;margin-left: 10px;}
+.index1 .index1left .index1text div em{font-style: normal;color:#030303;font-size: 12px;}
 .index1 .index1left .index1text ul{margin:20px 0;}
 .index1 .index1left .index1text ul li{list-style:inherit;}
 .index1 .index1left .index1text ul li a{color: #101215;font-size: 18px;font-weight: 600;overflow: hidden;
