@@ -22,4 +22,9 @@ public class ApiCourseController extends BaseCotroller{
         String result = courseService.queryCourseDetail(courseId);
         safeTextPrint(response, result);
     }
+
+    @RequestMapping
+    public void queryCourseList(HttpServletResponse response, Integer storeId){
+
+    }
 }
