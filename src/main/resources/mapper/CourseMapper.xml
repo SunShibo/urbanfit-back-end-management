@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urbanfit.bem.dao.CourseDao">
+    <sql id="limit">
+        limit #{pageOffset}, #{pageSize}
+    </sql>
     <!-- 添加课程信息 -->
     <insert id="addCourse" parameterType="com.urbanfit.bem.entity.Course"
             useGeneratedKeys="true" keyProperty="courseId">
@@ -34,5 +37,15 @@
 
     <select id="queryUpCourseByCourseId" parameterType="int" resultType="com.urbanfit.bem.entity.Course">
         select * from t_course where courseId = #{courseId} and status = 0
+    </select>
+
+    <select id="">
+
+    </select>
+
+    <select id="queryCourseList" parameterType="map" resultType="com.urbanfit.bem.entity.Course">
+        select * from t_course where storeId like CONCAT("%,", #{storeId}, ",%")
+        order by createTime desc
+        <include refid="limit"/>
     </select>
 </mapper>

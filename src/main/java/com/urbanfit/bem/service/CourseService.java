@@ -6,6 +6,7 @@ import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.dao.CourseDao;
 import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.dto.ResultDTOBuilder;
+import com.urbanfit.bem.query.QueryInfo;
 import com.urbanfit.bem.util.DateUtils;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.StringUtils;
@@ -77,5 +78,12 @@ public class CourseService {
         jo.put("baseUrl", SystemConfig.getString("image_base_url"));
         jo.put("course", JsonUtils.getJsonString4JavaPOJO(course, DateUtils.LONG_DATE_PATTERN));
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
+    }
+
+    public String queryCourseList(Integer storeId, QueryInfo queryInfo){
+        if(storeId == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", "").toString();
     }
 }

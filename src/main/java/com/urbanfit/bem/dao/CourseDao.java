@@ -27,4 +27,6 @@ public interface CourseDao {
     public List<Course> queryUpCourseList();
 
     public Course queryUpCourseByCourseId(Integer courseId);
+
+    public List<Course> queryCourseList(Integer storeId);
 }
