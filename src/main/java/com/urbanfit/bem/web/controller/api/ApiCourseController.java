@@ -23,9 +23,9 @@ public class ApiCourseController extends BaseCotroller{
         safeTextPrint(response, result);
     }
 
-    @RequestMapping
-    public void queryCourseList(HttpServletResponse response, Integer storeId){
-        String result = courseService.queryCourseList(storeId);
+    @RequestMapping("/list")
+    public void queryCourseList(HttpServletResponse response, Integer storeId, Integer pageNo, Integer pageSize){
+        String result = courseService.queryCourseList(storeId, getQueryInfo(pageNo, pageSize));
         safeTextPrint(response, result);
     }
 }

@@ -11,6 +11,7 @@
         insert into t_course (courseType, introduce, userId, createTime) values (#{courseType}, #{introduce},
         #{userId}, now())
     </insert>
+
     <!-- 根据课程类型查询数据 -->
     <select id="queryCourseByType" parameterType="int" resultType="com.urbanfit.bem.entity.Course">
         select * from t_course where courseType = #{courseType}
@@ -21,12 +22,11 @@
         courseDistrict = #{courseDistrict}, courseImageUrl = #{courseImageUrl}, introduce = #{introduce}
         where courseId = #{courseId}
     </update>
+
     <select id="queryCourseByCourseId" parameterType="int" resultType="com.urbanfit.bem.entity.Course">
         select * from t_course where courseId = #{courseId}
     </select>
-    <select id="queryCourseList" resultType="com.urbanfit.bem.entity.Course">
-        select * from t_course
-    </select>
+
     <update id="updateCourseStatus" parameterType="map">
         update t_course set status = #{status} where courseId = #{courseId}
     </update>
@@ -39,12 +39,12 @@
         select * from t_course where courseId = #{courseId} and status = 0
     </select>
 
-    <select id="">
-
+    <select id="queryCourseCount" parameterType="map" resultType="int">
+        select count(courseId) from t_course where storeId like CONCAT("%", #{storeId}, "%")
     </select>
 
     <select id="queryCourseList" parameterType="map" resultType="com.urbanfit.bem.entity.Course">
-        select * from t_course where storeId like CONCAT("%,", #{storeId}, ",%")
+        select * from t_course where storeId like CONCAT("%", #{storeId}, "%")
         order by createTime desc
         <include refid="limit"/>
     </select>

@@ -20,13 +20,13 @@ public interface CourseDao {
 
     public Course queryCourseByCourseId(Integer courseId);
 
-    public List<Course> queryCourseList();
-
     public void updateCourseStatus(Map<String, Object> map);
 
     public List<Course> queryUpCourseList();
 
     public Course queryUpCourseByCourseId(Integer courseId);
 
-    public List<Course> queryCourseList(Integer storeId);
+    public List<Course> queryCourseList(Map<String, Object> map);
+
+    public int queryCourseCount(Map<String, Object> map);
 }
