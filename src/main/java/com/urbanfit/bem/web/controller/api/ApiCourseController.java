@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by Administrator on 2018/5/2.
- */
 @Controller
 @RequestMapping("/apiCourse")
 public class ApiCourseController extends BaseCotroller{
@@ -23,9 +20,18 @@ public class ApiCourseController extends BaseCotroller{
         safeTextPrint(response, result);
     }
 
+    @RequestMapping("/storeList")
+    public void queryStoreCourseList(HttpServletResponse response, Integer storeId, Integer pageNo,
+                                     Integer pageSize){
+        String result = courseService.queryStoreCourseList(storeId, getQueryInfo(pageNo, pageSize));
+        safeTextPrint(response, result);
+    }
+
     @RequestMapping("/list")
-    public void queryCourseList(HttpServletResponse response, Integer storeId, Integer pageNo, Integer pageSize){
-        String result = courseService.queryCourseList(storeId, getQueryInfo(pageNo, pageSize));
+    public void queryCourseList(HttpServletResponse response, Integer courseType, String provice, String city,
+                                String district, Integer pageNo, Integer pageSize){
+        String result = courseService.queryCourseList(courseType, provice, city, district, getQueryInfo(
+                pageNo, pageSize));
         safeTextPrint(response, result);
     }
 }

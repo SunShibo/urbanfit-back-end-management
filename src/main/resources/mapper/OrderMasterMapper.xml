@@ -37,7 +37,7 @@
         select m.*, n.`name` clientName, c.courseType from t_client_order_master m left join t_clientinfo n
         on m.clientId = n.clientId left join t_course c on m.courseId = c.courseId where m.clientId = #{clientId}
         <if test="orderNum != null">
-            and orderNum like CONCAT("%", #{orderInfo}, "%")
+            and orderNum like CONCAT("%", #{orderNum}, "%")
         </if>
         <if test="status != null">
             and m.status = #{status}

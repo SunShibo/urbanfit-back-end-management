@@ -38,7 +38,7 @@ public class StoreService {
             map.put("city", city);
         }
         if(!StringUtils.isEmpty(district)){
-            map.put("district", "district");
+            map.put("district", district);
         }
         PageObjectUtil page = new PageObjectUtil<Store>();
         return page.savePageObject(storeDao.queryClientStoreCount(map), storeDao.queryClientStoreList(map),
@@ -56,7 +56,7 @@ public class StoreService {
             map.put("city", city);
         }
         if(!StringUtils.isEmpty(district)){
-            map.put("district", "district");
+            map.put("district", district);
         }
         PageObjectUtil page = new PageObjectUtil<Store>();
         PageObject<Store> pager = page.savePageObject(storeDao.queryClientStoreCount(map),

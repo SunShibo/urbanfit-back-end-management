@@ -10,7 +10,7 @@
             <ul class="footerul">
                 <li><h1>联系我们</h1></li>
                 <li><span>电话：4000-664-688</span></li>
-                <li><span>邮箱：offical@urbanfit.cn</span></li>
+                <li><span>邮箱：official@urbanfit.cn</span></li>
             </ul>
             <div class="logo1">
                 <img src="../static/img/logofooter.png">

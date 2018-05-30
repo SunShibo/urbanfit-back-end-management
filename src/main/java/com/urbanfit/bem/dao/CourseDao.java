@@ -26,6 +26,10 @@ public interface CourseDao {
 
     public Course queryUpCourseByCourseId(Integer courseId);
 
+    public List<Course> queryStoreCourseList(Map<String, Object> map);
+
+    public int queryStoreCourseCount(Map<String, Object> map);
+
     public List<Course> queryCourseList(Map<String, Object> map);
 
     public int queryCourseCount(Map<String, Object> map);

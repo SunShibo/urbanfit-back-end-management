@@ -74,7 +74,7 @@
                                 <c:forEach items="${lstMessage}" var="message" varStatus="status">
                                     <c:if test="${(status.index + 1) % 2 == 0}">
                                         <li>
-                                            <a href="info_detail2.html">
+                                            <a href="/message/toDetail?messageId=${message.messageId}">
                                                 <div class="listtext1">
                                                     <h1>${message.title}<span><fmt:formatDate value="${message.createTime}" pattern="yyyy-MM-dd"/></span></h1>
                                                     <p>${message.introduce}</p>

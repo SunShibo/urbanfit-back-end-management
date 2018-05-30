@@ -83,7 +83,7 @@ public class CourseService {
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 
-    public String queryCourseList(Integer storeId, QueryInfo queryInfo){
+    public String queryStoreCourseList(Integer storeId, QueryInfo queryInfo){
         if(storeId == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
@@ -91,6 +91,37 @@ public class CourseService {
         map.put("pageOffset", queryInfo.getPageOffset());
         map.put("pageSize", queryInfo.getPageSize());
         map.put("storeId", "," + storeId + ",");
+        PageObjectUtil page = new PageObjectUtil();
+        PageObject<Course> pager = page.savePageObject(courseDao.queryStoreCourseCount(map),
+                courseDao.queryStoreCourseList(map), queryInfo);
+        List<Course> lstCourse = pager.getDatas();
+        JSONObject jo = new JSONObject();
+        jo.put("totalRecord", pager.getTotalRecord());
+        if(!CollectionUtils.isEmpty(lstCourse)){
+            jo.put("lstCourse", JsonUtils.getJsonString4JavaListDate(lstCourse, DateUtils.LONG_DATE_PATTERN));
+        }else{
+            jo.put("lstCourse", "");
+        }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
+    }
+
+    public String queryCourseList(Integer courseType, String provice, String city, String district,
+                                  QueryInfo queryInfo){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageOffset", queryInfo.getPageOffset());
+        map.put("pageSize", queryInfo.getPageSize());
+        if(courseType == null){
+            map.put("courseType", courseType);
+        }
+        if(!StringUtils.isEmpty(provice)){
+            map.put("provice", provice);
+        }
+        if(!StringUtils.isEmpty(city)){
+            map.put("city", city);
+        }
+        if(!StringUtils.isEmpty(district)){
+            map.put("district", district);
+        }
         PageObjectUtil page = new PageObjectUtil();
         PageObject<Course> pager = page.savePageObject(courseDao.queryCourseCount(map),
                 courseDao.queryCourseList(map), queryInfo);
@@ -102,6 +133,6 @@ public class CourseService {
         }else{
             jo.put("lstCourse", "");
         }
-        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", "").toString();
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 }

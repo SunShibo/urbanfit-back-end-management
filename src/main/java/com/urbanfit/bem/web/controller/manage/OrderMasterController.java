@@ -56,7 +56,8 @@ public class OrderMasterController extends BaseCotroller{
     }
 
     @RequestMapping("/detail")
-    public void queryClientOrderMasterDetail(HttpServletRequest request, HttpServletResponse response, String orderNum){
+    public void queryClientOrderMasterDetail(HttpServletRequest request, HttpServletResponse response,
+                                             String orderNum){
         ClientInfo clientInfo = getLoginClientInfo(request);
         String result = orderMasterService.queryClientOrderMasterDetail(clientInfo.getClientId(), orderNum);
         safeTextPrint(response, result);

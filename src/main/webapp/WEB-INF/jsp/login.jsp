@@ -16,7 +16,7 @@
             <img src="../static/img/loginbg.jpg">
             <div class="loginbox">
                 <div class="joinlogo">
-                    <a href="index.html">
+                    <a href="/module/toHome">
                         <img src="../static/img/logo.png">
                     </a>
                 </div>
