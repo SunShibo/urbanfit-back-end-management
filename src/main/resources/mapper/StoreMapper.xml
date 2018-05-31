@@ -35,4 +35,8 @@
         order by createTime desc
         <include refid="limit"/>
     </select>
+
+    <select id="queryStoreById" parameterType="int" resultType="com.urbanfit.bem.entity.Store">
+        select * from t_store where storeId = #{storeId}
+    </select>
 </mapper>

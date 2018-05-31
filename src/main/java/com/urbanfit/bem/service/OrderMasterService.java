@@ -2,33 +2,21 @@ package com.urbanfit.bem.service;
 
 import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.cfg.pop.SystemConfig;
-import com.urbanfit.bem.dao.ClientInfoDao;
-import com.urbanfit.bem.dao.CouponDao;
-import com.urbanfit.bem.dao.CourseDao;
-import com.urbanfit.bem.dao.OrderMasterDao;
-import com.urbanfit.bem.entity.ClientInfo;
-import com.urbanfit.bem.entity.Coupon;
-import com.urbanfit.bem.entity.Course;
-import com.urbanfit.bem.entity.OrderMaster;
+import com.urbanfit.bem.dao.*;
+import com.urbanfit.bem.entity.*;
 import com.urbanfit.bem.pay.*;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
 import com.urbanfit.bem.query.QueryInfo;
 import com.urbanfit.bem.tenpay.util.JsonUtil;
-import com.urbanfit.bem.util.DateUtils;
-import com.urbanfit.bem.util.JsonUtils;
-import com.urbanfit.bem.util.RandomUtils;
-import com.urbanfit.bem.util.StringUtils;
+import com.urbanfit.bem.util.*;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2018/4/9.
@@ -43,6 +31,14 @@ public class OrderMasterService {
     private CourseDao courseDao;
     @Resource
     private CouponDao couponDao;
+    @Resource
+    private CourseStoreDao courseStoreDao;
+    @Resource
+    private StoreDao storeDao;
+    @Resource
+    private CourseSizeDetailDao courseSizeDetailDao;
+    @Resource
+    private CourseSizeDao courseSizeDao;
 
     public OrderMaster queryOderMaterDetail(String orderNum){
         return orderMasterDao.queryOrderMaterDetail(orderNum);
@@ -105,7 +101,6 @@ public class OrderMasterService {
         if(clientInfo == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_CLIENT_NO_LOGIN, "没有登录账号", "").toString();
         }
-
         if(StringUtils.isEmpty(params)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
@@ -117,15 +112,36 @@ public class OrderMasterService {
             e.printStackTrace();
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
-        if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName())
-                || StringUtils.isEmpty(order.getClientMobile()) || StringUtils.isEmpty(order.getCourseDistrict())
-                || order.getPayment() == null){
+        if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName()) || order.getStoreId() == null
+                || StringUtils.isEmpty(order.getClientMobile()) || order.getPayment() == null
+                || StringUtils.isEmpty(order.getCourseSizeId())){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         // 查询课程是否存在
         Course course = courseDao.queryUpCourseByCourseId(order.getCourseId());
         if(course == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程不存在或已经下架", "").toString();
+        }
+        // 查询课程规格是否存在
+        Map<String, Object> sizeDetailMap = new HashMap<String, Object>();
+        sizeDetailMap.put("courseId", order.getCourseId());
+        sizeDetailMap.put("sizeDetail", order.getCourseSizeId());
+        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailByMap(sizeDetailMap);
+        if(courseSizeDetail == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        // 查询课程是否绑定俱乐部
+        Map<String, Object> courseStoreMap = new HashMap<String, Object>();
+        courseStoreMap.put("courseId", order.getCourseId());
+        courseStoreMap.put("storeId", order.getOrderId());
+        CourseStore courseStore = courseStoreDao.queryCourseStoreByMap(courseStoreMap);
+        if(courseStore == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程没有关联此俱乐部", "").toString();
+        }
+        // 查询俱乐部是否存在
+        Store store = storeDao.queryStoreById(order.getStoreId());
+        if(store == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "俱乐部不存在", "").toString();
         }
         Coupon coupon = null;
         // 如果优惠码不为空，查询优惠码是否存在
@@ -137,7 +153,7 @@ public class OrderMasterService {
         }
         //生成主订单编号
         String orderNum  = System.currentTimeMillis() + "" + RandomUtils.getRandomNumber(6);
-        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum);
+        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum, courseSizeDetail);
         if (order.getPayment() == OrderMaster.PAYMENT_ALIPAY) {  // 支付宝支付
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
@@ -263,7 +279,8 @@ public class OrderMasterService {
         }
     }
 
-    private OrderMaster addOrderMasterDetail(OrderMaster order, Coupon coupon, Course course, String orderNum){
+    private OrderMaster addOrderMasterDetail(OrderMaster order, Coupon coupon, Course course, String orderNum,
+                                             CourseSizeDetail courseSizeDetail){
         OrderMaster orderMaster = new OrderMaster();
         orderMaster.setClientId(order.getClientId());
         orderMaster.setChildrenName(order.getChildrenName());
@@ -273,7 +290,18 @@ public class OrderMasterService {
         orderMaster.setPrice(course.getCoursePrice());
         orderMaster.setCourseName(course.getCourseName());
         orderMaster.setCourseDistrict(order.getCourseDistrict());
-        double payPrice = course.getCoursePrice();
+        orderMaster.setCourseSizeId(order.getCourseSizeId());     // 课程规格信息
+        orderMaster.setStoreId(order.getStoreId());               // 课程俱乐部
+        // 查询商品规格信息
+        Map<String, Object> courseSizeMap = new HashMap<String, Object>();
+        courseSizeMap.put("lstSizeId", order.getCourseSizeId().split(","));
+        List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSizeInfo(courseSizeMap);
+        List<String> lstSizeName = new ArrayList<String>();
+        for (CourseSize courseSize : lstCourseSize){
+            lstSizeName.add(courseSize.getSizeName());
+        }
+        orderMaster.setCourseSize(ArrayUtils.join(lstCourseSize.toArray(), "-"));
+        double payPrice = courseSizeDetail.getSizePrice();
         orderMaster.setPayPrice(payPrice);
         orderMaster.setRemarks(order.getRemarks());
         // 获取支付价格，如果没有使用优惠码，支付价格为课程价格，如果使用优惠码，支付价格为课程价格-优惠码价格
@@ -356,15 +384,36 @@ public class OrderMasterService {
             e.printStackTrace();
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
-        if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName())
-                || StringUtils.isEmpty(order.getClientMobile()) || StringUtils.isEmpty(order.getCourseDistrict())
-                || order.getPayment() == null){
+        if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName()) || order.getStoreId() == null
+                || StringUtils.isEmpty(order.getClientMobile()) || order.getPayment() == null
+                || StringUtils.isEmpty(order.getCourseSizeId())){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         // 查询课程是否存在
         Course course = courseDao.queryUpCourseByCourseId(order.getCourseId());
         if(course == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程不存在或已经下架", "").toString();
+        }
+        // 查询课程规格是否存在
+        Map<String, Object> sizeDetailMap = new HashMap<String, Object>();
+        sizeDetailMap.put("courseId", order.getCourseId());
+        sizeDetailMap.put("sizeDetail", order.getCourseSizeId());
+        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailByMap(sizeDetailMap);
+        if(courseSizeDetail == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        // 查询课程是否绑定俱乐部
+        Map<String, Object> courseStoreMap = new HashMap<String, Object>();
+        courseStoreMap.put("courseId", order.getCourseId());
+        courseStoreMap.put("storeId", order.getOrderId());
+        CourseStore courseStore = courseStoreDao.queryCourseStoreByMap(courseStoreMap);
+        if(courseStore == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程没有关联此俱乐部", "").toString();
+        }
+        // 查询俱乐部是否存在
+        Store store = storeDao.queryStoreById(order.getStoreId());
+        if(store == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "俱乐部不存在", "").toString();
         }
         Coupon coupon = null;
         // 如果优惠码不为空，查询优惠码是否存在
@@ -376,7 +425,7 @@ public class OrderMasterService {
         }
         //生成主订单编号
         String orderNum  = System.currentTimeMillis() + "" + RandomUtils.getRandomNumber(6);
-        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum);
+        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum, courseSizeDetail);
         if (order.getPayment() == OrderMaster.PAYMENT_ALIPAY) {  // 支付宝支付
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.

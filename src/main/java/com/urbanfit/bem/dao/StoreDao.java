@@ -13,4 +13,6 @@ public interface StoreDao {
     public int queryClientStoreCount(Map<String, Object> map);
 
     public List<Store> queryClientStoreList(Map<String, Object> map);
+
+    public Store queryStoreById(Integer storeId);
 }

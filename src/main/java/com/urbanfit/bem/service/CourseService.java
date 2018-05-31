@@ -3,7 +3,13 @@ package com.urbanfit.bem.service;
 import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.dao.CourseDao;
+import com.urbanfit.bem.dao.CourseSizeDao;
+import com.urbanfit.bem.dao.CourseSizeDetailDao;
+import com.urbanfit.bem.dao.CourseStoreDao;
 import com.urbanfit.bem.entity.Course;
+import com.urbanfit.bem.entity.CourseSize;
+import com.urbanfit.bem.entity.CourseSizeDetail;
+import com.urbanfit.bem.entity.Store;
 import com.urbanfit.bem.entity.dto.ResultDTOBuilder;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
@@ -26,6 +32,12 @@ import java.util.Map;
 public class CourseService {
     @Resource
     private CourseDao courseDao;
+    @Resource
+    private CourseStoreDao courseStoreDao;
+    @Resource
+    private CourseSizeDao courseSizeDao;
+    @Resource
+    private CourseSizeDetailDao courseSizeDetailDao;
 
     /**
      * 添加课程数据
@@ -80,6 +92,17 @@ public class CourseService {
         JSONObject jo = new JSONObject();
         jo.put("baseUrl", SystemConfig.getString("image_base_url"));
         jo.put("course", JsonUtils.getJsonString4JavaPOJO(course, DateUtils.LONG_DATE_PATTERN));
+        // 查询课程规格
+        List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSize(courseId);
+        jo.put("lstCourseSize", CollectionUtils.isEmpty(lstCourseSize) ? "" : JsonUtils.
+                getJsonString4JavaListDate(lstCourseSize, DateUtils.LONG_DATE_PATTERN));
+        List<CourseSizeDetail> lstSizeDetail = courseSizeDetailDao.queryCourseSizeDetail(courseId);
+        jo.put("lstSizeDetail", CollectionUtils.isEmpty(lstSizeDetail) ? "" :  JsonUtils.
+                getJsonString4JavaListDate(lstSizeDetail, DateUtils.LONG_DATE_PATTERN));
+        // 查询课程课程俱乐部
+        List<Store> lstCourseStore = courseStoreDao.queryCourseStore(courseId);
+        jo.put("lstCourseStore", CollectionUtils.isEmpty(lstCourseStore) ? "" : JsonUtils.
+                getJsonString4JavaListDate(lstCourseStore, DateUtils.LONG_DATE_PATTERN));
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 

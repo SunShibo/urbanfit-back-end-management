@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urbanfit.bem.dao.CourseStoreDao">
+    <select id="queryCourseStore" parameterType="int" resultType="com.urbanfit.bem.entity.Store">
+        select n.* from t_course_store m left join t_store n on m.storeId = n.storeId where m.courseId = #{courseId}
+    </select>
+
+    <select id="queryCourseStoreByMap" parameterType="map" resultType="com.urbanfit.bem.entity.CourseStore">
+        select * from t_course_store where courseId = #{courseId} and storeId = #{storeId}
+    </select>
+</mapper>
