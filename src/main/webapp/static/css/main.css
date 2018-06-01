@@ -14,18 +14,59 @@
 .index1 .index1left .index1text{ margin-left: 25%;margin-right: 10%; }
 .index1 .index1left .index1text h1{font-size: 30px;font-weight: 600;margin-top: 50px;line-height: 40px;}
 .index1 .index1left .index1text h1 a{color: #101215;display: block;}
-.index1 .index1left .index1text div{ border-bottom: 1px solid #c6b77f;}
-.index1 .index1left .index1text div a{display: flex;}
-.index1 .index1left .index1text div a span{width: 31%;}
+
+.index1 .index1left .index1text > div{
+    border-bottom: 1px solid #c6b77f;
+}
+.index1 .index1left .index1text div em{
+    font-style: normal;color:#030303;font-size: 12px;
+    display: block; width: 100%;text-align: right;
+}
+
+.index1 .index1left .index1text div a{display: block;}
+.index1 .index1left .index1text div a span{width: 28%;float: left;margin-right: 3%;}
 .index1 .index1left .index1text div a span img{width: 100%;}
-.index1 .index1left .index1text div a p{width:69%;font-size: 14px;color: #333;margin-left: 10px;}
-.index1 .index1left .index1text div em{font-style: normal;color:#030303;font-size: 12px;}
+.index1 .index1left .index1text div a p{width:69%;font-size: 14px;color: #333;margin-left: 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
 .index1 .index1left .index1text ul{margin:20px 0;}
-.index1 .index1left .index1text ul li{list-style:inherit;}
-.index1 .index1left .index1text ul li a{color: #101215;font-size: 18px;font-weight: 600;overflow: hidden;
-    text-overflow: ellipsis;white-space: nowrap;display: block;}
-.index1 .index1left .index1text > a{display: block;width: 120px;height: 50px;background: #d0be3f;border-radius: 50px;
-    text-align: center;line-height: 50px;color: #fff;}
+.index1 .index1left .index1text ul li{
+    border-bottom: 1px solid #c6b77f;
+}
+.index1 .index1left .index1text ul li em{
+    font-style: normal;color:#030303;font-size: 12px;
+    display: block; width: 100%;text-align: right;
+}
+.index1 .index1left .index1text ul li a{display: flex;width: 100%;}
+.index1 .index1left .index1text ul li a img{
+    margin-top: 20px;
+}
+.index1 .index1left .index1text ul li a .text{
+    margin-left: 15px;
+    width: 70%;
+}
+.index1 .index1left .index1text ul li a .text h2{
+    color: #030303;font-size: 16px;
+    overflow: hidden;white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.index1 .index1left .index1text ul li a div p{
+    color: #030303;font-size: 12px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.index1 .index1left .index1text > a{
+    display: block;width: 77px;height: 23px;
+    background: #6b6247;border-radius: 23px;
+    text-align: center;line-height: 23px;color: #fff;
+}
+
 @media screen and (max-width: 1360px) {
     .index1 .index1left .index1text h1{margin-top: 25px;font-size: 26px;line-height: 34px;}
     .index1 .index1left .index1text div a p{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 5;
@@ -56,12 +97,26 @@
 .indexmap .indexmap1 .chinamap{width: 70%;}
 .indexmap .indexmap1 .chinamap img{width: 100%;}
 .indexmap .indexmap1 .addr{width: 30%;}
-.indexmap .indexmap1 .addr p{font-size: 14px;color: #000;}
+.indexmap .indexmap1 .addr h1{
+    color: #030303;font-size: 20px;
+}
+.indexmap .indexmap1 .addr p{
+    font-size: 14px;color: #030303;
+}
+.indexmap .indexmap1 .addr a{
+    display: block;width: 82px;
+    height: 28px;border-radius: 28px;
+    background: #fcd124;
+    text-align: center;
+    line-height: 28px;
+    float: right;
+    font-size: 18px;color: #020202;
+}
 
 .train{width: 100%;position: relative;}
 .train > img{width: 100%;}
 .train .trainbox{position: absolute;width: 80%;left: 10%;top: 0;height: 100%;}
-.train .trainbox > img{margin: 0 auto; padding: 100px 0;}
+.train .trainbox > img{ padding: 100px 0;}
 .train .trainbox .trainboxul{width: 100%;position: relative;}
 .train .trainbox .trainboxul > img{width: 100%;}
 .trainboxul ul{position: absolute;display: flex;width: 70%;left: 15%;bottom: 22%;justify-content: space-between;}
