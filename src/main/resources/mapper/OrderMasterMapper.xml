@@ -57,9 +57,10 @@
             useGeneratedKeys="true" keyProperty="orderId">
         insert into t_client_order_master (orderNum, clientId, childrenName, clientMobile, courseId, courseName,
         courseDistrict, price, payPrice, isUseCoupon, couponId, couponNum, couponPercent, couponPrice, payment,
-        status, createTime, systemCancleTime, remarks) values (#{orderNum}, #{clientId}, #{childrenName}, #{clientMobile},
-        #{courseId},#{courseName}, #{courseDistrict}, #{price}, #{payPrice}, #{isUseCoupon}, #{couponId}, #{couponNum},
-        #{couponPercent}, #{couponPrice}, #{payment}, #{status}, #{createTime}, #{systemCancleTime}, #{remarks})
+        status, createTime, systemCancleTime, remarks, detailId, courseSize) values (#{orderNum}, #{clientId},
+        #{childrenName}, #{clientMobile}, #{courseId},#{courseName}, #{courseDistrict}, #{price}, #{payPrice},
+        #{isUseCoupon}, #{couponId}, #{couponNum}, #{couponPercent}, #{couponPrice}, #{payment}, #{status},
+        #{createTime}, #{systemCancleTime}, #{remarks}, #{detailId}, #{courseSize})
     </insert>
 
     <update id="updateOrderMaster" parameterType="map">

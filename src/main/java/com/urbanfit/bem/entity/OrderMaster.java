@@ -61,7 +61,7 @@ public class OrderMaster extends BaseModel{
     private String sourceName;
     private String remarks;
 
-    private String courseSizeId;
+    private Integer detailId;
     private String courseSize;
     private Integer storeId;
 
@@ -266,12 +266,12 @@ public class OrderMaster extends BaseModel{
         this.remarks = remarks;
     }
 
-    public String getCourseSizeId() {
-        return courseSizeId;
+    public Integer getDetailId() {
+        return detailId;
     }
 
-    public void setCourseSizeId(String courseSizeId) {
-        this.courseSizeId = courseSizeId;
+    public void setDetailId(Integer detailId) {
+        this.detailId = detailId;
     }
 
     public String getCourseSize() {

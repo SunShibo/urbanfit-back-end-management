@@ -11,4 +11,6 @@ public interface CourseSizeDetailDao {
     public List<CourseSizeDetail> queryCourseSizeDetail(Integer courseId);
 
     public CourseSizeDetail queryCourseSizeDetailByMap(Map<String, Object> map);
+
+    public CourseSizeDetail queryCourseSizeDetailById(Integer detailId);
 }

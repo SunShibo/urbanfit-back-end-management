@@ -67,7 +67,7 @@ public class OrderMasterController extends BaseCotroller{
     public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params){
         ClientInfo clientInfo = getLoginClientInfo(request);
         String result = orderMasterService.addClientOrderMaster(params, clientInfo, request, response);
-        safeHtmlPrint(response, result);
+        safeTextPrint(response, result);
     }
 
     @RequestMapping("/payAgain")

@@ -2,10 +2,7 @@ package com.urbanfit.bem.service;
 
 import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.cfg.pop.SystemConfig;
-import com.urbanfit.bem.dao.CourseDao;
-import com.urbanfit.bem.dao.CourseSizeDao;
-import com.urbanfit.bem.dao.CourseSizeDetailDao;
-import com.urbanfit.bem.dao.CourseStoreDao;
+import com.urbanfit.bem.dao.*;
 import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.CourseSize;
 import com.urbanfit.bem.entity.CourseSizeDetail;
@@ -14,6 +11,7 @@ import com.urbanfit.bem.entity.dto.ResultDTOBuilder;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
 import com.urbanfit.bem.query.QueryInfo;
+import com.urbanfit.bem.util.ArrayUtils;
 import com.urbanfit.bem.util.DateUtils;
 import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.util.StringUtils;
@@ -22,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +37,8 @@ public class CourseService {
     private CourseSizeDao courseSizeDao;
     @Resource
     private CourseSizeDetailDao courseSizeDetailDao;
+    @Resource
+    private StoreDao storeDao;
 
     /**
      * 添加课程数据
@@ -156,6 +157,46 @@ public class CourseService {
         }else{
             jo.put("lstCourse", "");
         }
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
+    }
+
+    public String queryCourseDetail(Integer courseId, Integer storeId, Integer detailId){
+        if(courseId == null || storeId == null || detailId == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        // 查询课程是否存在
+        Course course = courseDao.queryCourseByCourseId(courseId);
+        if(course == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程不存在", "").toString();
+        }
+        Store store = storeDao.queryStoreById(storeId);
+        if(store == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "门店不存在，请重新选择", "").toString();
+        }
+        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailById(detailId);
+        if(courseSizeDetail == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        if(courseSizeDetail.getIsSale() == CourseSizeDetail.IS_SALE_NO){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不可售，请重新选择",
+                    "").toString();
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("courseId", courseId);
+        map.put("lstSizeId", courseSizeDetail.getSizeDetail().split(","));
+        List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSizeInfo(map);
+        if(CollectionUtils.isEmpty(lstCourseSize)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        List<String> lstSizeName = new ArrayList<String>();
+        for (CourseSize courseSize : lstCourseSize){
+            lstSizeName.add(courseSize.getSizeName());
+        }
+        JSONObject jo = new JSONObject();
+        jo.put("course", JsonUtils.getJsonString4JavaPOJO(course, DateUtils.LONG_DATE_PATTERN));
+        jo.put("store", JsonUtils.getJsonString4JavaPOJO(store, DateUtils.LONG_DATE_PATTERN));
+        jo.put("courseSizeDetail", JsonUtils.getJsonString4JavaPOJO(courseSizeDetail, DateUtils.LONG_DATE_PATTERN));
+        jo.put("sizeName", ArrayUtils.join(lstSizeName.toArray(), "-"));
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 }

@@ -12,6 +12,8 @@ import com.urbanfit.bem.tenpay.util.JsonUtil;
 import com.urbanfit.bem.util.*;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -114,7 +116,7 @@ public class OrderMasterService {
         }
         if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName()) || order.getStoreId() == null
                 || StringUtils.isEmpty(order.getClientMobile()) || order.getPayment() == null
-                || StringUtils.isEmpty(order.getCourseSizeId())){
+                || order.getDetailId() == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         // 查询课程是否存在
@@ -122,18 +124,25 @@ public class OrderMasterService {
         if(course == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程不存在或已经下架", "").toString();
         }
-        // 查询课程规格是否存在
-        Map<String, Object> sizeDetailMap = new HashMap<String, Object>();
-        sizeDetailMap.put("courseId", order.getCourseId());
-        sizeDetailMap.put("sizeDetail", order.getCourseSizeId());
-        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailByMap(sizeDetailMap);
+        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailById(order.getDetailId());
         if(courseSizeDetail == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        if(courseSizeDetail.getIsSale() == CourseSizeDetail.IS_SALE_NO){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不可售，请重新选择",
+                    "").toString();
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("courseId", order.getCourseId());
+        map.put("lstSizeId", courseSizeDetail.getSizeDetail().split(","));
+        List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSizeInfo(map);
+        if(CollectionUtils.isEmpty(lstCourseSize)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
         }
         // 查询课程是否绑定俱乐部
         Map<String, Object> courseStoreMap = new HashMap<String, Object>();
         courseStoreMap.put("courseId", order.getCourseId());
-        courseStoreMap.put("storeId", order.getOrderId());
+        courseStoreMap.put("storeId", order.getStoreId());
         CourseStore courseStore = courseStoreDao.queryCourseStoreByMap(courseStoreMap);
         if(courseStore == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程没有关联此俱乐部", "").toString();
@@ -287,14 +296,14 @@ public class OrderMasterService {
         orderMaster.setClientMobile(order.getClientMobile());
         orderMaster.setOrderNum(orderNum);
         orderMaster.setCourseId(order.getCourseId());
-        orderMaster.setPrice(course.getCoursePrice());
+        orderMaster.setPrice(courseSizeDetail.getSizePrice());
         orderMaster.setCourseName(course.getCourseName());
         orderMaster.setCourseDistrict(order.getCourseDistrict());
-        orderMaster.setCourseSizeId(order.getCourseSizeId());     // 课程规格信息
+        orderMaster.setDetailId(courseSizeDetail.getDetailId());     // 课程规格信息
         orderMaster.setStoreId(order.getStoreId());               // 课程俱乐部
         // 查询商品规格信息
         Map<String, Object> courseSizeMap = new HashMap<String, Object>();
-        courseSizeMap.put("lstSizeId", order.getCourseSizeId().split(","));
+        courseSizeMap.put("lstSizeId", courseSizeDetail.getSizeDetail().split(","));
         List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSizeInfo(courseSizeMap);
         List<String> lstSizeName = new ArrayList<String>();
         for (CourseSize courseSize : lstCourseSize){
@@ -386,7 +395,7 @@ public class OrderMasterService {
         }
         if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName()) || order.getStoreId() == null
                 || StringUtils.isEmpty(order.getClientMobile()) || order.getPayment() == null
-                || StringUtils.isEmpty(order.getCourseSizeId())){
+                || order.getDetailId() == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
         // 查询课程是否存在
@@ -394,12 +403,19 @@ public class OrderMasterService {
         if(course == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程不存在或已经下架", "").toString();
         }
-        // 查询课程规格是否存在
-        Map<String, Object> sizeDetailMap = new HashMap<String, Object>();
-        sizeDetailMap.put("courseId", order.getCourseId());
-        sizeDetailMap.put("sizeDetail", order.getCourseSizeId());
-        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailByMap(sizeDetailMap);
+        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailById(order.getDetailId());
         if(courseSizeDetail == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        if(courseSizeDetail.getIsSale() == CourseSizeDetail.IS_SALE_NO){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不可售，请重新选择",
+                    "").toString();
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("courseId", order.getCourseId());
+        map.put("lstSizeId", courseSizeDetail.getSizeDetail().split(","));
+        List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSizeInfo(map);
+        if(CollectionUtils.isEmpty(lstCourseSize)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
         }
         // 查询课程是否绑定俱乐部

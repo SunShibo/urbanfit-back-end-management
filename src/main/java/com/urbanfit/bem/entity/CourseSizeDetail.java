@@ -4,6 +4,8 @@ import com.urbanfit.bem.common.base.BaseModel;
 import java.util.Date;
 
 public class CourseSizeDetail extends BaseModel{
+    public static final int IS_SALE_NO = 1;
+
     private Integer detailId;
     private String sizeDetail;
     private Double sizePrice;

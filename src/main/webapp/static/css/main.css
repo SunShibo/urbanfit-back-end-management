@@ -693,3 +693,266 @@
     margin-bottom: 15px;
 }
 .kuang3 .kuangul ul li
+
+
+    /***************** 课程介绍 *****************/
+
+.cbanner{
+    width: 100%;
+    position: relative;
+}
+.cbanner img{
+    width: 100%;
+}
+.cbanner h2{
+    font-size: 35px;
+    color: #fff;
+    position: absolute;
+    z-index: 10;
+    left: 20%;
+    top: 15%;
+}
+.ctitle{
+    width: 100%;
+    height: 50px;
+    background: #f6f6f6;
+    line-height: 50px;
+}
+.ctitle div{
+    width: 80%;
+    margin: 0 auto;
+    color: #222;
+    font-size: 16px;
+}
+.ctitle div a{
+    color: #222;
+    font-size: 16px;
+    text-decoration: underline;
+}
+.cfilter{
+    width: 100%;
+    margin-top: 40px;
+}
+.cfilter .ccourse{
+    width: 100%;
+    display: flex;
+    height: 42px;
+    box-sizing:border-box;
+    border:1px solid #e5e5e5;
+    background: #fafafa;
+}
+.cfilter .ccourse span{
+    width: 100px;
+    line-height: 42px;
+    text-align: center;
+    color: #222;
+    font-size: 14px;
+    background: #e5e5e5;
+}
+.cfilter .ccourse ul{
+    display: flex;
+}
+.cfilter .ccourse ul li{
+    height: 42px;
+}
+.cfilter .ccourse ul li a{
+    display: block;padding: 0 20px;
+    color: #222;line-height: 42px;
+    font-size: 14px;
+    width: 100%;
+}
+.cfilter .caddr{
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+}
+.cfilter .caddr span{
+    width: 100px;
+    line-height: 42px;
+    text-align: center;
+    color: #222;
+    font-size: 14px;
+}
+.cfilter .caddr .cselect{
+    display: flex;
+}
+.cfilter .caddr .cselect select{
+    height: 42px;margin: 0 20px;
+    border:none;
+    outline: none;
+}
+.clist{
+    width: 100%;
+}
+.clist > ul > li{
+    border-bottom: 2px solid #f4f4f4;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.clist > ul > li:last-child{
+    border-bottom: none;
+}
+.clist > ul > li .clistcourse{
+    display: flex;
+}
+.clist > ul > li .clistcourse ul li{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 12px;
+}
+.clist > ul > li .clistcourse ul li img{
+    position: absolute;
+    top: 3px;
+}
+.clist > ul > li .clistcourse ul li h1{
+    color: #222;font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+.clist > ul > li .clistcourse ul li p{
+    color: #888;font-size: 16px;
+    margin: 0;margin-left: 20px;
+}
+.clist > ul > li .clistcourse ul li p span{
+    color: #fe8005;font-size: 20px;
+}
+.clist > ul > li .clistcourse ul li p i{
+    color: #666;font-size: 16px;
+    font-style: normal;
+}
+.clist > ul > li > a{
+    color: #260d02;font-size: 12px;
+    background: #f4d040;
+    width: 78px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 3px;
+}
+.clist .page{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 100px;
+}
+.page .pagination > li > a{
+    color: #555;
+}
+.page .pagination > li > a:hover{
+    background: #f4d040 !important;
+    color: #fff;
+}
+
+
+/***************** 课程详情页 *****************/
+.cdetailbox{
+    display: flex;
+    margin: 40px 0;
+}
+.cdetailbox > ul{
+    margin-left: 20px;
+}
+.cdetailbox > ul > li{
+    display: flex;
+    position: relative;
+    line-height: 38px;
+}
+.cdetailbox ul li img{
+    position: absolute;
+    top: 11px;
+}
+.cdetailbox ul li h1{
+    color: #222;font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 10px;
+}
+.cdetailbox ul li p{
+    color: #333;font-size: 16px;
+    margin: 0;margin-left: 20px;
+}
+.cdetailbox ul li p span{
+    color: #fe8005;font-size: 20px;
+}
+.cdetailbox ul li p i{
+    color: #333;font-size: 16px;
+    font-style: normal;
+}
+.cdetailbox ul li p select{
+    border:1px solid #ebebeb;
+    height: 38px;
+    border-radius: 3px;
+    padding: 0 10px;
+    outline: none;
+}
+.cdetailbox ul li p a{
+    color: #333;font-size: 16px;
+    padding-right: 20px;
+}
+.cdetailbox ul li p a:hover{
+    color: #fe8005;
+    text-decoration: underline;
+}
+.cdetailbox ul li p a.on{
+    color: #fe8005;
+    text-decoration: underline;
+}
+.cdetailbox ul li > a{
+    color: #260d02;font-size: 16px;
+    width: 125px;height: 42px;
+    background: #f4d040;
+    line-height: 42px;
+    text-align: center;
+    border-radius: 3px;
+    margin-top: 8px;
+}
+.cdetaillist{
+    width: 100%;
+}
+.cdetaillist ul li{
+    display: flex;
+    flex-wrap: wrap;
+}
+.cdetaillist ul li a{
+    display: flex;
+    margin: 35px 0;
+}
+.cdetaillist ul li h2{
+    color: #000;font-size: 20px;
+    font-weight: 500;
+    width: 100%;
+    margin: 0;
+}
+.cdetaillist ul li a > img{
+    width: 198px;
+    height: 115px;
+    border:2px solid #f3ce4e;
+    border-radius: 3px;
+}
+.cdetaillist ul li a > div{
+    margin-left: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.cdetaillist ul li a > div p{
+    color: #000;
+    font-size: 14px;
+    width: 100%;
+    margin: 0;
+    line-height: 20px;
+}
+
+.cdetailbox ul li > .joinButton {
+    color: #260d02;
+    font-size: 16px;
+    width: 125px;
+    height: 42px;
+    background: #f4d040;
+    line-height: 42px;
+    text-align: center;
+    border-radius: 3px;
+    margin-top: 8px;
+}
