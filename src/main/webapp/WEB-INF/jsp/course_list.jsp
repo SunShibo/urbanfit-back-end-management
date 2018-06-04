@@ -13,7 +13,7 @@
 <body>
 <div class="content">
     <jsp:include page="../main.jsp"/>
-    <div class="cbanner">
+    <div class="cbanner" style="position: relative;">
         <h2>课程介绍</h2>
         <img src="../static/img/cbanner.jpg">
     </div>

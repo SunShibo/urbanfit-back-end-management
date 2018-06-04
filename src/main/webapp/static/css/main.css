@@ -697,10 +697,7 @@
 
     /***************** 课程介绍 *****************/
 
-.cbanner{
-    width: 100%;
-    position: relative;
-}
+.cbanner{ width: 100%; position: relative;}
 .cbanner img{
     width: 100%;
 }
@@ -710,7 +707,10 @@
     position: absolute;
     z-index: 10;
     left: 20%;
-    top: 15%;
+    top: 50%;
+    margin: 0;
+    height: 50px;
+    margin-top: -25px;
 }
 .ctitle{
     width: 100%;

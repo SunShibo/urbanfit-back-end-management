@@ -102,7 +102,18 @@
                     </div>
                     <div class="inforight">
                         <input type="hidden" value='${module.content}' name="moduleContent">
-                        <ul class="module"></ul>
+                        <ul class="module">
+                            <li>
+                                <a href="#">
+                                    <img src="../static/img/guanggao.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="../static/img/guanggao.jpg">
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="page clear">
