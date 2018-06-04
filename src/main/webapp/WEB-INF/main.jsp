@@ -35,7 +35,7 @@
                 <li id="menu_home"><a href="/module/toHome">首页</a></li>
                 <li id="menu_message"><a href="/module/clist?type=2">活动资讯</a></li>
                 <li id="menu_match"><a href="/about/match">赛法斗</a></li>
-                <li id="menu_course"><a href="/course/detail?courseId=1">课程报名</a></li>
+                <li id="menu_course"><a href="/course/list">课程列表</a></li>
                 <li id="menu_coach"><a href="/coach/list">教练团队</a></li>
                 <%--<li id="menu_auth"><a href="/auth/authPage">认证查询</a></li>--%>
                 <li id="menu_auth"><a href="/store/list">俱乐部</a></li>

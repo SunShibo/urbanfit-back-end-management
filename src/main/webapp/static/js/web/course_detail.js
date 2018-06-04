@@ -1,4 +1,7 @@
 $(function (){
+    $("li[id^='menu_']").removeClass();
+    $("#menu_course").addClass("on");
+
     $("#courseStore").change(chooseCourseStore);
     initCourseDetail();
     $("#B_join_course").click(redirectJoinCourse);

@@ -199,4 +199,25 @@ public class CourseService {
         jo.put("sizeName", ArrayUtils.join(lstSizeName.toArray(), "-"));
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
+
+    public PageObject<Course> queryWebCourseList(Integer courseType, String provice, String city,
+                                              String district, QueryInfo queryInfo){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageOffset", queryInfo.getPageOffset());
+        map.put("pageSize", queryInfo.getPageSize());
+        if(courseType != null){
+            map.put("courseType", courseType);
+        }
+        if(!StringUtils.isEmpty(provice)){
+            map.put("provice", provice);
+        }
+        if(!StringUtils.isEmpty(city)){
+            map.put("city", city);
+        }
+        if(!StringUtils.isEmpty(district)){
+            map.put("district", district);
+        }
+        PageObjectUtil page = new PageObjectUtil();
+        return page.savePageObject(courseDao.queryCourseCount(map), courseDao.queryCourseList(map), queryInfo);
+    }
 }

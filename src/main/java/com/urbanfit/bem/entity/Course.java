@@ -22,6 +22,11 @@ public class Course extends BaseModel {
     private String courseDistrict;
     private String courseImageUrl;
     private int status;
+    private String storeId;
+
+    private String storeName;
+    private String storeDistrict;
+    private String storeAddress;
 
 
     public Integer getCourseId() {
@@ -110,6 +115,38 @@ public class Course extends BaseModel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStoreDistrict() {
+        return storeDistrict;
+    }
+
+    public void setStoreDistrict(String storeDistrict) {
+        this.storeDistrict = storeDistrict;
+    }
+
+    public String getStoreAddress() {
+        return storeAddress;
+    }
+
+    public void setStoreAddress(String storeAddress) {
+        this.storeAddress = storeAddress;
     }
 }
 

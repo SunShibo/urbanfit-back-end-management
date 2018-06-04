@@ -53,7 +53,8 @@
                             <input type="hidden" name="courseId" value="${courseId}">
                         </li>
                         <li>
-                            <input type="button" id="B_join_course" class="joinButton"  value="我要报名">
+                            <%--<input type="button" id="B_join_course" class="joinButton"  value="我要报名">--%>
+                            <a href="javascript:void(0);" id="B_join_course">我要报名</a>
                         </li>
                     </ul>
                 </div>

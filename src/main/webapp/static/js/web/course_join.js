@@ -1,4 +1,7 @@
 $(function (){
+    $("li[id^='menu_']").removeClass();
+    $("#menu_course").addClass("on");
+
     initCourseDetail();
     $("#A_submit_order").click(submitOrder);
 
