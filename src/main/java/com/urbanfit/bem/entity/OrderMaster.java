@@ -64,6 +64,9 @@ public class OrderMaster extends BaseModel{
     private Integer detailId;
     private String courseSize;
     private Integer storeId;
+    private String storeName;
+    private String storeAddress;
+    private String courseTypeName;
 
 
     public Integer getOrderId() {
@@ -288,6 +291,30 @@ public class OrderMaster extends BaseModel{
 
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStoreAddress() {
+        return storeAddress;
+    }
+
+    public void setStoreAddress(String storeAddress) {
+        this.storeAddress = storeAddress;
+    }
+
+    public String getCourseTypeName() {
+        return courseTypeName;
+    }
+
+    public void setCourseTypeName(String courseTypeName) {
+        this.courseTypeName = courseTypeName;
     }
 }
 

@@ -62,6 +62,10 @@ function queryOrderMasterDetail(){
                 $("#detailCourseDistrict").text(result.data.courseDistrict);
                 $("#detailCourseName").text(result.data.courseName);
                 $("#detailCoursePrice").text(result.data.price);
+                $("#detailCourseType").text(result.data.courseTypeName);
+                $("#detailStoreName").text(result.data.storeName);
+                $("#detailStoreAddress").text(result.data.storeAddress);
+
                 var payment = "支付宝";
                 if(result.data.payment == 1){
                     payment = "微信";

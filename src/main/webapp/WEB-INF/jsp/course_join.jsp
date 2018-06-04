@@ -36,7 +36,7 @@
                             <input type="text" name="childrenName" value="" placeholder="请输入您的姓名" class="input" id="name">
                         </div>
                         <div class="orderinput">
-                            <span>手机号码</span>
+                            <span>手机号码<i>*</i></span>
                             <input type="text" name="clientMobile" placeholder="请输入您的姓名" class="input" id="phone">
                         </div>
                     </div>

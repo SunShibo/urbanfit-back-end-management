@@ -162,7 +162,7 @@ public class OrderMasterService {
         }
         //生成主订单编号
         String orderNum  = System.currentTimeMillis() + "" + RandomUtils.getRandomNumber(6);
-        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum, courseSizeDetail);
+        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum, courseSizeDetail, store);
         if (order.getPayment() == OrderMaster.PAYMENT_ALIPAY) {  // 支付宝支付
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.
@@ -289,7 +289,7 @@ public class OrderMasterService {
     }
 
     private OrderMaster addOrderMasterDetail(OrderMaster order, Coupon coupon, Course course, String orderNum,
-                                             CourseSizeDetail courseSizeDetail){
+                                             CourseSizeDetail courseSizeDetail, Store store){
         OrderMaster orderMaster = new OrderMaster();
         orderMaster.setClientId(order.getClientId());
         orderMaster.setChildrenName(order.getChildrenName());
@@ -300,16 +300,28 @@ public class OrderMasterService {
         orderMaster.setCourseName(course.getCourseName());
         orderMaster.setCourseDistrict(order.getCourseDistrict());
         orderMaster.setDetailId(courseSizeDetail.getDetailId());     // 课程规格信息
-        orderMaster.setStoreId(order.getStoreId());               // 课程俱乐部
+        orderMaster.setStoreId(store.getStoreId());               // 课程俱乐部
+        orderMaster.setStoreName(store.getStoreName());
+        orderMaster.setStoreAddress(store.getStoreDistrict() + store.getStoreAddress());
+        String courseTypeName = "成人课程 ";
+        if(course.getCourseType() == 2){
+            courseTypeName = "青少年课程";
+        }else if(course.getCourseType() == 3){
+            courseTypeName = "私教课程";
+        }else if(course.getCourseType() == 4){
+            courseTypeName = "特色课程";
+        }
+        orderMaster.setCourseTypeName(courseTypeName);
         // 查询商品规格信息
         Map<String, Object> courseSizeMap = new HashMap<String, Object>();
+        courseSizeMap.put("courseId", course.getCourseId());
         courseSizeMap.put("lstSizeId", courseSizeDetail.getSizeDetail().split(","));
         List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSizeInfo(courseSizeMap);
         List<String> lstSizeName = new ArrayList<String>();
         for (CourseSize courseSize : lstCourseSize){
             lstSizeName.add(courseSize.getSizeName());
         }
-        orderMaster.setCourseSize(ArrayUtils.join(lstCourseSize.toArray(), "-"));
+        orderMaster.setCourseSize(ArrayUtils.join(lstSizeName.toArray(), "-"));
         double payPrice = courseSizeDetail.getSizePrice();
         orderMaster.setPayPrice(payPrice);
         orderMaster.setRemarks(order.getRemarks());
@@ -441,7 +453,7 @@ public class OrderMasterService {
         }
         //生成主订单编号
         String orderNum  = System.currentTimeMillis() + "" + RandomUtils.getRandomNumber(6);
-        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum, courseSizeDetail);
+        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum, courseSizeDetail, store);
         if (order.getPayment() == OrderMaster.PAYMENT_ALIPAY) {  // 支付宝支付
 
             String alipayCallbackUrl = SystemConfig.getString("project_base_url") + SystemConfig.

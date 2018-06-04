@@ -127,12 +127,15 @@
                             <li><h3>学生信息：</h3></li>
                             <li>学生姓名：<label id="detailChildreName"></label></li>
                             <li>手机号：<label id="detailClientMobile"></label></li>
-                            <li>上课区域：<label id="detailCourseDistrict"></label></li>
                         </ul>
                         <ul>
                             <li><h3>课程信息：</h3></li>
                             <li>课程名称：<label id="detailCourseName"></label></li>
+                            <li>课程类型：<label id="detailCourseType"></label></li>
+                            <li>课程规格：<label id="detailCourseSize"></label></li>
                             <li>课程价格：￥<label id="detailCoursePrice"></label></li>
+                            <li>俱乐部名称：<label id="detailStoreName"></label></li>
+                            <li>俱乐部地址：<label id="detailStoreAddress"></label></li>
                         </ul>
                         <ul>
                             <li><h3>支付信息：</h3></li>

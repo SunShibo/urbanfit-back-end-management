@@ -55,6 +55,7 @@ function submitOrder(){
         url:"/order/add",
         dataType: "json",
         data: {"params" : JSON.stringify(params)},
+        async : false,
         success: function(result){
             if(result.code == 1){
                 if(payWay == 0){   // 支付宝支付
@@ -66,7 +67,6 @@ function submitOrder(){
                     window.location.href = "/order/wechatPay?orderNum=" + orderNum
                         + "&wechatPayQr=" + wechatPayQr;
                 }
-                window.location.href = "/client/toLogin";
             }else if(result.code == -4){   // 客户没有登陆，跳转到登陆页面
                 window.location.href = "/client/toLogin";
             }else{
