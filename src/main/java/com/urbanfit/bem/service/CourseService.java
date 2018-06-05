@@ -134,7 +134,7 @@ public class CourseService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("pageOffset", queryInfo.getPageOffset());
         map.put("pageSize", queryInfo.getPageSize());
-        if(courseType == null){
+        if(courseType != null){
             map.put("courseType", courseType);
         }
         if(!StringUtils.isEmpty(provice)){
@@ -157,6 +157,7 @@ public class CourseService {
         }else{
             jo.put("lstCourse", "");
         }
+        jo.put("baseUrl", SystemConfig.getString("image_base_url"));
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 

@@ -433,7 +433,7 @@ public class OrderMasterService {
         // 查询课程是否绑定俱乐部
         Map<String, Object> courseStoreMap = new HashMap<String, Object>();
         courseStoreMap.put("courseId", order.getCourseId());
-        courseStoreMap.put("storeId", order.getOrderId());
+        courseStoreMap.put("storeId", order.getStoreId());
         CourseStore courseStore = courseStoreDao.queryCourseStoreByMap(courseStoreMap);
         if(courseStore == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程没有关联此俱乐部", "").toString();

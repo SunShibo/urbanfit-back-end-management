@@ -35,7 +35,7 @@ public class WapOrderMasterController extends BaseCotroller{
                                Integer clientId){
 
         String result = orderMasterService.wapAddOrderMaster(request, response, params, clientId);
-        safeHtmlPrint(response, result);
+        safeTextPrint(response, result);
     }
 
     @RequestMapping("/payOrderAgain")
