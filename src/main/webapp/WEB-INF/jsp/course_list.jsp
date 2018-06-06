@@ -26,7 +26,7 @@
                 <div class="ccourse">
                     <span>课程类型：</span>
                     <ul>
-                        <li><a name="A_query_courseType" href="javascript:void(0);" data-type="">全部</a></li>
+                        <li><a <%--class="on"--%> name="A_query_courseType" href="javascript:void(0);" data-type="">全部</a></li>
                         <li><a name="A_query_courseType" href="javascript:void(0);" data-type="1">成人课程</a></li>
                         <li><a name="A_query_courseType" href="javascript:void(0);" data-type="2">青少年课程</a></li>
                         <li><a name="A_query_courseType" href="javascript:void(0);" data-type="3">私教课程</a></li>
@@ -111,5 +111,11 @@
             "city" : '${city}',
             "district" : '${district}'
         };
+        $(function(){
+            $('.ccourse ul li a').click(function(){
+                $('.ccourse ul li a').removeClass('on');
+                $(this).addClass('on');
+            })
+        })
     </script>
 </div>

@@ -9,7 +9,7 @@
 .index1 .index1left{width: 40.4%; background: #f4d040;}
 .index1 .index1left .index1left1{position: relative;width: 100%;height: 177px;display: flex;align-items: center;}
 .index1 .index1left .index1left1 > img{width: 100%;height: 100%;}
-.index1 .index1left .index1left1 span{position: absolute;color: #fff;font-size: 18px;left: 25%;}
+.index1 .index1left .index1left1 span{position: absolute;color: #fff;font-size: 21px;left: 25%;text-align: right;}
 .index1 .index1left .index1left1 span img{margin-bottom: 10px;}
 .index1 .index1left .index1text{ margin-left: 25%;margin-right: 10%; }
 .index1 .index1left .index1text h1{font-size: 30px;font-weight: 600;margin-top: 50px;line-height: 40px;}
@@ -79,7 +79,7 @@
 .index1 .index1right{width: 59.6%; background: #ffeda9;}
 .index1 .index1right .index1right1{position: relative;width: 100%;height: 177px;display: flex;align-items: center;}
 .index1 .index1right .index1right1 > img{width: 100%;height: 100%;}
-.index1 .index1right .index1right1 span{position: absolute;color: #fff;font-size: 18px;right: 17%;text-align: right;}
+.index1 .index1right .index1right1 span{position: absolute;color: #fff;font-size: 21px;right: 17%;text-align: right;}
 .index1 .index1right .index1right1 span img{margin-bottom: 10px;}
 .index1 .index1right > img{width: 100%;}
 .index1 .index1right .rightbox{width: 100%;position: relative;}
@@ -90,7 +90,7 @@
 .index1 .index1right .rightbox ul li.two{ background:url(../img/titlebg1.png) no-repeat; background-size: 100% 100%;}
 .index1 .index1right .rightbox ul li.three{ background:url(../img/titlebg2.png) no-repeat; background-size: 100% 100%;}
 .index1 .index1right .rightbox ul li.four{ background:url(../img/titlebg3.png) no-repeat; background-size: 100% 100%;}
-.index1 .index1right .rightbox ul li a{display: block;color: #fff;font-size: 14px;padding-left: 20px;}
+.index1 .index1right .rightbox ul li a{display: block;color: #fff;font-size: 16px;padding-left: 20px;font-weight: 600;}
 
 .indexmap{width: 80%;margin:50px auto;background: #fff;}
 .indexmap .indexmap1{width: 100%;display: flex;align-items: center;}
@@ -145,7 +145,8 @@
 .infoleft .list ul li .listtext h1{color: #101215; font-size: 16px;font-weight: 500;margin-top: 10px;}
 .infoleft .list ul li .listtext h1 span{display:block;font-size: 14px;margin-top: 10px;}
 .infoleft .list ul li .listtext p{color: #101215; font-size: 14px;}
-.infoleft .list ul li .listtext1{padding: 50px 40px;background: #eaebeb;}
+.infoleft .list ul li .listtext1{padding: 50px 40px;background: #eaebeb;width: 100%;
+    box-sizing: border-box;}
 .infoleft .list ul li .listtext1 h1{color: #101215; font-size: 16px;font-weight: 500;}
 .infoleft .list ul li .listtext1 h1 span{display:block;font-size: 14px; float: right;}
 .infoleft .list ul li .listtext1 p{color: #101215; font-size: 14px;}
@@ -155,17 +156,11 @@
 .pagerbox .pager li a{border: 1px solid #242c2f;color: #242c2f;}
 .pagerbox .pager li a:hover{background: #242c2f;color: #fff;}
 
-.info .inforight{width: 20%;background: #f4d040;}
-.info .inforight ul{width: 100%;}
-.info .inforight ul li{width: 100%;padding-bottom: 5px; background: #fff;}
-.info .inforight ul li:last-child{padding-bottom: 0;}
-.info .inforight ul li a{width: 99%;
-    display: flex;min-height: 120px;
-    justify-content: center;align-items: center;
-    color: #000;font-size: 25px;
-    -webkit-box-shadow: 3px 3px 3px #8c8d8c;
-    -moz-box-shadow: 3px 3px 3px #8c8d8c;
-    box-shadow: 3px 3px 3px #8c8d8c;}
+.info .inforight{width: 20%;background: #f9f9f9;}
+.info .inforight ul{width: 95%; margin-left: 5%;}
+.info .inforight ul li{margin-bottom: 20px; background: #fff;}
+.info .inforight ul li a{display: block;}
+.info .inforight ul li a img{width: 100%;}
 
 
 /***************** 活动资讯详情 *****************/
@@ -753,13 +748,19 @@
     display: flex;
 }
 .cfilter .ccourse ul li{
-    height: 42px;
+    height: 40px;
 }
 .cfilter .ccourse ul li a{
     display: block;padding: 0 20px;
-    color: #222;line-height: 42px;
+    color: #222;line-height: 40px;
     font-size: 14px;
     width: 100%;
+}
+.cfilter .ccourse ul li a:hover{
+    color:#f4d040;
+}
+.cfilter .ccourse ul li a.on{
+    color:#f4d040;
 }
 .cfilter .caddr{
     width: 100%;
