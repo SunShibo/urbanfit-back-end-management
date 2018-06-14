@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
-    <title>首页</title>
+    <title>北京众力飞特体育产业发展有限公司 | 赛法斗培训 | 赛法斗| 搏击培训</title>
     <link rel="stylesheet" type="text/css" href="/static/css/common.css">--
     <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
