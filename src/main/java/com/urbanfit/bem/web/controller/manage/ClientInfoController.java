@@ -95,7 +95,8 @@ public class ClientInfoController extends BaseCotroller{
         super.putLoginClientInfo(uuid, clientInfo);
         super.setCookie(response, SysConstants.CURRENT_LOGIN_CLIENT_ID, uuid, SysConstants.SEVEN_DAY_TIME);
         safeTextPrint(response, JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "登录成功", JsonUtils.
-                getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString()); ;
+                getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString());
+
     }
 
     /**
@@ -157,9 +158,11 @@ public class ClientInfoController extends BaseCotroller{
     }
 
     @RequestMapping("/signOut")
-    public ModelAndView clientSignOut(HttpServletRequest request){
+    public ModelAndView clientSignOut(HttpServletRequest request, HttpServletResponse response){
         super.removeSession(request, SysConstants.CURRENT_LOGIN_CLIENT);
         super.removeLoginClientInfo();
+        super.removeCookie(request , response , SysConstants.CURRENT_LOGIN_CLIENT_ID);
+
         ModelAndView view = new ModelAndView();
         view.setViewName("/home");
         return view;

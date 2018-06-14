@@ -311,7 +311,7 @@ public class RedissonHandler {
 //        RedissonHandler.getInstance().set("user", userDO, 100l);
 
 //        RedissonHandler.getInstance().delete("user");
-        String  u2 = RedissonHandler.getInstance().get("idem:rv:xxxxxxxxxxxccccccsfeseccfff");
+        String  u2 = RedissonHandler.getInstance().get("suntestkey");
 
         System.out.println(u2);
     }

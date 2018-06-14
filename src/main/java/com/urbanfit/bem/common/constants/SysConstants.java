@@ -41,6 +41,8 @@ public class SysConstants {
 
     public static final String CURRENT_LOGIN_CLIENT = "currentLoginClient";
 
+    public static final String CURRENT_LOGIN_LAST_URL = "lastURL";
+
     public static final String CURRENT_CLIENT_INFO = "currentClient";
 
     /**

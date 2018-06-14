@@ -38,11 +38,18 @@ function checkForm(){
                 // 登录成功跳转页面
                 $('#phonemsg').text('');
                 $('#pwdmsg').text('');
-                window.location.href = "/module/toHome";
+                // 取出上次访问的URL
+                var lastURL = $.cookie('lastURL') ;
+                if (lastURL == null || lastURL == "") {
+                    window.location.href = "/module/toHome";
+                    return ;
+                }
+                window.location.href = lastURL ;
             }
         }
     });
 };
+
 
 //粗略验证手机号
 function isMobile(mobile){

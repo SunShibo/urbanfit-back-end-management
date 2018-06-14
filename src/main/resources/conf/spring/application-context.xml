@@ -33,4 +33,6 @@
           class="com.urbanfit.bem.system.systemConfig.SystemInitializationConfigurer" >
     </bean>
 
+    <bean class="com.urbanfit.bem.web.support.referer.RefererViewResolver"/>
+
 </beans>

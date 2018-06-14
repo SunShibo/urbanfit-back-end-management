@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/jquery.cookie.js"></script>
     <script type="text/javascript" src="/static/js/web/login.js"></script>
 </head>
 <body>

@@ -220,6 +220,8 @@ public class BaseCotroller {
 
     /** 移除session*/
     public void removeSession (HttpServletRequest request , String key) {
+        String loginID = this.getLoginID(request);
+
         RedissonHandler.getInstance().delete(createKey(this.getLoginID(request), key));
 //        RedisUtil.del(createKey(this.getLoginID(request), key)) ;
     }
@@ -322,6 +324,23 @@ public class BaseCotroller {
         return null ;
     }
 
+    public void removeCookie (HttpServletRequest request , HttpServletResponse response , String key) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0) {
+            return  ;
+        }
+        for(Cookie c :cookies ){
+            if (c.getName().equals(key)) {
+                c.setMaxAge(0);
+                c.setValue(null);
+                c.setPath("/");
+                response.addCookie(c);
+            }
+        }
+
+
+    }
+
     public void setCookie(HttpServletResponse response, String key , String value ,int expiry) {
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(expiry); //365 * 24 * 60 * 60
@@ -381,6 +400,14 @@ public class BaseCotroller {
 
     protected void sput(String key, Object value) {
         getSession().setAttribute(key, value);
+    }
+
+    protected ClientInfo sgetLoginUser() {
+        Object obj = getSession().getAttribute(SysConstants.CURRENT_CLIENT_INFO);
+        if (obj == null ){
+            return null;
+        }
+        return (ClientInfo) obj;
     }
 
     protected HttpSession getSession() {

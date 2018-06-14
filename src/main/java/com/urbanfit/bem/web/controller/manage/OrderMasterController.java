@@ -1,5 +1,6 @@
 package com.urbanfit.bem.web.controller.manage;
 
+import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.entity.OrderMaster;
@@ -8,6 +9,7 @@ import com.urbanfit.bem.pay.WebAlipayUtil;
 import com.urbanfit.bem.service.ClientInfoService;
 import com.urbanfit.bem.service.OrderMasterService;
 import com.urbanfit.bem.tenpay.handler.PrepayIdRequestHandler;
+import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.web.controller.GetJssdkSignature;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
 import net.sf.json.JSONObject;
@@ -66,6 +68,17 @@ public class OrderMasterController extends BaseCotroller{
     @RequestMapping("/add")
     public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params){
         ClientInfo clientInfo = getLoginClientInfo(request);
+
+
+        /*  未来这句话要去掉   这个是用session取的登录信息*/
+        ClientInfo sessionLoginUser = sgetLoginUser();
+        if (sessionLoginUser == null ){
+            String result = JsonUtils.encapsulationJSON(Constant.INTERFACE_CLIENT_NO_LOGIN, "没有登录账号", "").toString();
+            safeTextPrint(response, result);
+            return;
+        }
+
+
         String result = orderMasterService.addClientOrderMaster(params, clientInfo, request, response);
         safeTextPrint(response, result);
     }
