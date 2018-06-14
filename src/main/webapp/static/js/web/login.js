@@ -38,7 +38,7 @@ function checkForm(){
                 // 登录成功跳转页面
                 $('#phonemsg').text('');
                 $('#pwdmsg').text('');
-                window.history.go(-1);
+                window.location.href = "/module/toHome";
             }
         }
     });
