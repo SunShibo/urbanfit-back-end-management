@@ -13,10 +13,19 @@ public class ClientInfo extends BaseModel{
     private String password;
     private int status;
     private Date createTime;
+    private String lastURL ;
 
 
     public Integer getClientId() {
         return clientId;
+    }
+
+    public String getLastURL() {
+        return lastURL;
+    }
+
+    public void setLastURL(String lastURL) {
+        this.lastURL = lastURL;
     }
 
     public void setClientId(Integer clientId) {
@@ -62,4 +71,5 @@ public class ClientInfo extends BaseModel{
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
 }

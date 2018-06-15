@@ -13,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -28,7 +29,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 //    private SystemService systemService ;
 
     // 不需要过滤的URL
-    public static final Set<String> unCheckList = Sets.newHashSet("/client/login" , "/client/toLogin") ;
+    public static final Set<String> unCheckList = Sets.newHashSet("/client/login" , "/client/toLogin" , "/order/add" , "/apiCourse/toJoin") ;
+
+    public static final Set<String> CheckListForAjax = Sets.newHashSet("/client/login" , "/apiCourse/toDetail" ) ;
 
 
 //
@@ -56,10 +59,15 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        // ajax请求全部不要
+        // 不是ajax都记录
         if (!isAjaxRequest(request)) {
             // 将最近一次的页面请求保存到cookie
             setLastRequestUrl(response, requestUri);
+        }else {// ajax 分部分记录
+            if (CheckListForAjax.contains(invokeMethod)){
+                // 将最近一次的页面请求保存到cookie
+                setLastRequestUrl(response, requestUri);
+            }
         }
 
         return true;
@@ -122,18 +130,27 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
      * @return
      */
     public String getInvokeMethod (HttpServletRequest request) {
-        StringBuffer url = new StringBuffer(request.getRequestURI()) ;
-        if (request.getParameterMap().get("action") != null ) {
-            String[] method = (String[] )request.getParameterMap().get("action") ;
-            if (!StringUtils.isEmpty(method[0])) {
-                url.append("?action=" + method[0]) ;
-            }
+
+
+        String uTemp = request.getRequestURI();
+
+        // 统一去掉路径中项目名
+        if (uTemp.startsWith("/urbanfit-back-end-management")) {
+            uTemp = uTemp.replaceFirst("/urbanfit-back-end-management" , "");
         }
-        return url.toString() ;
+
+        return uTemp ;
     }
 
     public String getUriAndParams (HttpServletRequest request) {
-        StringBuffer url = new StringBuffer(request.getRequestURI());
+
+        String uTemp = request.getRequestURI();
+
+        // 统一去掉路径中项目名
+        if (uTemp.startsWith("/urbanfit-back-end-management")) {
+            uTemp = uTemp.replaceFirst("/urbanfit-back-end-management" , "");
+        }
+        StringBuffer url = new StringBuffer(uTemp);
         Iterator parameters = request.getParameterMap().entrySet().iterator();
 
         synchronized (this) {
@@ -171,8 +188,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
      *  修改上一次的请求列表
      * @param response
      * @return
-     *
-     * 现在临时存在session中  未来必须存在redis中
      */
     public void setLastRequestUrl(HttpServletResponse response , String url) {
 

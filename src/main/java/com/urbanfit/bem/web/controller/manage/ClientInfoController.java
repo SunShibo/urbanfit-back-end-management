@@ -89,6 +89,9 @@ public class ClientInfoController extends BaseCotroller{
             safeTextPrint(response, JsonUtils.encapsulationJSON(2, "密码输入不正确", "").toString());
             return ;
         }
+
+        Object lastURL = super.getSession().getAttribute(SysConstants.CURRENT_LOGIN_LAST_URL);
+        clientInfo.setLastURL((String) lastURL);
         // 登陆客户信息放入Redis缓存
         super.setLoginClientInfo(clientInfo);
         String uuid = UUID.randomUUID().toString();
