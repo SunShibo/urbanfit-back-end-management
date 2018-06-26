@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <title>北京众力飞特体育产业发展有限公司 | 赛法斗培训 | 赛法斗| 搏击培训</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/common.css">--
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
     <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
@@ -58,30 +58,30 @@
                     <img src="../static/img/yellow1.jpg">
                 </div>
                 <div class="index1text">
-                    <h1><a href="#">我就是拳王-<br>上海赛区激情开场</a></h1>
+                    <h1><a href="http://www.urbanfit.cn/message/toDetail?messageId=14">燃动周末，<br>赛法斗体验课完美收官！</a></h1>
                     <div>
-                        <a href="#" class="clear">
-                            <span><img src="../static/img/king.jpg"></span>
-                            <p>经过一个寒冬的沉淀，“我就是拳王”新的赛季已然准备好热情开场。2018年第三届“我就是拳王”系列赛于3月14日-16日在上海世博展览馆上海IWF赛区火热开赛。作为“我就是拳王”2018赛季的开篇大作，汇集了来自四方的英雄豪杰，准备点燃这一季的上海。</p></a>
-                        <em>2018-3-11</em>
+                        <a href="http://www.urbanfit.cn/message/toDetail?messageId=14" class="clear">
+                            <span><img src="../static/img/sai.jpg"></span>
+                            <p>孩子能健康成长就是家长最大的心愿，众力飞特针对青少年身体特点和传统赛法斗既有的动作体系设计了一套合理有效的课程体系。既保留了原汁原味法式绅士搏击文化，也让孩子们在玩乐时得到最科学的锻炼。</p></a>
+                        <em>2018-06-14</em>
                     </div>
                     <ul>
                         <li>
                             <a href="#">
                                 <img src="../static/img/pto1.jpg" width="82" height="82">
                                 <div class="text">
-                                    <h2>参赛必看！我就是拳王海选三关规则详解</h2>
-                                    <p>3月14日-16日，2018赛季的我就是拳王将在上海世博展览馆打响新赛季的揭幕战。各路怀揣功夫梦想的草根达人将再次踏上征程，向冠军发起冲击。今天我们向各位朋友介绍下海选三关的比赛规则。</p>
+                                    <h2>点燃你的周末！法式拳击体验课火热来袭！</h2>
+                                    <p>热浪一波一波来袭，整个北京进入了炙烤模式孩子们每天背着沉重的书包回到家，在空调和冰棍的陪伴下写完作业，睡前又一头扎入手机和电脑的世界中；白天懒懒不想动，到了晚上却又睡不着，无穷无尽的精力不知道如何安放，应该是属于奔跑流汗的盛夏时段，不应该如此浪费</p>
                                 </div></a>
-                            <em>2018-3-10</em>
+                            <em>2018-06-06</em>
                         </li>
                         <li><a href="#">
                             <img src="../static/img/pto2.jpg" width="82" height="82">
                             <div class="text">
-                                <h2>机会来了，你准备好了吗！我就是拳王北京赛区15日开战</h2>
-                                <p>有功夫梦想的朋友们注意了，2018我就是拳王北京赛区的比赛将在4月15日拉开大幕，目前报名工作已经全面启动，戴上你的拳套来探险吧！</p>
+                                <h2>首战！小小勇士也要练就一颗勇敢的心!</h2>
+                                <p>5月20日下午，由众力飞特举办的少儿赛法斗公开课于成长基石新天地店顺利举办。现场，小小选手们斗志昂扬，一招一式都尽显绅士风采。场内家长也跃跃欲试，迫不及待想体验一下这来自法国的贵族搏击！</p>
                             </div></a>
-                            <em>2018-4-13</em>
+                            <em>2018-05-29</em>
                         </li>
                     </ul>
                     <a href="#">MORE</a>
