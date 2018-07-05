@@ -1,7 +1,10 @@
 package com.urbanfit.bem.web.controller.wap;
 
+import com.urbanfit.bem.pay.WapWechatPayUtil;
 import com.urbanfit.bem.service.OrderMasterService;
+import com.urbanfit.bem.util.JsonUtils;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,8 +22,9 @@ public class WapOrderMasterController extends BaseCotroller{
     private OrderMasterService orderMasterService;
 
     @RequestMapping("/list")
-    public void queryOrderMasterList(HttpServletResponse response, Integer pageNo, Integer pageSize, Integer clientId){
-        String result = orderMasterService.queryOrderMasterList(clientId, getQueryInfo(pageNo, pageSize));
+    public void queryOrderMasterList(HttpServletResponse response, Integer pageNo, Integer pageSize,
+                                     Integer clientId, Integer wechatType){
+        String result = orderMasterService.queryOrderMasterList(clientId, wechatType, getQueryInfo(pageNo, pageSize));
         safeTextPrint(response, result);
     }
 
@@ -33,7 +37,6 @@ public class WapOrderMasterController extends BaseCotroller{
     @RequestMapping("/addOrder")
     public void addWapOrderMaster(HttpServletRequest request, HttpServletResponse response, String params,
                                Integer clientId){
-
         String result = orderMasterService.wapAddOrderMaster(request, response, params, clientId);
         safeTextPrint(response, result);
     }

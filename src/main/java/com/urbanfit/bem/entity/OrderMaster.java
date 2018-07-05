@@ -14,16 +14,23 @@ public class OrderMaster extends BaseModel{
     public static final int NO_USE_COUPON = 0;
     public static final int USE_COUPON = 1;
     /**
-     * 支付状态 0：未支付  1：已支付  2：已退款  3：系统自动取消
+     * 支付状态 0：未支付  1：已支付  2：申请退款  3：系统自动取消  4：退款成功
      */
     public static final int STATUS_WAITING_PAY = 0;
     public static final int STATUS_PAYED = 1;
-    public static final int STATUS_REFUND = 2;
+    public static final int STATUS_APPLY_REFUND = 2;
+    public static final int STATUS_REFUND = 4;
     /**
      * 支付类型  0：支付宝  1：微信
      */
     public static final int PAYMENT_ALIPAY = 0;
     public static final int PAYMENT_WECHAT = 1;
+    /**
+     * 微信支付类型  0：web支付   1：wap支付   2：微信公众号支付
+     */
+    public static final int WECHAT_TYPE_WEB = 0;
+    public static final int WECHAT_TYPE_WAP = 1;
+    public static final int WECHAT_TYPE_JSAPI = 2;
 
     private Integer orderId;
     private String orderNum;
@@ -47,6 +54,10 @@ public class OrderMaster extends BaseModel{
      * 支付类型  0：支付宝  1：微信
      */
     private Integer payment;
+    /**
+     * 微信支付类型  0：web支付   1：wap支付   2：微信公众号支付
+     */
+    private Integer wechatType;
     /**
      * 支付状态 0：未支付  1：已支付  2：已退款
      */
@@ -315,6 +326,14 @@ public class OrderMaster extends BaseModel{
 
     public void setCourseTypeName(String courseTypeName) {
         this.courseTypeName = courseTypeName;
+    }
+
+    public Integer getWechatType() {
+        return wechatType;
+    }
+
+    public void setWechatType(Integer wechatType) {
+        this.wechatType = wechatType;
     }
 }
 

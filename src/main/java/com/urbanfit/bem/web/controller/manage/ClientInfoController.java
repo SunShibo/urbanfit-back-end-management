@@ -136,13 +136,14 @@ public class ClientInfoController extends BaseCotroller{
     }
 
     @RequestMapping("/update")
-    public void updateClientInfo(HttpServletRequest request, HttpServletResponse response, String name){
+    public void updateClientInfo(HttpServletRequest request, HttpServletResponse response, ClientInfo client){
         ClientInfo clientInfo = getLoginClientInfo(request);
         if(clientInfo == null){
             safeTextPrint(response, JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "客户没有登陆", "").toString());
             return;
         }
-        String result = clientInfoService.updateClientInfo(name, clientInfo.getClientId());
+        client.setClientId(clientInfo.getClientId());
+        String result = clientInfoService.updateClientInfo(client);
         safeTextPrint(response, result);
     }
 
@@ -169,5 +170,35 @@ public class ClientInfoController extends BaseCotroller{
         ModelAndView view = new ModelAndView();
         view.setViewName("/home");
         return view;
+    }
+
+    @RequestMapping("/toClientLogin")
+    public ModelAndView redirectClientLoginPage(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("/client_login");
+        return view;
+    }
+
+
+    @RequestMapping("/wechatRegister")
+    public void wechatRegister(String code, HttpServletResponse response){
+       String result = clientInfoService.wechatRegister(code);
+        safeTextPrint(response, result);
+    }
+
+
+    @RequestMapping("/wechatWebRegister")
+     public void wechatClientWebRegister(String code, HttpServletResponse response){
+        ClientInfo clientInfo = clientInfoService.wechatClientWebRegister(code);
+        String result = JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "登录失败", "").toString();
+        if(clientInfo != null){
+            // 登陆客户信息放入Redis缓存
+            super.setLoginClientInfo(clientInfo);
+            String uuid = UUID.randomUUID().toString();
+            super.putLoginClientInfo(uuid, clientInfo);
+            result = JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "登录成功", JsonUtils.
+                    getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
+        }
+        safeTextPrint(response, result);
     }
 }

@@ -27,7 +27,13 @@
             <if test="orderNum != null">
                 and orderNum like CONCAT("%", #{orderInfo}, "%")
             </if>
-            <if test="status != null">
+            <if test="status == null">  <!-- 查询全部 -->
+                and (m.status = 1 or m.status = 2 or m.status = 3 or (m.status = 0 and m.wechatType = #{wechatType}))
+            </if>
+            <if test="status == 0">
+                and m.status = #{status} and m.wechatType = #{wechatType}
+            </if>
+            <if test="status == 1 or status == 2 or status == 3">
                 and m.status = #{status}
             </if>
         ) m
@@ -37,9 +43,15 @@
         select m.*, n.`name` clientName, c.courseType from t_client_order_master m left join t_clientinfo n
         on m.clientId = n.clientId left join t_course c on m.courseId = c.courseId where m.clientId = #{clientId}
         <if test="orderNum != null">
-            and orderNum like CONCAT("%", #{orderNum}, "%")
+            and orderNum like CONCAT("%", #{orderInfo}, "%")
         </if>
-        <if test="status != null">
+        <if test="status == null">  <!-- 查询全部 -->
+            and (m.status = 1 or m.status = 2 or m.status = 3 or (m.status = 0 and m.wechatType = #{wechatType}))
+        </if>
+        <if test="status == 0">
+            and m.status = #{status} and m.wechatType = #{wechatType}
+        </if>
+        <if test="status == 1 or status == 2 or status == 3">
             and m.status = #{status}
         </if>
         order by m.createTime desc
@@ -57,11 +69,11 @@
             useGeneratedKeys="true" keyProperty="orderId">
         insert into t_client_order_master (orderNum, clientId, childrenName, clientMobile, courseId, courseName,
         courseDistrict, price, payPrice, isUseCoupon, couponId, couponNum, couponPercent, couponPrice, payment,
-        status, createTime, systemCancleTime, remarks, detailId, courseSize, storeId, storeName, storeAddress, courseTypeName)
-        values (#{orderNum}, #{clientId}, #{childrenName}, #{clientMobile}, #{courseId},#{courseName},
-        #{courseDistrict}, #{price}, #{payPrice}, #{isUseCoupon}, #{couponId}, #{couponNum}, #{couponPercent},
+        status, createTime, systemCancleTime, remarks, detailId, courseSize, storeId, storeName, storeAddress,
+        courseTypeName, wechatType) values (#{orderNum}, #{clientId}, #{childrenName}, #{clientMobile}, #{courseId},
+        #{courseName},#{courseDistrict}, #{price}, #{payPrice}, #{isUseCoupon}, #{couponId}, #{couponNum}, #{couponPercent},
         #{couponPrice}, #{payment}, #{status}, #{createTime}, #{systemCancleTime}, #{remarks}, #{detailId},
-        #{courseSize}, #{storeId}, #{storeName}, #{storeAddress}, #{courseTypeName})
+        #{courseSize}, #{storeId}, #{storeName}, #{storeAddress}, #{courseTypeName}, #{wechatType})
     </insert>
 
     <update id="updateOrderMaster" parameterType="map">

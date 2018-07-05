@@ -64,8 +64,9 @@ public class ApiClientInfoController extends BaseCotroller{
      * 修改客户姓名
      */
     @RequestMapping("/update")
-    public void updateClientInfo(HttpServletResponse response, String name, Integer clientId){
-        String result = clientInfoService.updateClientInfo(name, clientId);
+    public void updateClientInfo(HttpServletResponse response, ClientInfo clientInfo, Integer clientId){
+        clientInfo.setClientId(clientId);
+        String result = clientInfoService.updateClientInfo(clientInfo);
         safeTextPrint(response, result);
     }
 

@@ -38,7 +38,7 @@
                     <ul class="user_boxul">
                         <li>
                             <span>手机号码</span>
-                            <input type="text" placeholder="请输入手机号" class="input" id="phone">
+                            <input type="text" readonly="readonly" value="${currentClient.mobile}" class="input" id="phone">
                             <p id="phonemsg"></p>
                         </li>
                         <li>

@@ -67,6 +67,7 @@ public class OrderMasterService {
     public PageObject<OrderMaster> queryClientOrderMaster(Integer clientId, String orderNum, Integer status,
                                                           QueryInfo queryInfo){
         Map<String, Object> map = new HashMap<String, Object>();
+        map.put("wechatType", OrderMaster.WECHAT_TYPE_WEB);
         map.put("clientId", clientId);
         if(!StringUtils.isEmpty(orderNum)){
             map.put("orderNum", orderNum);
@@ -169,7 +170,7 @@ public class OrderMasterService {
                     getString("alipay_order_callback_url");
             String alipayReturnUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_return_url");
-            String alipayResult = WebAlipayUtil.submitClientAlipay("众力飞特", "众力飞特课程支付",
+            String alipayResult = WebAlipayUtil.submitClientAlipay("众力飞特课程支付", "众力飞特课程支付",
                     orderNum, orderMaster.getPayPrice(), alipayCallbackUrl, alipayReturnUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
@@ -215,7 +216,7 @@ public class OrderMasterService {
                     getString("alipay_order_callback_url");
             String alipayReturnUrl = SystemConfig.getString("project_base_url") + SystemConfig.
                     getString("alipay_order_return_url");
-            String alipayResult = WapAlipayUtil.submitClientAlipay("众力飞特课程支付",
+            String alipayResult = WebAlipayUtil.submitClientAlipay("众力飞特课程支付", "众力飞特课程支付",
                     orderMaster.getOrderNum(), orderMaster.getPayPrice(), alipayCallbackUrl, alipayReturnUrl);
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "调用支付宝", alipayResult).toString();
         }else if(order.getPayment() == OrderMaster.PAYMENT_WECHAT) {  // 微信支付
@@ -270,6 +271,32 @@ public class OrderMasterService {
     }
 
 
+    public String payWechatOrderMasterAgain(String params, String openId, HttpServletRequest request){
+        if(StringUtils.isEmpty(params)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        OrderMaster order = null;
+        try {
+            order = (OrderMaster)JsonUtils.getObject4JsonString(params, OrderMaster.class);
+        }catch (Exception e){
+            e.printStackTrace();
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        if(order.getPayment() == null || StringUtils.isEmpty(order.getOrderNum())){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        OrderMaster orderMaster = orderMasterDao.queryOrderMaterDetail(order.getOrderNum());
+        if(orderMaster == null || (orderMaster != null && (orderMaster.getStatus() == OrderMaster.STATUS_PAYED
+                || orderMaster.getStatus() == OrderMaster.STATUS_REFUND))){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单不存在或已经支付", "").toString();
+        }
+        String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
+                getString("wxpay_order_callback_url");
+        return WechatPayUtil.submitPrepayToWeChat(request, order.getOrderNum(), "众力飞特课程支付",
+                (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "JSAPI", openId).toString();
+    }
+
+
     /**
      * 支付成功回调函数
      */
@@ -296,11 +323,12 @@ public class OrderMasterService {
         orderMaster.setClientMobile(order.getClientMobile());
         orderMaster.setOrderNum(orderNum);
         orderMaster.setCourseId(order.getCourseId());
+        orderMaster.setWechatType(order.getWechatType());
         orderMaster.setPrice(courseSizeDetail.getSizePrice());
         orderMaster.setCourseName(course.getCourseName());
         orderMaster.setCourseDistrict(order.getCourseDistrict());
         orderMaster.setDetailId(courseSizeDetail.getDetailId());     // 课程规格信息
-        orderMaster.setStoreId(store.getStoreId());               // 课程俱乐部
+        orderMaster.setStoreId(store.getStoreId());                  // 课程俱乐部
         orderMaster.setStoreName(store.getStoreName());
         orderMaster.setStoreAddress(store.getStoreDistrict() + store.getStoreAddress());
         String courseTypeName = "成人课程 ";
@@ -366,9 +394,10 @@ public class OrderMasterService {
                 getJsonString4JavaPOJO(orderMaster, DateUtils.LONG_DATE_PATTERN)).toString();
     }
 
-    public String queryOrderMasterList(Integer clientId, QueryInfo queryInfo){
+    public String queryOrderMasterList(Integer clientId, Integer wechatType, QueryInfo queryInfo){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("clientId", clientId);
+        map.put("wechatType", wechatType);
         if(queryInfo != null){
             map.put("pageOffset", queryInfo.getPageOffset());
             map.put("pageSize", queryInfo.getPageSize());
@@ -467,12 +496,90 @@ public class OrderMasterService {
 
             String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
                     getString("wxpay_order_callback_url");
-            return WebWeChatPayUtil.submitPrepayToWeChat(request, response, orderNum, "众力飞特课程支付",
-                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "NATIVE", order.getCourseId().
-                            toString()).toString();
+            String tenpayReturnUrl = SystemConfig.getString("wap_project_base_url") + SystemConfig.
+                    getString("wxpay_order_return_url");
+            return WapWechatPayUtil.submitPrepayToWeChat(request, orderNum, "众力飞特课程支付",
+                    (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "MWEB", tenpayReturnUrl).toString();
         }
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
     }
+
+
+    public String wechatAddOrderMaster(HttpServletRequest request, HttpServletResponse response, String openId,
+                                       String params, Integer clientId){
+        if(StringUtils.isEmpty(params) || clientId == null || StringUtils.isEmpty(openId)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        ClientInfo clientInfo = clientInfoDao.queryClientById(clientId);
+        if(clientInfo == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
+        }
+        OrderMaster order = null;
+        try{
+            params = new String(params.getBytes("ISO-8859-1"), "UTF-8");
+            System.out.println("OrderMasterServive转换params：" + params);
+            order = (OrderMaster)JsonUtils.getObject4JsonString(params, OrderMaster.class);
+            order.setClientId(clientInfo.getClientId());
+        }catch (Exception e){
+            e.printStackTrace();
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        if(order.getCourseId() == null || StringUtils.isEmpty(order.getChildrenName()) || order.getStoreId() == null
+                || StringUtils.isEmpty(order.getClientMobile()) || order.getPayment() == null
+                || order.getDetailId() == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        // 查询课程是否存在
+        Course course = courseDao.queryUpCourseByCourseId(order.getCourseId());
+        if(course == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程不存在或已经下架", "").toString();
+        }
+        CourseSizeDetail courseSizeDetail = courseSizeDetailDao.queryCourseSizeDetailById(order.getDetailId());
+        if(courseSizeDetail == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        if(courseSizeDetail.getIsSale() == CourseSizeDetail.IS_SALE_NO){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不可售，请重新选择",
+                    "").toString();
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("courseId", order.getCourseId());
+        map.put("lstSizeId", courseSizeDetail.getSizeDetail().split(","));
+        List<CourseSize> lstCourseSize = courseSizeDao.queryCourseSizeInfo(map);
+        if(CollectionUtils.isEmpty(lstCourseSize)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程规格不存在", "").toString();
+        }
+        // 查询课程是否绑定俱乐部
+        Map<String, Object> courseStoreMap = new HashMap<String, Object>();
+        courseStoreMap.put("courseId", order.getCourseId());
+        courseStoreMap.put("storeId", order.getStoreId());
+        CourseStore courseStore = courseStoreDao.queryCourseStoreByMap(courseStoreMap);
+        if(courseStore == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "课程没有关联此俱乐部", "").toString();
+        }
+        // 查询俱乐部是否存在
+        Store store = storeDao.queryStoreById(order.getStoreId());
+        if(store == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "俱乐部不存在", "").toString();
+        }
+        Coupon coupon = null;
+        // 如果优惠码不为空，查询优惠码是否存在
+        if(!StringUtils.isEmpty(order.getCouponNum())) {
+            coupon = couponDao.queryCouponByCouponNum(order.getCouponNum());
+            if (coupon == null) {
+                return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "优惠码不存在货已过期", "").toString();
+            }
+        }
+        //生成主订单编号
+        String orderNum  = System.currentTimeMillis() + "" + RandomUtils.getRandomNumber(6);
+        OrderMaster orderMaster = addOrderMasterDetail(order, coupon, course, orderNum, courseSizeDetail, store);
+
+        String tenpayCallbackUrl = SystemConfig.getString("project_base_url") +  SystemConfig.
+                getString("wxpay_order_callback_url");
+        return WechatPayUtil.submitPrepayToWeChat(request, orderNum, "众力飞特课程支付",
+                (int) (orderMaster.getPayPrice() * 100), tenpayCallbackUrl, "JSAPI", openId).toString();
+    }
+
 
     private Date getSystemCancleTime() {
         long curren = System.currentTimeMillis();

@@ -68,8 +68,6 @@ public class OrderMasterController extends BaseCotroller{
     @RequestMapping("/add")
     public void addClientOrderMaster(HttpServletRequest request, HttpServletResponse response, String params){
         ClientInfo clientInfo = getLoginClientInfo(request);
-
-
         /*  未来这句话要去掉   这个是用session取的登录信息*/
         ClientInfo sessionLoginUser = sgetLoginUser();
         if (sessionLoginUser == null ){
@@ -77,8 +75,6 @@ public class OrderMasterController extends BaseCotroller{
             safeTextPrint(response, result);
             return;
         }
-
-
         String result = orderMasterService.addClientOrderMaster(params, clientInfo, request, response);
         safeTextPrint(response, result);
     }

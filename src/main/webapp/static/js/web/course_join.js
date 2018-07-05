@@ -51,7 +51,8 @@ function submitOrder(){
         "payment" : payWay,
         "storeId" : storeId,
         "detailId" : detailId,
-        "remarks": remarks
+        "remarks": remarks,
+        "wechatType" : 0
     }
     $.ajax({
         type:"post",
@@ -71,10 +72,36 @@ function submitOrder(){
                         + "&wechatPayQr=" + wechatPayQr;
                 }
             }else if(result.code == -4){   // 客户没有登陆，跳转到登陆页面
-                window.location.href = "/client/toLogin";
+                openClientLoginLayer();
             }else{
                 alert(result.msg);
                 return ;
+            }
+        }
+    });
+}
+
+function openClientLoginLayer(){
+    layer.open({
+        title : '登录',
+        type: 2,
+        content : "/client/toClientLogin",
+        area: ['500px', '540px'],
+        full: true,
+        end : function (){
+            var loginStatus = $("body").data("LOGIN_STATUS");
+            if(loginStatus == "success"){
+                var clientName = $("body").data("CLIENT_NAME");
+                var clientMobile = $("body").data("CLIENT_MOBILE");
+                clientName = clientName == "" ? clientMobile : clientName;
+                var clientLoginDivArr = [];
+                clientLoginDivArr.push('<ul>');
+                    clientLoginDivArr.push('<li>');
+                        clientLoginDivArr.push('<a href="/client/detail">' + clientName + '</a>');
+                    clientLoginDivArr.push('</li>');
+                    clientLoginDivArr.push('<li><a href="/client/signOut">退出</a></li>');
+                clientLoginDivArr.push('</ul>');
+                $("#clientLoginDiv").html(clientLoginDivArr.join(""));
             }
         }
     });

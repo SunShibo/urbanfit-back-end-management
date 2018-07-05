@@ -13,6 +13,7 @@
     <script type="text/javascript" src="/static/js/mainJs/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/common/menu.js"></script>
     <script type="text/javascript" src="/static/js/web/home.js"></script>
+    <script src="https://s19.cnzz.com/z_stat.php?id=1274097111&web_id=1274097111" language="JavaScript"></script>
 </head>
 <body>
     <div class="content">

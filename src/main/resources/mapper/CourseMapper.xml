@@ -70,7 +70,7 @@
 
     <select id="queryCourseList" parameterType="map" resultType="com.urbanfit.bem.entity.Course">
         select m.* from (select m.*, s.storeName, s.storeDistrict, s.storeAddress from t_course m left join
-        t_course_store n on m.courseId = n.courseId left join t_store s on n.storeId = s.storeId where 1 = 1
+        t_course_store n on m.courseId = n.courseId left join t_store s on n.storeId = s.storeId where m.status = 0
         <if test="courseType != null">
             and m.courseType = #{courseType}
         </if>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/common/menu.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/layer/layer.js"></script>
     <script type="text/javascript" src="/static/js/web/course_join.js"></script>
     <script type="text/javascript">
         var courseId = '${courseId}';

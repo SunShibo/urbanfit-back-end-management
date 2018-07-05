@@ -18,22 +18,39 @@
                 <span>填写我的信息</span>
             </div>
         </div>
-        <div class="pay">
-            <div class="paybox user">
-                <jsp:include page="client_common.jsp"/>
-                <div class="user_box">
-                    <h1>我的信息</h1>
-                    <ul class="user_boxul">
-                        <li>
-                            <span>真实姓名</span>
-                            <input type="text" name="name" value="${currentClient.name}" placeholder="请输入姓名" class="input">
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" id="B_save">保存</a>
-                        </li>
-                      </ul>
+        <form id="clientForm" method="post">
+            <div class="pay">
+                <div class="paybox user">
+                    <jsp:include page="client_common.jsp"/>
+                    <div class="user_box">
+                        <h1>我的信息</h1>
+                        <ul class="user_boxul">
+                            <li>
+                                <span>真实姓名</span>
+                                <input type="text" name="name" value="${currentClient.name}" placeholder="请输入姓名" class="input">
+                            </li>
+                            <li>
+                                <span>昵称</span>
+                                <input type="text" name="nickname" value="${currentClient.nickname}" placeholder="请输入昵称" class="input">
+                            </li>
+                            <li>
+                                <span>性别</span>
+                                <input type="radio" name="gender" value="0" style="width: auto;height:54px;line-height:54px">&nbsp;&nbsp;
+                                <label style="height:54px;line-height:54px">男</label>
+                                <input type="radio" name="gender" value="1" style="width: auto;height:54px;line-height:54px">&nbsp;&nbsp;
+                                <label style="height:54px;line-height:54px">女</label>
+                            </li>
+                            <li>
+                                <span>电子邮箱</span>
+                                <input type="text" name="email" value="${currentClient.email}" placeholder="请输入电子邮箱" class="input">
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" id="B_save">保存</a>
+                            </li>
+                          </ul>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
         <jsp:include page="../footer.jsp"/>
     </div>

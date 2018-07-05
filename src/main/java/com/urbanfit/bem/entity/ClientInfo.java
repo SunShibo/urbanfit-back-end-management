@@ -14,6 +14,11 @@ public class ClientInfo extends BaseModel{
     private int status;
     private Date createTime;
     private String lastURL ;
+    private String openId;
+    private String nickname;
+    private Integer gender;
+    private String headPortrait;
+    private String email;
 
 
     public Integer getClientId() {
@@ -72,4 +77,43 @@ public class ClientInfo extends BaseModel{
         this.createTime = createTime;
     }
 
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

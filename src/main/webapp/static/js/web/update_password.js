@@ -1,6 +1,9 @@
 $(function() {
     $("li[name^='client_']").removeClass();
     $("#client_password").addClass("on");
+    $("#vcode").val("");
+    $("#pwd").val("");
+    $("#cpwd").val("");
 
     //input点击框变色
     $('.input').focus(function(){
@@ -34,7 +37,7 @@ function sendVcode(){
         url : 'codeSignIn',
         params : {
             mobile : phone,
-            type:1,
+            type:2,
         },
         callback : function(d){
             if(d.code==0){
@@ -139,9 +142,7 @@ function checkForm(){
 }
 
 function ajax(p){
-    //console.log(p);
     $.post(p.url,p.params,function(data){
-        //console.log(data);
         if(typeof(p.callback) == 'function'){
             p.callback(data);
         }
@@ -151,7 +152,6 @@ function ajax(p){
 //粗略验证手机号
 function isMobile(mobile){
     var re = /^1[0-9]{10}$/;
-    //var validCode=true;
     if(re.test(mobile))
         return true;
     else

@@ -27,7 +27,14 @@ $(function (){
         $(this).find('.radioimg').attr('src', '../static/img/radio1.png');
         $(this).addClass('seleted');
     });
+    // 申请退款
+    $("a[id^='A_back_money_']").click(applyBackMoney);
 })
+
+function applyBackMoney(){
+
+}
+
 
 // 初始化订单状态
 function initOrderMasterStatus() {
@@ -124,7 +131,7 @@ function payOrderMasterAgain(){
         success : function (result){
             if(result.code == 1){
                 if(payWay == 0){   // 支付宝支付
-                    $('body').append(result.data);
+                    $('body').html(result.data);
                     $("form").attr("target", "_blank");
                 }else if(payWay == 1){  // 微信支付
                     var orderNum = result.data.orderNum;

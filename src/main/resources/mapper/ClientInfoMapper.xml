@@ -5,7 +5,8 @@
     <!-- 添加用户信息 -->
     <insert id="addClientInfo" parameterType="com.urbanfit.bem.entity.ClientInfo"
             useGeneratedKeys="true" keyProperty="clientId">
-        insert into t_clientinfo (mobile, password, status, createTime) values (#{mobile}, #{password}, 0, now())
+        insert into t_clientinfo (mobile, name, password, status, createTime, nickname, openId) values (#{mobile},
+            #{name}, #{password}, 0, now(), #{nickname}, #{openId})
     </insert>
     <!-- 根据手机号码查询用户信息 -->
     <select id="queryClientInfoByMobile" parameterType="String" resultType="com.urbanfit.bem.entity.ClientInfo">
@@ -20,7 +21,16 @@
         select * from t_clientinfo where clientId = #{clientId} and status = 0
     </select>
 
-    <update id="updateClientInfo" parameterType="map">
-        update t_clientinfo set name = #{name} where clientId = #{clientId}
+    <update id="updateClientInfo" parameterType="com.urbanfit.bem.entity.ClientInfo">
+        update t_clientinfo set name = #{name}, nickname = #{nickname}, gender = #{gender}, email = #{email},
+        headPortrait = #{headPortrait} where clientId = #{clientId}
+    </update>
+
+    <select id="queryClientByOpenId" parameterType="String" resultType="com.urbanfit.bem.entity.ClientInfo">
+        select * from t_clientinfo where openId = #{openId} and status = 0
+    </select>
+
+    <update id="updateClient" parameterType="com.urbanfit.bem.entity.ClientInfo">
+        update t_clientinfo set nickname = #{nickname} where clientId = #{clientId}
     </update>
 </mapper>

@@ -3,10 +3,8 @@ package com.urbanfit.bem.service;
 import com.urbanfit.bem.cfg.pop.Constant;
 import com.urbanfit.bem.dao.ClientInfoDao;
 import com.urbanfit.bem.entity.ClientInfo;
-import com.urbanfit.bem.util.DateUtils;
-import com.urbanfit.bem.util.JsonUtils;
-import com.urbanfit.bem.util.MD5Util;
-import com.urbanfit.bem.util.StringUtils;
+import com.urbanfit.bem.entity.bo.WechatBo;
+import com.urbanfit.bem.util.*;
 import com.urbanfit.bem.util.redisUtils.RedissonHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +20,9 @@ import java.util.Map;
 public class ClientInfoService {
     @Resource
     private ClientInfoDao clientInfoDao;
+
+    public static final String APPID = "wxfceafb8ea3eae188";
+    public static final String SECRET = "39f122b6b85706b0b0e43682e3a69841";
 
     /**
      * 注册用户
@@ -97,19 +98,20 @@ public class ClientInfoService {
                 getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
     }
 
-    public String updateClientInfo(String name, Integer clientId) {
-        if(StringUtils.isEmpty(name) || clientId == null){
+    public String updateClientInfo(ClientInfo client) {
+        if(client == null || (client != null && client.getClientId() == null)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
         }
-        ClientInfo clientInfo = clientInfoDao.queryClientById(clientId);
+        ClientInfo clientInfo = clientInfoDao.queryClientById(client.getClientId());
         if(clientInfo == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
         }
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("name", name);
-        map.put("clientId", clientId);
-        clientInfoDao.updateClientInfo(map);
-        clientInfo.setName(name);
+        clientInfo.setName(client.getName());
+        clientInfo.setNickname(client.getNickname());
+        clientInfo.setGender(client.getGender());
+        clientInfo.setEmail(client.getEmail());
+        clientInfo.setHeadPortrait(client.getHeadPortrait());
+        clientInfoDao.updateClientInfo(clientInfo);
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "修改信息成功", JsonUtils.
                 getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
     }
@@ -161,5 +163,96 @@ public class ClientInfoService {
         ClientInfo client = clientInfoDao.queryClientInfoByMobile(mobile);
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "注册成功", JsonUtils.
                 getJsonString4JavaPOJO(client, DateUtils.LONG_DATE_PATTERN)).toString();
+    }
+
+    public String wechatRegister(String code){
+        if(StringUtils.isEmpty(code)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        // 获取access_token、openId信息
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + APPID
+                +"&secret=" + SECRET + "&code=" + code +"&grant_type=authorization_code";
+        String result = HttpClientUtil.httpGetRequest(url);
+        System.out.println("result：" + result);
+        // 刷新access_token
+        WechatBo wechatBo = (WechatBo)JsonUtils.getObject4JsonString(result, WechatBo.class);
+        String accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + APPID
+                + "&grant_type=refresh_token&refresh_token=" + wechatBo.getRefresh_token();
+        String accessTokenResult = HttpClientUtil.httpGetRequest(accessTokenUrl);
+        System.out.println("accessTokenResult：" + accessTokenResult);
+        // 获取登录用户信息
+        WechatBo accessTokenWechatBo = (WechatBo)JsonUtils.getObject4JsonString(accessTokenResult, WechatBo.class);
+        String wechatInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="
+                +  accessTokenWechatBo.getAccess_token() + "&openid=" + accessTokenWechatBo.getOpenid()
+                + "&lang=zh_CN";
+        String wechatInfoResult = HttpClientUtil.httpGetRequest(wechatInfoUrl);
+        try {
+            wechatInfoResult = new String(wechatInfoResult.getBytes("ISO-8859-1"), "UTF-8");
+            System.out.println("wechatInfoResult：" + wechatInfoResult);
+            WechatBo wechatInfoBo = (WechatBo)JsonUtils.getObject4JsonString(wechatInfoResult, WechatBo.class);
+            System.out.println(wechatInfoBo.getNickname());
+            // 判断openId是否存在
+            ClientInfo clientInfo = clientInfoDao.queryClientByOpenId(wechatInfoBo.getOpenid());
+            if(clientInfo == null){
+                clientInfo = new ClientInfo();
+                clientInfo.setName(wechatInfoBo.getNickname());
+                clientInfo.setNickname(wechatInfoBo.getNickname());
+                clientInfo.setOpenId(wechatInfoBo.getOpenid());
+                // 获取信息成功  添加用户
+                clientInfoDao.addClientInfo(clientInfo);
+            }else{
+                clientInfo.setNickname(wechatInfoBo.getNickname());
+                clientInfoDao.updateClient(clientInfo);
+            }
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "登录成功", JsonUtils.
+                    getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
+        }catch (Exception e){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "登录失败", "").toString();
+        }
+    }
+
+    public ClientInfo wechatClientWebRegister(String code){
+        if(StringUtils.isEmpty(code)){
+            return null;
+        }
+        // 获取access_token、openId信息
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + APPID
+                +"&secret=" + SECRET + "&code=" + code +"&grant_type=authorization_code";
+        String result = HttpClientUtil.httpGetRequest(url);
+        System.out.println("result：" + result);
+        // 刷新access_token
+        WechatBo wechatBo = (WechatBo)JsonUtils.getObject4JsonString(result, WechatBo.class);
+        String accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + APPID
+                + "&grant_type=refresh_token&refresh_token=" + wechatBo.getRefresh_token();
+        String accessTokenResult = HttpClientUtil.httpGetRequest(accessTokenUrl);
+        System.out.println("accessTokenResult：" + accessTokenResult);
+        // 获取登录用户信息
+        WechatBo accessTokenWechatBo = (WechatBo)JsonUtils.getObject4JsonString(accessTokenResult, WechatBo.class);
+        String wechatInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="
+                +  accessTokenWechatBo.getAccess_token() + "&openid=" + accessTokenWechatBo.getOpenid()
+                + "&lang=zh_CN";
+        String wechatInfoResult = HttpClientUtil.httpGetRequest(wechatInfoUrl);
+        try {
+            wechatInfoResult = new String(wechatInfoResult.getBytes("ISO-8859-1"), "UTF-8");
+            System.out.println("wechatInfoResult：" + wechatInfoResult);
+            WechatBo wechatInfoBo = (WechatBo)JsonUtils.getObject4JsonString(wechatInfoResult, WechatBo.class);
+            System.out.println(wechatInfoBo.getNickname());
+            // 判断openId是否存在
+            ClientInfo clientInfo = clientInfoDao.queryClientByOpenId(wechatInfoBo.getOpenid());
+            if(clientInfo == null){
+                clientInfo = new ClientInfo();
+                clientInfo.setName(wechatInfoBo.getNickname());
+                clientInfo.setNickname(wechatInfoBo.getNickname());
+                clientInfo.setOpenId(wechatInfoBo.getOpenid());
+                // 获取信息成功  添加用户
+                clientInfoDao.addClientInfo(clientInfo);
+            }else{
+                clientInfo.setNickname(wechatInfoBo.getNickname());
+                clientInfoDao.updateClient(clientInfo);
+            }
+            return clientInfo;
+        }catch (Exception e){
+            return null;
+        }
     }
 }

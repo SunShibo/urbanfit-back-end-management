@@ -946,6 +946,8 @@
     line-height: 20px;
 }
 
+.cdetaillist img{ display: inline-block; }
+
 .cdetailbox ul li > .joinButton {
     color: #260d02;
     font-size: 16px;

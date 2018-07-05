@@ -1,16 +1,8 @@
-$(function() {
-    $(".next").click(checkForm);
-    $("#A_wechat_login").click(wechatClientLogin);
-});
+$(function (){
+    $("#A_login").click(clientLogin);
+})
 
-function wechatClientLogin(){
-    var redirectUrl = encodeURIComponent("http://client.test.urbanfit.cn/wechat_login_code.jsp?type=loginPage");
-    window.location.href = "https://open.weixin.qq.com/connect/qrconnect?appid=wxcb74bd33bb3dece8" +
-        "&redirect_uri=" + redirectUrl + "&response_type=code&scope=snsapi_login&state=30723559788" +
-        "&connect_redirect=1#wechat_redirect";
-}
-
-function checkForm(){
+function clientLogin(){
     var mobile = $.trim($("#phone").val());
     if(!isMobile(mobile)){
         $('#phonemsg').text('请输入正确的手机号');
@@ -46,18 +38,20 @@ function checkForm(){
                 // 登录成功跳转页面
                 $('#phonemsg').text('');
                 $('#pwdmsg').text('');
-                // 取出上次访问的URL
-                var lastURL = $.cookie('lastURL') ;
-                if (lastURL == null || lastURL == "") {
-                    window.location.href = "/module/toHome";
-                    return ;
-                }
-                window.location.href = lastURL ;
+                var clientInfo = result.data;
+                parent.$("body").data("LOGIN_STATUS", "success");
+                parent.$("body").data("CLIENT_NAME", clientInfo.name);
+                parent.$("body").data("CLIENT_MOBILE", clientInfo.mobile);
+                closeLayer();
             }
         }
-    });
-};
+    })
+}
 
+function closeLayer(){
+    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+    parent.layer.close(index);
+}
 
 //粗略验证手机号
 function isMobile(mobile){

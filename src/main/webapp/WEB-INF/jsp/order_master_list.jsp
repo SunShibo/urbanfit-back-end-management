@@ -75,13 +75,17 @@
                                         <i id="orderStatus_${order.orderNum}">
                                             <c:if test="${order.status == 0}">未支付</c:if>
                                             <c:if test="${order.status == 1}">已支付</c:if>
-                                            <c:if test="${order.status == 2}">已退款</c:if>
+                                            <c:if test="${order.status == 2}">申请退款</c:if>
                                             <c:if test="${order.status == 3}">系统自动取消</c:if>
+                                            <c:if test="${order.status == 4}">已退款</c:if>
                                         </i>
                                     </td>
                                     <td>
                                         <c:if test="${order.status == 0}">
                                             <a href="javascript:void(0);" id="A_pay_order_${order.orderNum}" data-ordernum="${order.orderNum}">支付</a>
+                                        </c:if>
+                                        <c:if test="${order.status == 1}">
+                                            <a href="javascript:void(0);" id="A_back_money_${order.orderNum}" data-ordernum="${order.orderNum}">申请退款</a>
                                         </c:if>
                                         <a href="javascript:void(0);" id="A_order_detail_${order.orderNum}" data-ordernum="${order.orderNum}">查看</a>
                                     </td>

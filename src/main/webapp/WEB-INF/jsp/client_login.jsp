@@ -8,20 +8,14 @@
     <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/js/mainJs/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/static/js/web/login.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/layer/layer.js"></script>
+    <script type="text/javascript" src="/static/js/web/client_login.js"></script>
 </head>
 <body>
     <div class="content">
         <div class="join">
-            <img src="../static/img/loginbg.jpg">
             <div class="loginbox">
-                <div class="joinlogo">
-                    <a href="/module/toHome">
-                        <img src="../static/img/logo.png">
-                    </a>
-                </div>
-                <div class="login">
+                <div class="login" style="margin-top:20px">
                     <img src="../static/img/logo1.png">
                     <h1>会员登录</h1>
                     <ul>
@@ -36,17 +30,11 @@
                             <p id="pwdmsg"></p>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="next">登录</a>
-                            <a href="javascript:void(0);" class="next" id="A_wechat_login">微信登录</a>
-                            <div class="forget">
-                                <a href="/client/toRegister" class="loginbtn">注册帐号</a>
-                                <a href="/client/toReset" class="forgetpwd">忘记密码？</a>
-                            </div>
+                            <a href="javascript:void(0);" class="next" id="A_login">登录</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <jsp:include page="../footer.jsp"/>
     </div>
 </body>
