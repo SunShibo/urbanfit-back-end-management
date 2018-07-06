@@ -3,7 +3,12 @@ $(function (){
     $("#client_detail").addClass("on");
 
     $("#B_save").click(updateClientInfo);
+    initClientGender();     // 初始化性别
 })
+
+function initClientGender(){
+    $("input[name='gender'][value='" + clientInfo.gender + "']").attr("checked",true);
+}
 
 function updateClientInfo(){
     var clientName = $("input[name='name']").val();
@@ -16,7 +21,7 @@ function updateClientInfo(){
         alert("昵称不能为空");
         return ;
     }
-    var gender = $("input[name='gender']").val();
+    var gender = $("input[name='gender']:checked").val();
     if(gender == ""){
         alert("请选择性别");
         return ;

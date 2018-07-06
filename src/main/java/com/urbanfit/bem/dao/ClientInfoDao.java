@@ -21,4 +21,6 @@ public interface ClientInfoDao {
     public ClientInfo queryClientByOpenId(String openId);
 
     public void updateClient(ClientInfo clientInfo);
+
+    public void updateHeadPortrait(Map<String, Object> map);
 }

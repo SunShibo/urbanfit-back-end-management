@@ -1,6 +1,7 @@
 package com.urbanfit.bem.web.controller.manage;
 
 import com.urbanfit.bem.cfg.pop.Constant;
+import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.common.constants.SysConstants;
 import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.service.ClientInfoService;
@@ -12,6 +13,8 @@ import com.urbanfit.bem.util.StringUtils;
 import com.urbanfit.bem.web.controller.base.BaseCotroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -53,8 +56,12 @@ public class ClientInfoController extends BaseCotroller{
     }
 
     @RequestMapping("/toPassword")
-    public ModelAndView redirectUpdatePassword(){
+    public ModelAndView redirectUpdatePassword(HttpServletRequest request){
         ModelAndView view = new ModelAndView();
+        ClientInfo clientInfo = clientInfoService.queryClientInfoByClientId(getLoginClientInfo(request)
+                .getClientId());
+        view.addObject("clientInfo", clientInfo);
+        view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
         view.setViewName("/update_password");
         return view;
     }
@@ -129,8 +136,12 @@ public class ClientInfoController extends BaseCotroller{
     }
 
     @RequestMapping("/detail")
-    public ModelAndView redirectClientInfoPage(){
+    public ModelAndView redirectClientInfoPage(HttpServletRequest request){
         ModelAndView view = new ModelAndView();
+        ClientInfo clientInfo = clientInfoService.queryClientInfoByClientId(getLoginClientInfo(request)
+                .getClientId());
+        view.addObject("clientInfo", clientInfo);
+        view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
         view.setViewName("/client_info");
         return view;
     }
@@ -200,5 +211,12 @@ public class ClientInfoController extends BaseCotroller{
                     getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
         }
         safeTextPrint(response, result);
+    }
+
+    @RequestMapping("/uploadHeadPortrait")
+    public void uploadHeadPortrait(HttpServletResponse response, HttpServletRequest request,
+                                   @RequestParam("myFile") MultipartFile file) {
+        String result = clientInfoService.uploadHeadPortrait(file, getLoginClientInfo(request));
+        safeJsonPrint(response, result);
     }
 }

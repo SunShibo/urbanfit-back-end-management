@@ -13,7 +13,6 @@
     <script type="text/javascript" src="/static/js/mainJs/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/common/menu.js"></script>
     <script type="text/javascript" src="/static/js/web/home.js"></script>
-    <script src="https://s19.cnzz.com/z_stat.php?id=1274097111&web_id=1274097111" language="JavaScript"></script>
 </head>
 <body>
     <div class="content">
@@ -122,4 +121,5 @@
        </div>
        <jsp:include page="/WEB-INF/footer.jsp"/>
     </div>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274101114'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274101114%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>

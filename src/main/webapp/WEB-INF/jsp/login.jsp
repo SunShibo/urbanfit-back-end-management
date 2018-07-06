@@ -37,7 +37,7 @@
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="next">登录</a>
-                            <a href="javascript:void(0);" class="next" id="A_wechat_login">微信登录</a>
+                            <%--<a href="javascript:void(0);" class="next" id="A_wechat_login">微信登录</a>--%>
                             <div class="forget">
                                 <a href="/client/toRegister" class="loginbtn">注册帐号</a>
                                 <a href="/client/toReset" class="forgetpwd">忘记密码？</a>

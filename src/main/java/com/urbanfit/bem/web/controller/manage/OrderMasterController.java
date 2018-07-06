@@ -36,6 +36,8 @@ import java.util.UUID;
 public class OrderMasterController extends BaseCotroller{
     @Resource
     private OrderMasterService orderMasterService;
+    @Resource
+    private ClientInfoService clientInfoService;
 
     @RequestMapping("/list")
     public ModelAndView queryClientOrderMaster(HttpServletRequest request, String orderNum, Integer status,
@@ -54,6 +56,9 @@ public class OrderMasterController extends BaseCotroller{
         view.addObject("pager", pager);
         view.addObject("orderNum", orderNum);
         view.addObject("status", status);
+        clientInfo = clientInfoService.queryClientInfoByClientId(getLoginClientInfo(request).getClientId());
+        view.addObject("clientInfo", clientInfo);
+        view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
         return view;
     }
 

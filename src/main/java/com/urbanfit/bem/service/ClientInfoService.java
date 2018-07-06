@@ -1,14 +1,21 @@
 package com.urbanfit.bem.service;
 
 import com.urbanfit.bem.cfg.pop.Constant;
+import com.urbanfit.bem.cfg.pop.SystemConfig;
 import com.urbanfit.bem.dao.ClientInfoDao;
 import com.urbanfit.bem.entity.ClientInfo;
 import com.urbanfit.bem.entity.bo.WechatBo;
 import com.urbanfit.bem.util.*;
 import com.urbanfit.bem.util.redisUtils.RedissonHandler;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.annotation.Resource;
+import java.io.File;
+import java.text.MessageFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -254,5 +261,28 @@ public class ClientInfoService {
         }catch (Exception e){
             return null;
         }
+    }
+
+    public String uploadHeadPortrait(MultipartFile file, ClientInfo clientInfo){
+        if(file == null || clientInfo == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        ClientInfo client = clientInfoDao.queryClientById(clientInfo.getClientId());
+        if(client == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
+        }
+        if( file.getSize() > 2 * 1024 * 1024){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "图片太大，请重新选择！", "").toString();
+        }
+        String imageUrl = UploadImageUtil.uploadImage(file, "client_headPortrait_image_url");
+        // 修改用户头像
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("clientId", client.getClientId());
+        map.put("headPortrait", imageUrl);
+        clientInfoDao.updateHeadPortrait(map);
+        JSONObject jo = new JSONObject();
+        jo.put("baseUrl", SystemConfig.getString("image_base_url"));
+        jo.put("headPortrait", imageUrl);
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "上传头像成功", jo.toString()).toString();
     }
 }

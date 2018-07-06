@@ -46,13 +46,7 @@ function checkForm(){
                 // 登录成功跳转页面
                 $('#phonemsg').text('');
                 $('#pwdmsg').text('');
-                // 取出上次访问的URL
-                var lastURL = $.cookie('lastURL') ;
-                if (lastURL == null || lastURL == "") {
-                    window.location.href = "/module/toHome";
-                    return ;
-                }
-                window.location.href = lastURL ;
+                window.location.href = "/module/toHome";
             }
         }
     });
