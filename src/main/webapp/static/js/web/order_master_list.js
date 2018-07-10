@@ -28,11 +28,47 @@ $(function (){
         $(this).addClass('seleted');
     });
     // 申请退款
-    $("a[id^='A_back_money_']").click(applyBackMoney);
+    $("a[id^='A_back_money_']").click(function (){
+        var orderNum = $(this).data("ordernum");
+        openApplyBackMoneyLayer(orderNum);
+    });
+    $("#B_apply_back_money").click(applyBackMoney);
 })
 
-function applyBackMoney(){
+function openApplyBackMoneyLayer(orderNum){
+    $("input[name='applyOrderNum']").val(orderNum);
+    layer.open({
+        title : '申请退款',
+        type: 1,
+        content : $("#applyBackMoneyDiv"),//指定弹出DIV内容
+        area: ['500px', '540px'],
+        full: false
+    });
+}
 
+function applyBackMoney(){
+    var orderNum = $("input[name='applyOrderNum']").val();
+    var reason = $("textarea[name='reason']").val();
+    if(reason == ""){
+        alert("请填写申请退款原因！");
+        return ;
+    }
+    // 申请退款操作
+    $.ajax({
+        type : "post",
+        url : "/order/applyBackMoney",    // 调用方法
+        data : {"orderNum" : orderNum, "reason" : reason},   // 参数信息
+        dataType : "json",
+        success : function (result){      // 调用方法成功处理函数
+            if(result.code != 1){
+                alert(result.msg);
+                return ;
+            }else{     // 成功处理
+                alert("提交申请成功");
+                $("#applyBackSpan_" + orderNum + "").text("已申请");
+            }
+        }
+    });
 }
 
 
@@ -83,9 +119,13 @@ function queryOrderMasterDetail(){
                 if(result.data.status == 1){
                     status = "已支付";
                 }else if(result.data.status == 2){
-                    status = "已退款";
+                    status = "申请退款";
                 }else if(result.data.status == 3){
                     status = "系统自动取消";
+                }else if(result.data.status == 4){
+                    status = "退款成功"
+                }else if(result.data.status == 5){
+                    status = "申请退款失败"
                 }
                 $("#detailStatus").text(status);
                 if(result.data.couponNum != ""){

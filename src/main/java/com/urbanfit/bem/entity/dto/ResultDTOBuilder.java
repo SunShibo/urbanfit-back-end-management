@@ -6,9 +6,9 @@ import com.urbanfit.bem.util.env.Env;
 /**
  * Created by sunshibo on 2016/3/16.
  */
-public class ResultDTOBuilder {
+public class ResultDTOBuilder{
 
-    public ResultDTOBuilder() {
+    public ResultDTOBuilder(){
     }
 
     public static <T> ResultDTO<T> success(T data) {

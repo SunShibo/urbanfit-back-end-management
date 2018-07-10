@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urbanfit.bem.dao.ClientApplyRefundDao">
+
+    <insert id="addBackMoney" parameterType="com.urbanfit.bem.entity.ClientApplyRefund" useGeneratedKeys="true"
+            keyProperty="applyId">
+        insert into t_client_apply_refund (orderNum, reason, clientId, applyTime, status) values
+        (#{orderNum}, #{reason}, #{clientId}, now(), 0)
+    </insert>
+</mapper>

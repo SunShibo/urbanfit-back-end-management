@@ -8,7 +8,6 @@ import com.urbanfit.bem.pay.*;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
 import com.urbanfit.bem.query.QueryInfo;
-import com.urbanfit.bem.tenpay.util.JsonUtil;
 import com.urbanfit.bem.util.*;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -41,28 +40,14 @@ public class OrderMasterService {
     private CourseSizeDetailDao courseSizeDetailDao;
     @Resource
     private CourseSizeDao courseSizeDao;
+    @Resource
+    private ClientApplyRefundDao clientApplyRefundDao;
 
     public OrderMaster queryOderMaterDetail(String orderNum){
         return orderMasterDao.queryOrderMaterDetail(orderNum);
     }
 
-    public String updateOrderMasterStatus(String orderNum){
-        if(StringUtils.isEmpty(orderNum)){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
-        }
-        OrderMaster orderMaster = orderMasterDao.queryOrderMasterByOrderNum(orderNum);
-        if(orderMaster == null){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单不存在", "").toString();
-        }
-        if(orderMaster.getStatus() == OrderMaster.STATUS_WAITING_PAY){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单待支付", "").toString();
-        }
-        if(orderMaster.getStatus() == OrderMaster.STATUS_REFUND){
-            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单状态已经为已退款", "").toString();
-        }
-        orderMasterDao.updateOrderMasterStatus(orderNum);
-        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "修改成功", "").toString();
-    }
+
 
     public PageObject<OrderMaster> queryClientOrderMaster(Integer clientId, String orderNum, Integer status,
                                                           QueryInfo queryInfo){
@@ -588,5 +573,29 @@ public class OrderMasterService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(dateFormat.format(systemCancleTime));
         return systemCancleTime;
+    }
+
+
+    public String applyBackMoney(String orderNum, String reason){
+        if(StringUtils.isEmpty(orderNum) || StringUtils.isEmpty(reason)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        OrderMaster orderMaster = orderMasterDao.queryOrderMasterByOrderNum(orderNum);
+        if(orderMaster == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "订单不存在", "").toString();
+        }
+        // 判断订单是否支付
+        if (orderMaster.getStatus() != OrderMaster.STATUS_PAYED){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "订单未支付或已经申请退款", "").toString();
+        }
+        // 修改订单状态
+        orderMasterDao.updateOrderMasterStatus(orderNum);
+        ClientApplyRefund clientApplyRefund = new ClientApplyRefund();
+        clientApplyRefund.setOrderNum(orderNum);
+        clientApplyRefund.setClientId(orderMaster.getClientId());
+        clientApplyRefund.setReason(reason);
+        // 添加申请记录
+        clientApplyRefundDao.addBackMoney(clientApplyRefund);
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "申请退款成功", "").toString();
     }
 }

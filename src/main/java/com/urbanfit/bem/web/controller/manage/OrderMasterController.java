@@ -181,4 +181,10 @@ public class OrderMasterController extends BaseCotroller{
         String result = orderMasterService.queryPayOrderMasterDetail(orderNum);
         safeTextPrint(response, result);
     }
+
+    @RequestMapping("/applyBackMoney")
+    public void applyBackMoney(String orderNum, String reason, HttpServletResponse response){
+        String result = orderMasterService.applyBackMoney(orderNum, reason);
+        safeTextPrint(response, result);
+    }
 }
