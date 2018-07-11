@@ -46,12 +46,12 @@
             and orderNum like CONCAT("%", #{orderInfo}, "%")
         </if>
         <if test="status == null">  <!-- 查询全部 -->
-            and (m.status = 1 or m.status = 2 or m.status = 3 or (m.status = 0 and m.wechatType = #{wechatType}))
+            and (m.status = 1 or m.status = 2 or m.status = 3 or m.status = 4 or m.status = 5 or (m.status = 0 and m.wechatType = #{wechatType}))
         </if>
         <if test="status == 0">
             and m.status = #{status} and m.wechatType = #{wechatType}
         </if>
-        <if test="status == 1 or status == 2 or status == 3">
+        <if test="status == 1 or status == 2 or status == 3 or status == 4 or status == 5">
             and m.status = #{status}
         </if>
         order by m.createTime desc
