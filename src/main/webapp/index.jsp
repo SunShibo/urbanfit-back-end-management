@@ -14,7 +14,61 @@
     <script type="text/javascript" src="/static/js/web/home.js"></script>
     <script src="https://s19.cnzz.com/z_stat.php?id=1274097111&web_id=1274097111" language="JavaScript"></script>
 </head>
+<style type="text/css">
+    @charset "utf-8";
+    /* CSS Document */
+    *{margin:0; padding:0;}
+    body{margin:0px;font-family:"微软雅黑",Arial, Helvetica, sans-serif;}
+    body,html{width: 100%;height: 100%;}
+    .modal0{
+        width: 100%;height: 100%;
+        position:fixed;
+        z-index: 100;
+        top: 0;left: 0;
+    }
+    .modal-dialog0{
+        width: 100%;height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-body{
+        position: relative;
+    }
+    .modal-body #close{
+        position:absolute;
+        top: -25px;
+        right: -2px;
+        font-size: 28px;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px;
+    }
+    .bg{
+        background:rgba(0,0,0,0.6);
+        position: absolute;
+        width:100%;height: 100%;
+        top: 0;left: 0;
+        z-index: -1;
+    }
+    @media screen and (max-width: 414px) {
+        .modal-body #media{ width: 100%; }
+    }
+</style>
+<script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/vedio.js"></script>
+
 <body>
+<!-- 视频弹框 -->
+<div class="modal0" id="myModal" role="dialog" aria-labelledby="videoPlayModal" aria-hidden="true">
+    <div class="modal-dialog0">
+        <div class="bg"></div>
+        <div class="modal-body">
+            <a id="close" href="javascript:;">×</a>
+            <video id="media" controls autoplay="autoplay"  src="static/video/video.mp4" ></video>
+        </div>
+    </div>
+</div>
 <div class="content">
     <jsp:include page="/WEB-INF/main.jsp"/>
     <div class="index">

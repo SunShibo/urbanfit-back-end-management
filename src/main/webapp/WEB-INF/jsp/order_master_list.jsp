@@ -16,6 +16,38 @@
     <script type="text/javascript">
         var status = '${status}';
     </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #applyBackMoneyDiv{
+            margin: 0 auto;
+            text-align: center;
+            height: 478px;
+        }
+        #B_apply_back_money{
+            display: block;width: 200px;height: 45px;
+            background: #f6d332;color: #001111;
+            font-size: 18px;border-radius: 4px;
+            text-align: center;line-height: 45px;
+            margin-top: 100px;margin-left: 32%;
+        }
+        #reason{
+            margin-top: 32px ;
+        }
+      #applyBackMoneyDiv span{
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 40px;
+           font-size: 20px;
+          margin-left: -73px;
+        }
+    </style>
 </head>
 <body>
 <div class="content">
@@ -172,7 +204,7 @@
 
 <div id="applyBackMoneyDiv">
     <div>
-        退款原因  <textarea name="reason"></textarea><br/>
+        <span>退款原因：</span><textarea name="reason" id="reason" style="width:200px;"></textarea><br/>
         <input type="hidden" name="applyOrderNum">
         <input type="button" id="B_apply_back_money" value="申请退款">
     </div>
