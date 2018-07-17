@@ -185,6 +185,7 @@
                         <li>支付方式：<label id="detailPayment"></label></li>
                         <li>支付额度：<span>￥<label id="detailPayPrice"></label></span></li>
                         <li>支付状态：<label id="detailStatus"></label></li>
+                        <li>退款提示：<label id="detailReason"></label></li>
                     </ul>
                     <ul id="couponDiv" style="display: none;">
                         <li><h3>优惠码：</h3></li>

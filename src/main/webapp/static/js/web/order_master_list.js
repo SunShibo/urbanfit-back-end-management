@@ -83,13 +83,14 @@ function queryOrderMaster(){
 }
 
 function queryOrderMasterDetail(){
+    var  orderStatus = "";
     var orderNum = $(this).data("ordernum");
     $.ajax({
         type : "post",
         url : "detail",
         data : {"orderNum" : orderNum},
         dataType : "json",
-        success : function(result, status){
+        success : function(result,  status){
             if(result.code != 1){
                 alert(result.msg);
                 return ;
@@ -116,6 +117,7 @@ function queryOrderMasterDetail(){
                 $("#detailPayment").text(payment);
                 $("#detailPayPrice").text(result.data.payPrice);
                 var status = "未支付";
+                orderStatus = result.data.status;
                 if(result.data.status == 1){
                     status = "已支付";
                 }else if(result.data.status == 2){
@@ -127,7 +129,15 @@ function queryOrderMasterDetail(){
                 }else if(result.data.status == 5){
                     status = "申请退款失败"
                 }
+
                 $("#detailStatus").text(status);
+                /*if(result.data.status == 5){
+                    $("#detailReason").text(result.data.againstReason);
+                }
+                var reason = "申请退款成功，班主任将通过线下退款给您，请注意查收！"
+                if(result.data.status == 4){
+                    $("#detailReason").text(reason)
+                }*/
                 if(result.data.couponNum != ""){
                     $("#couponDiv").show();
                     $("#couponPrice").text(result.data.couponPrice);
@@ -137,10 +147,38 @@ function queryOrderMasterDetail(){
                     $("#remarksDiv").show();
                     $("#remarks").text(result.data.remarks);
                 }
+
+                ApplyReason(orderStatus,orderNum);
             }
         }
     });
+
 }
+
+
+function ApplyReason(orderStatus,orderNum){
+    $.ajax({
+        type : "post",
+        url : "ApplyReason",
+        data : {"orderNum" : orderNum},
+        dataType : "json",
+        success : function(result){
+            if(result.code != 1){
+                alert(result.msg);
+                return ;
+            }else{
+                if(orderStatus == 5){
+                    $("#detailReason").text(result.data.againstReason);
+                }
+                var reason = "申请退款成功，班主任将通过线下退款给您，请注意查收！"
+                if(orderStatus == 4){
+                    $("#detailReason").text(reason)
+                }
+            }
+        }
+    })
+}
+
 
 function choosePayment(){
     $("input[name='payOrderNum']").val($(this).data("ordernum"));

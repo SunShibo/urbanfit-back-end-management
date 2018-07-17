@@ -8,6 +8,7 @@ import com.urbanfit.bem.pay.*;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
 import com.urbanfit.bem.query.QueryInfo;
+import com.urbanfit.bem.tenpay.util.JsonUtil;
 import com.urbanfit.bem.util.*;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -68,7 +69,14 @@ public class OrderMasterService {
         return page.savePageObject(orderMasterDao.queryClientOrderMasterCount(map),
                 orderMasterDao.queryClientOrderMasterList(map), queryInfo);
     }
-
+ public  String queryReasonByorderNum(String orderNum){
+     if(StringUtils.isEmpty(orderNum)){
+         return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+     }
+       ClientApplyRefund clientApplyRefund =clientApplyRefundDao.queryReasonByorderNum(orderNum);
+     return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", JsonUtils.
+             getJsonString4JavaPOJO(clientApplyRefund, DateUtils.LONG_DATE_PATTERN)).toString();
+ }
     public String queryClientOrderMasterDetail(Integer clientId, String orderNum){
         if(clientId == null || StringUtils.isEmpty(orderNum)){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
@@ -77,6 +85,7 @@ public class OrderMasterService {
         map.put("clientId", clientId);
         map.put("orderNum", orderNum);
         OrderMaster orderMaster = orderMasterDao.queryClientOrderMaterDetail(map);
+
         if(orderMaster == null){
             return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "订单不存在", "").toString();
         }

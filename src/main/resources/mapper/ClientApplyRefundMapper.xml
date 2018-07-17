@@ -8,4 +8,7 @@
         insert into t_client_apply_refund (orderNum, reason, clientId, applyTime, status) values
         (#{orderNum}, #{reason}, #{clientId}, now(), 0)
     </insert>
+    <select id="queryReasonByorderNum" parameterType="String" resultType="com.urbanfit.bem.entity.ClientApplyRefund">
+        SELECT  * from t_client_apply_refund WHERE  orderNum=#{orderNum}
+    </select>
 </mapper>

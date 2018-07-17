@@ -61,13 +61,18 @@ public class OrderMasterController extends BaseCotroller{
         view.addObject("baseUrl", SystemConfig.getString("image_base_url"));
         return view;
     }
+    @RequestMapping("/ApplyReason")
+    public  void applyReason(HttpServletRequest request ,HttpServletResponse response,String orderNum){
+        String result =orderMasterService.queryReasonByorderNum(orderNum);
+        safeJsonPrint(response,result);
+    }
 
     @RequestMapping("/detail")
-    public void queryClientOrderMasterDetail(HttpServletRequest request, HttpServletResponse response,
+     public void queryClientOrderMasterDetail(HttpServletRequest request, HttpServletResponse response,
                                              String orderNum){
         ClientInfo clientInfo = getLoginClientInfo(request);
-        String result = orderMasterService.queryClientOrderMasterDetail(clientInfo.getClientId(), orderNum);
-        safeTextPrint(response, result);
+        String result =orderMasterService.queryClientOrderMasterDetail(clientInfo.getClientId(), orderNum);
+        safeJsonPrint(response,result);
     }
 
     @RequestMapping("/add")

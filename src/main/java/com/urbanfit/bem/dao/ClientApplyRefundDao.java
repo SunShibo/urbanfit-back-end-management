@@ -8,4 +8,5 @@ import com.urbanfit.bem.entity.ClientApplyRefund;
 public interface ClientApplyRefundDao {
 
     public void addBackMoney(ClientApplyRefund clientApplyRefund);
+    public ClientApplyRefund queryReasonByorderNum(String orderNum);
 }
