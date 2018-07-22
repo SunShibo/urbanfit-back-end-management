@@ -127,6 +127,10 @@ public class ClientInfoService {
         return clientInfoDao.queryClientById(clientId);
     }
 
+    public ClientInfo queryClientInfoByOpenId(String openId){
+        return clientInfoDao.queryClientByOpenId(openId);
+    }
+
     public String updatePassword(Integer type, String mobile, String newPassword, String confirmPassword){
         if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(newPassword) || StringUtils.isEmpty(confirmPassword)
                 || type == null){
@@ -284,5 +288,72 @@ public class ClientInfoService {
         jo.put("baseUrl", SystemConfig.getString("image_base_url"));
         jo.put("headPortrait", imageUrl);
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "上传头像成功", jo.toString()).toString();
+    }
+
+    public String queryClientByOpenId(String code){
+        if(StringUtils.isEmpty(code)){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        WechatBo wechatInfo = getWechatInfo(code);
+        if(wechatInfo == null || (wechatInfo != null && StringUtils.isEmpty(wechatInfo.getOpenid()))){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "获取微信信息失败", "").toString();
+        }
+        ClientInfo clientInfo = clientInfoDao.queryClientByOpenId(wechatInfo.getOpenid());
+        JSONObject jo = new JSONObject();
+        jo.put("openId", wechatInfo.getOpenid());
+        if(clientInfo == null){
+           return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "openId不存在", jo.toString()).toString();
+        }
+        jo.put("clientInfo", JsonUtils.getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN));
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
+    }
+
+    public String wechatClientBangding(String openId, Integer clientId){
+        if(StringUtils.isEmpty(openId) || clientId == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        ClientInfo clientInfo = clientInfoDao.queryClientById(clientId);
+        if(clientInfo == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
+        }
+        // 判断openId是否存在
+        ClientInfo clientOpenId = clientInfoDao.queryClientByOpenId(openId);
+        if(clientOpenId != null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "openId已经存在", "").toString();
+        }
+        clientInfo.setOpenId(openId);
+        clientInfoDao.updateClientInfo(clientInfo);
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "绑定微信成功", JsonUtils.
+                getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
+    }
+
+
+    private WechatBo getWechatInfo(String code){
+        // 获取access_token、openId信息
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + APPID
+                +"&secret=" + SECRET + "&code=" + code +"&grant_type=authorization_code";
+        String result = HttpClientUtil.httpGetRequest(url);
+        System.out.println("result：" + result);
+        // 刷新access_token
+        WechatBo wechatBo = (WechatBo)JsonUtils.getObject4JsonString(result, WechatBo.class);
+        String accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + APPID
+                + "&grant_type=refresh_token&refresh_token=" + wechatBo.getRefresh_token();
+        String accessTokenResult = HttpClientUtil.httpGetRequest(accessTokenUrl);
+        System.out.println("accessTokenResult：" + accessTokenResult);
+        // 获取登录用户信息
+        WechatBo accessTokenWechatBo = (WechatBo)JsonUtils.getObject4JsonString(accessTokenResult, WechatBo.class);
+        String wechatInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="
+                +  accessTokenWechatBo.getAccess_token() + "&openid=" + accessTokenWechatBo.getOpenid()
+                + "&lang=zh_CN";
+        String wechatInfoResult = HttpClientUtil.httpGetRequest(wechatInfoUrl);
+        try {
+            wechatInfoResult = new String(wechatInfoResult.getBytes("ISO-8859-1"), "UTF-8");
+            System.out.println("wechatInfoResult：" + wechatInfoResult);
+            WechatBo wechatInfoBo = (WechatBo) JsonUtils.getObject4JsonString(wechatInfoResult, WechatBo.class);
+            return wechatInfoBo;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -64,8 +64,7 @@ public class ApiClientInfoController extends BaseCotroller{
      * 修改客户姓名
      */
     @RequestMapping("/update")
-    public void updateClientInfo(HttpServletResponse response, ClientInfo clientInfo, Integer clientId){
-        clientInfo.setClientId(clientId);
+    public void updateClientInfo(HttpServletResponse response, ClientInfo clientInfo){
         String result = clientInfoService.updateClientInfo(clientInfo);
         safeTextPrint(response, result);
     }
@@ -86,6 +85,35 @@ public class ApiClientInfoController extends BaseCotroller{
     public void updatePassword(HttpServletResponse response, Integer type, String mobile, String newPassword,
                                String confirmPassword){
         String result = clientInfoService.updatePassword(type, mobile, newPassword, confirmPassword);
+        safeTextPrint(response, result);
+    }
+
+    @RequestMapping("/queryByClientId")
+    public void queryClientInfoById(Integer clientId, HttpServletResponse response){
+        String result = "";
+        if(clientId == null){
+            result =  JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }else{
+            ClientInfo clientInfo = clientInfoService.queryClientInfoByClientId(clientId);
+            if(clientInfo == null){
+                result = JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "用户不存在", "").toString();
+            }else{
+                result = JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", JsonUtils.
+                        getJsonString4JavaPOJO(clientInfo, DateUtils.LONG_DATE_PATTERN)).toString();
+            }
+        }
+        safeTextPrint(response, result);
+    }
+
+    @RequestMapping("/queryByOpenId")
+    public void queryClientInfoByOpenId(String code, HttpServletResponse response){
+        String result = clientInfoService.queryClientByOpenId(code);
+        safeTextPrint(response, result);
+    }
+
+    @RequestMapping("/bangdingWechat")
+    public void wechatClientBangding(String openId, Integer clientId, HttpServletResponse response){
+        String result = clientInfoService.wechatClientBangding(openId, clientId);
         safeTextPrint(response, result);
     }
 }

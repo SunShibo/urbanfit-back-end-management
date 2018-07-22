@@ -22,8 +22,8 @@
     </select>
 
     <update id="updateClientInfo" parameterType="com.urbanfit.bem.entity.ClientInfo">
-        update t_clientinfo set name = #{name}, nickname = #{nickname}, gender = #{gender}, email = #{email}
-        where clientId = #{clientId}
+        update t_clientinfo set name = #{name}, nickname = #{nickname}, gender = #{gender}, email = #{email},
+        openId = #{openId} where clientId = #{clientId}
     </update>
 
     <select id="queryClientByOpenId" parameterType="String" resultType="com.urbanfit.bem.entity.ClientInfo">
