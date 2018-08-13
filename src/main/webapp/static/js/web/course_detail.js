@@ -138,6 +138,10 @@ function initCourseInfo(data){
     $("#storeDistrict").text(storeDistrict);
     $("#courseStore").html(courseStoreArr.join(""));
     $("#courseDetailDiv").html(course.introduce);
+    if(storeId != ""){
+        $("#courseStore option[value='" +storeId + "']").attr("selected", "selected");
+        $("input[name='storeId']").val(storeId);
+    }
 }
 
 function chooseCourseStore(){

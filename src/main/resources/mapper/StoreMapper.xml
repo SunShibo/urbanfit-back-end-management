@@ -32,7 +32,7 @@
         <if test="district != null">
             and storeDistrict like CONCAT("%", #{district}, "%")
         </if>
-        order by createTime desc
+        order by courseIds desc, createTime desc
         <include refid="limit"/>
     </select>
 

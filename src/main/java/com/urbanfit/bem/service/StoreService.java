@@ -1,7 +1,10 @@
 package com.urbanfit.bem.service;
 
 import com.urbanfit.bem.cfg.pop.Constant;
+import com.urbanfit.bem.cfg.pop.SystemConfig;
+import com.urbanfit.bem.dao.CourseStoreDao;
 import com.urbanfit.bem.dao.StoreDao;
+import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.Store;
 import com.urbanfit.bem.query.PageObject;
 import com.urbanfit.bem.query.PageObjectUtil;
@@ -26,6 +29,8 @@ import java.util.Map;
 public class StoreService {
     @Resource
     private StoreDao storeDao;
+    @Resource
+    private CourseStoreDao courseStoreDao;
 
     public PageObject<Store> queryStoreList(String provice, String city, String district, QueryInfo queryInfo){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -69,6 +74,27 @@ public class StoreService {
         }else{
             jo.put("lstStore", "");
         }
+        jo.put("baseUrl", SystemConfig.getString("image_base_url"));
+        return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
+    }
+
+    public Store queryStoreByStoreId(Integer storeId){
+        return storeDao.queryStoreById(storeId);
+    }
+
+    public String queryStoreDetail(Integer storeId){
+        if(storeId == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_PARAM_ERROR, "参数有误", "").toString();
+        }
+        Store store = storeDao.queryStoreById(storeId);
+        if(store == null){
+            return JsonUtils.encapsulationJSON(Constant.INTERFACE_FAIL, "门店不存在", "").toString();
+        }
+        JSONObject jo = new JSONObject();
+        jo.put("store", JsonUtils.getJsonString4JavaPOJO(store, DateUtils.LONG_DATE_PATTERN));
+        List<Course> lstCourse = courseStoreDao.queryCourseByStoreId(storeId);
+        jo.put("lstCourse", JsonUtils.getJsonString4JavaListDate(lstCourse, DateUtils.LONG_DATE_PATTERN));
+        jo.put("baseUrl", SystemConfig.getString("image_base_url"));
         return JsonUtils.encapsulationJSON(Constant.INTERFACE_SUCC, "查询成功", jo.toString()).toString();
     }
 }

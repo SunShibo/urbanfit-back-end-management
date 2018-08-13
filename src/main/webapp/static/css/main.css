@@ -959,3 +959,133 @@
     border-radius: 3px;
     margin-top: 8px;
 }
+
+.cbanner img{
+    width: 100%;
+}
+.cbanner h2 {
+    font-size: 35px;
+    color: #fff;
+    position: absolute;
+    z-index: 10;
+    left: 20%;
+    top: 50%;
+    margin: 0;
+    height: 50px;
+    margin-top: -25px;
+}
+.footerbox .erweima {
+    width: 40%;
+    display: flex;
+}
+.cfilter .caddr .addrbox select{
+    height: 40px;
+}
+.sklist{
+    width: 100%;
+}
+.sklist ul{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.sklist ul li{
+    width: 23%;
+    border: 1px solid #f4f4f4;
+    margin-top: 2%;
+    margin-right: 2.66%;
+}
+.sklist ul li:nth-child(4n){
+    margin-right: 0;
+}
+.sklist ul li a{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.sklist ul li a > img{
+    width: 100%;
+    display: block;
+}
+.sklist ul li a h2{
+    color: #222;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin:15px;
+}
+.sklist ul li a p{
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    margin:0 15px;
+    height: 70px
+}
+.sklist ul li a p span{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+.sklist ul li a p img{
+    margin-right: 3px;
+    width: 15px;height: 20px;
+}
+.clist > h1{
+    color: #222;
+    font-size: 24px;
+    font-weight: 500;
+}
+.shangkebox{
+    margin-top: 38px;
+}
+.shangkebox .shangkebox1{
+    border: 1px solid #f4f4f4;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 38px 0;
+}
+.shangkebox h1{
+    width: 100%;
+    color: #222;
+    font-size: 24px;
+    font-weight: 500;
+}
+.shangkebox .shangleft{
+    width: 25%;
+    float: left;
+}
+.shangkebox .shangleft img{
+    width: 100%;
+    display: block;
+}
+.shangkebox .shangright{
+    width: 75%;
+}
+.shangkebox .shangright h2{
+    font-size: 18px;
+    color: #222;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    margin: 20px;
+    margin-bottom: 10px;
+}
+.shangkebox .shangright h2 p{
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+.shangkebox .shangright h2 p img{
+    float: left;
+    margin-left: 25px;
+}
+.shangkebox .shangright > p{
+    font-size: 15px;
+    color: #888;
+    margin: 0 20px;
+}

@@ -24,4 +24,10 @@ public class ApiStoreController extends BaseCotroller{
         String result = storeService.queryApiStoreList(provice, city, district, getQueryInfo(pageNo, pageSize));
         safeTextPrint(response, result);
     }
+
+    @RequestMapping(value = "/detail")
+    public void queryStoreDetail(HttpServletResponse response, Integer storeId){
+        String result = storeService.queryStoreDetail(storeId);
+        safeTextPrint(response, result);
+    }
 }

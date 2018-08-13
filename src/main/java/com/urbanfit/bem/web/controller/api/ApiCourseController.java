@@ -16,10 +16,11 @@ public class ApiCourseController extends BaseCotroller{
     private CourseService courseService;
 
     @RequestMapping("/toDetail")
-    public ModelAndView redirectCourseDetail(Integer courseId){
+    public ModelAndView redirectCourseDetail(Integer courseId, Integer storeId){
         ModelAndView view = new ModelAndView();
         view.setViewName("/course_detail");
         view.addObject("courseId", courseId);
+        view.addObject("storeId", storeId);
         return view;
     }
 

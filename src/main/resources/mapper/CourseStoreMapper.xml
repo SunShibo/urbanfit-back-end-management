@@ -9,4 +9,8 @@
     <select id="queryCourseStoreByMap" parameterType="map" resultType="com.urbanfit.bem.entity.CourseStore">
         select * from t_course_store where courseId = #{courseId} and storeId = #{storeId}
     </select>
+
+    <select id="queryCourseByStoreId" parameterType="int" resultType="com.urbanfit.bem.entity.Course">
+        select n.* from t_course_store m left join t_course n on m.courseId = n.courseId where m.storeId = #{storeId}
+    </select>
 </mapper>

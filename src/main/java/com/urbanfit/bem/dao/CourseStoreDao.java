@@ -1,5 +1,6 @@
 package com.urbanfit.bem.dao;
 
+import com.urbanfit.bem.entity.Course;
 import com.urbanfit.bem.entity.CourseStore;
 import com.urbanfit.bem.entity.Store;
 import java.util.List;
@@ -13,4 +14,6 @@ public interface CourseStoreDao {
     public List<Store> queryCourseStore(Integer courseId);
 
     public CourseStore queryCourseStoreByMap(Map<String, Object> map);
+
+    public List<Course> queryCourseByStoreId(Integer storeId);
 }

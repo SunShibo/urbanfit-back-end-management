@@ -183,25 +183,25 @@
                     <img src="../static/img/curriculum1.png">
                     <ul>
                         <li>
-                            <a href="/course/detail?courseId=2">
+                            <a href="/course/list">
                                 <img src="../static/img/shaoer.png">
                                 <span>少儿赛法斗</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/course/detail?courseId=1">
+                            <a href="/course/list">
                                 <img src="../static/img/jianshen.png">
                                 <span>健身赛法斗</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/course/detail?courseId=3">
+                            <a href="/course/list">
                                 <img src="../static/img/jiaolian.png">
                                 <span>教练员课程</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/course/detail?courseId=4">
+                            <a href="/course/list">
                                 <img src="../static/img/tese.png">
                                 <span>特色课程</span>
                             </a>
