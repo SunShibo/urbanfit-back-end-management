@@ -73,6 +73,8 @@ function submitOrder(){
                 }
             }else if(result.code == -4){   // 客户没有登陆，跳转到登陆页面
                 openClientLoginLayer();
+            }else if(result.code == 2) {
+                window.location.href = "/order/list";
             }else{
                 alert(result.msg);
                 return ;
@@ -127,20 +129,30 @@ function queryCouponInfo(){
 
     $.ajax({
         type:"post",
-        url:"/coupon/detail ",
+        url:"/coupon/detail",
         dataType: "json",
-        data: {"couponNum" : couponNum},
+        data: {"couponNum" : couponNum, "courseId" : courseId},
         success: function(result){
             if(result.code == 1){
                 $('#change').hide();
                 $('#changebtn').show();
                 $('#couponName').text(result.data.couponName).show();
+                var type = result.data.type;
+                $("#price").text($("input[name='coursePrice']").val());
                 var coursePrice = $("input[name='coursePrice']").val();
-                $("#couponprice").text(coursePrice * result.data.percent / 100);
-                $("#payPrice").text(coursePrice - (coursePrice * result.data.percent / 100));
-                $("#couponDiv").show();
+                if(type == 0){      // 折扣券
+                    $("#couponprice").text(coursePrice * result.data.percent / 100);
+                    var payPrice = coursePrice - (coursePrice * result.data.percent / 100);
+                    $("#payPrice").text(payPrice >= 0 ? payPrice : 0);
+                    $("#couponDiv").show();
+                }else if(type == 1){         // 抵扣券
+                    $("#couponprice").text(result.data.minusMoney);
+                    var payPrice = coursePrice - result.data.minusMoney;
+                    $("#payPrice").text(payPrice >= 0 ? payPrice : 0);
+                    $("#couponDiv").show();
+                }
             }else{
-                alert('优惠码不存在');
+                alert(result.msg);
                 $('#couponName').text("").hide();
                 $("#couponDiv").hide();
             }

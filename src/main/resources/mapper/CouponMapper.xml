@@ -14,4 +14,9 @@
         select * from t_coupon where couponNum = #{couponNum} and status = 0 and beginTime &lt;= now()
         and endTime &gt;= now()
     </select>
+
+    <update id="updateCouponRemainAmount" parameterType="String">
+        update t_coupon set remainAmount = remainAmount - 1 where couponNum = #{couponNum}
+        and remainAmount is not null and remainAmount > 0
+    </update>
 </mapper>

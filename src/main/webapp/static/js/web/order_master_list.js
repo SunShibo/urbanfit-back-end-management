@@ -217,6 +217,8 @@ function payOrderMasterAgain(){
                     window.location.href = "/order/wechatPay?orderNum=" + orderNum
                         + "&wechatPayQr=" + wechatPayQr;
                 }
+            }else if(result.code == 2) {
+                window.location.href = "/order/list";
             }else{
                 alert('参数有误');
             }

@@ -13,4 +13,6 @@ public interface CouponDao {
     public void updateCouponStatus(Integer couponId);
 
     public Coupon queryCouponByCouponNum(String couponNum);
+
+    public void updateCouponRemainAmount(String couponNum);
 }

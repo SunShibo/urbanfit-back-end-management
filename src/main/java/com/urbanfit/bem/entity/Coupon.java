@@ -9,6 +9,9 @@ import java.util.Date;
  */
 public class Coupon extends BaseModel{
 
+    public static final int TYPE_PERCENT = 0;
+    public static final int TYPE_MINUS_MONEY = 1;
+
     public static final int STATUS_EXPIRED = 1;
 
     private Integer couponId;
@@ -21,6 +24,12 @@ public class Coupon extends BaseModel{
     private String couponNum;
     private Integer userId;
     private int status;
+
+    private int type;
+    private Double minusMoney;
+    private Integer useAmount;
+    private Integer remainAmount;
+    private Integer courseType;
 
     public Integer getCouponId() {
         return couponId;
@@ -100,5 +109,45 @@ public class Coupon extends BaseModel{
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public Double getMinusMoney() {
+        return minusMoney;
+    }
+
+    public void setMinusMoney(Double minusMoney) {
+        this.minusMoney = minusMoney;
+    }
+
+    public Integer getUseAmount() {
+        return useAmount;
+    }
+
+    public void setUseAmount(Integer useAmount) {
+        this.useAmount = useAmount;
+    }
+
+    public Integer getCourseType() {
+        return courseType;
+    }
+
+    public void setCourseType(Integer courseType) {
+        this.courseType = courseType;
+    }
+
+    public Integer getRemainAmount() {
+        return remainAmount;
+    }
+
+    public void setRemainAmount(Integer remainAmount) {
+        this.remainAmount = remainAmount;
     }
 }

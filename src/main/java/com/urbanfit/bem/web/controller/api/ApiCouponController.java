@@ -19,8 +19,8 @@ public class ApiCouponController extends BaseCotroller{
     private CouponService couponService;
 
     @RequestMapping("/detail")
-    public void queryCouponDetail(HttpServletResponse response, String couponNum){
-        String result = couponService.queryCouponDetail(couponNum);
+    public void queryCouponDetail(HttpServletResponse response, String couponNum, Integer courseId){
+        String result = couponService.queryCouponDetail(couponNum, courseId);
         safeTextPrint(response, result);
     }
 }
